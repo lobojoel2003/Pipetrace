@@ -1,0 +1,33 @@
+name: Bug report
+description: Something in Pipetrace doesn't work as expected
+labels: [bug]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: What did you do, what did you expect, and what happened instead?
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Upload an inventory with ...
+        2. Open ...
+  - type: input
+    id: version
+    attributes:
+      label: Pipetrace version and build
+      description: Shown in the site footer and at /healthz, e.g. 1.0.0+build.42.3f9a2b1
+  - type: dropdown
+    id: mode
+    attributes:
+      label: How do you run it?
+      options: [Docker / Docker Compose, Python install, Static export, Other]
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs or screenshots
+      description: Please remove residents' names, phone numbers and email addresses first.

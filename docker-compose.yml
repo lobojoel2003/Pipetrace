@@ -1,0 +1,45 @@
+# Run Pipetrace with PostGIS on one machine:
+#   docker compose up -d
+# then open http://localhost:8000 (staff area: http://localhost:8000/staff/).
+# The fictional Millbrook demo loads on first start; set PIPETRACE_LOAD_DEMO=0 for a real
+# deployment and change every "change-me" value (see docs/deploying.md).
+services:
+  db:
+    image: postgis/postgis:16-3.4
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: pipetrace
+      POSTGRES_USER: pipetrace
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-change-me-db-password}
+    volumes:
+      - db:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U pipetrace -d pipetrace"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  web:
+    image: ${PIPETRACE_IMAGE:-ghcr.io/lobojoel2003/pipetrace:latest}
+    build: .
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgis://pipetrace:${POSTGRES_PASSWORD:-change-me-db-password}@db:5432/pipetrace
+      PIPETRACE_SECRET_KEY: ${PIPETRACE_SECRET_KEY:-change-me-to-a-long-random-string}
+      PIPETRACE_ALLOWED_HOSTS: ${PIPETRACE_ALLOWED_HOSTS:-localhost,127.0.0.1}
+      PIPETRACE_CSRF_TRUSTED_ORIGINS: ${PIPETRACE_CSRF_TRUSTED_ORIGINS:-http://localhost:8000}
+      PIPETRACE_ADMIN_USER: ${PIPETRACE_ADMIN_USER:-admin}
+      PIPETRACE_ADMIN_PASSWORD: ${PIPETRACE_ADMIN_PASSWORD:-change-me-admin-password}
+      PIPETRACE_LOAD_DEMO: ${PIPETRACE_LOAD_DEMO:-1}
+      PIPETRACE_GEOCODER: ${PIPETRACE_GEOCODER:-census}
+    ports:
+      - "${PIPETRACE_PORT:-8000}:8000"
+    volumes:
+      - media:/data
+
+volumes:
+  db:
+  media:

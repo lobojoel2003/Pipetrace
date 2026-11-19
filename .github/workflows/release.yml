@@ -1,0 +1,194 @@
+name: Release
+
+# Push a tag like v1.2.3 (see scripts/release.py) to test, build and publish:
+#   * a GitHub Release with notes from CHANGELOG.md and the build number,
+#   * the Python wheel and source archive,
+#   * the fictional Millbrook demo as a ready-to-host static site (.zip),
+#   * multi-arch container images on GitHub Container Registry.
+on:
+  push:
+    tags: ["v[0-9]+.[0-9]+.[0-9]+*"]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Existing tag to (re)publish, e.g. v1.0.0
+        required: true
+
+permissions:
+  contents: write
+  packages: write
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+env:
+  TAG: ${{ inputs.tag || github.ref_name }}
+
+jobs:
+  verify:
+    name: Check version
+    runs-on: ubuntu-24.04
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+      prerelease: ${{ steps.version.outputs.prerelease }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ env.TAG }}
+      - id: version
+        name: Tag must match pipetrace.__version__ and CHANGELOG.md
+        run: |
+          version="${TAG#v}"
+          code=$(python3 -c "import re;print(re.search(r'__version__ = \"(.+)\"', open('pipetrace/__init__.py').read())[1])")
+          if [ "$version" != "$code" ]; then
+            echo "::error::Tag $TAG does not match pipetrace.__version__ ($code)"; exit 1
+          fi
+          grep -q "^## \[$version\]" CHANGELOG.md || { echo "::error::CHANGELOG.md has no [$version] section"; exit 1; }
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          if [[ "$version" == *-* ]]; then echo "prerelease=true" >> "$GITHUB_OUTPUT"; else echo "prerelease=false" >> "$GITHUB_OUTPUT"; fi
+
+  ci:
+    name: CI
+    needs: verify
+    uses: ./.github/workflows/ci.yml
+
+  dist:
+    name: Python package and demo site
+    needs: verify
+    runs-on: ubuntu-24.04
+    services:
+      postgres:
+        image: postgis/postgis:16-3.4
+        env:
+          POSTGRES_DB: pipetrace
+          POSTGRES_USER: pipetrace
+          POSTGRES_PASSWORD: pipetrace
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U pipetrace" --health-interval 5s
+          --health-timeout 5s --health-retries 20
+    env:
+      DATABASE_URL: postgis://pipetrace:pipetrace@localhost:5432/pipetrace
+      PIPETRACE_SECRET_KEY: release-build-0d9f8a7e6b5c4d3e2f1a0b9c8d7e6f5a4b3c2d1e0f9a8b7c6d5e4f3a
+      VERSION: ${{ needs.verify.outputs.version }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ env.TAG }}
+      - run: sudo apt-get update -q && sudo apt-get install -y -q --no-install-recommends gdal-bin
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Stamp the build number
+        run: python scripts/write_build_info.py --build-number "${{ github.run_number }}" --commit "$(git rev-parse HEAD)"
+      - name: Build wheel and source archive
+        run: |
+          pip install build
+          python -m build
+          ls -l dist
+      - name: Build the demo static site
+        run: |
+          pip install -r requirements/base.txt && pip install --no-deps -e .
+          python manage.py migrate --noinput
+          python manage.py load_demo --no-submissions
+          python manage.py export_static demo-site --base-url / --zip "dist/pipetrace-${VERSION}-demo-site.zip"
+      - name: Checksums
+        run: cd dist && sha256sum * > SHA256SUMS.txt && cat SHA256SUMS.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist/
+
+  image:
+    name: Container image
+    needs: [verify, ci]
+    runs-on: ubuntu-24.04
+    outputs:
+      image: ${{ steps.name.outputs.image }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ env.TAG }}
+      - id: name
+        run: echo "image=ghcr.io/${GITHUB_REPOSITORY_OWNER,,}/pipetrace" >> "$GITHUB_OUTPUT"
+      - uses: docker/setup-qemu-action@v3
+      - uses: docker/setup-buildx-action@v3
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ steps.name.outputs.image }}
+          tags: |
+            type=semver,pattern={{version}},value=${{ env.TAG }}
+            type=semver,pattern={{major}}.{{minor}},value=${{ env.TAG }}
+            type=semver,pattern={{major}},value=${{ env.TAG }}
+            type=raw,value=build-${{ github.run_number }}
+            type=raw,value=latest,enable=${{ needs.verify.outputs.prerelease == 'false' }}
+      - id: date
+        run: echo "now=$(date -u +%Y-%m-%dT%H:%M:%SZ)" >> "$GITHUB_OUTPUT"
+      - uses: docker/build-push-action@v6
+        with:
+          context: .
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          build-args: |
+            VERSION=${{ needs.verify.outputs.version }}
+            BUILD_NUMBER=${{ github.run_number }}
+            GIT_SHA=${{ github.sha }}
+            BUILD_DATE=${{ steps.date.outputs.now }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+  publish:
+    name: GitHub Release
+    needs: [verify, ci, dist, image]
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ env.TAG }}
+      - uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist
+      - name: Release notes
+        env:
+          VERSION: ${{ needs.verify.outputs.version }}
+          IMAGE: ${{ needs.image.outputs.image }}
+        run: |
+          {
+            awk -v v="$VERSION" '
+              $0 ~ "^## \\[" v "\\]" {on=1; next}
+              on && /^## \[/ {exit}
+              on && /^\[/ {exit}
+              on {print}
+            ' CHANGELOG.md
+            echo
+            echo "---"
+            echo
+            echo "**Build ${{ github.run_number }}** · commit \`${GITHUB_SHA::7}\` · version \`${VERSION}+build.${{ github.run_number }}\`"
+            echo
+            echo "### Install"
+            echo
+            echo '```bash'
+            echo "docker pull ${IMAGE}:${VERSION}"
+            echo '```'
+            echo
+            echo "Or download \`pipetrace-${VERSION}-demo-site.zip\` below to see the static site with the fictional Millbrook demo, and read the [deployment guide](https://github.com/${GITHUB_REPOSITORY}/blob/${TAG}/docs/deploying.md)."
+          } > release-notes.md
+          cat release-notes.md
+      - uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ env.TAG }}
+          name: Pipetrace ${{ needs.verify.outputs.version }} (build ${{ github.run_number }})
+          body_path: release-notes.md
+          prerelease: ${{ needs.verify.outputs.prerelease == 'true' }}
+          make_latest: ${{ needs.verify.outputs.prerelease == 'false' }}
+          files: dist/*

@@ -1,0 +1,19 @@
+name: Feature request
+description: Suggest something that would help a water system or its residents
+labels: [enhancement]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem would this solve?
+    validations:
+      required: true
+  - type: textarea
+    id: idea
+    attributes:
+      label: What would you like to happen?
+  - type: input
+    id: who
+    attributes:
+      label: Who is it for?
+      placeholder: Residents, utility staff, state regulators, ...

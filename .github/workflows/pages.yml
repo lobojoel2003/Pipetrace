@@ -1,0 +1,71 @@
+name: Demo site
+
+# Publishes the fictional Millbrook demo, exported as a static site, to GitHub Pages.
+# Turn Pages on once (Settings → Pages → Source: GitHub Actions); until then this
+# workflow builds the site and skips the deployment.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    outputs:
+      enabled: ${{ steps.pages.outcome == 'success' }}
+    services:
+      postgres:
+        image: postgis/postgis:16-3.4
+        env:
+          POSTGRES_DB: pipetrace
+          POSTGRES_USER: pipetrace
+          POSTGRES_PASSWORD: pipetrace
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U pipetrace" --health-interval 5s
+          --health-timeout 5s --health-retries 20
+    env:
+      DATABASE_URL: postgis://pipetrace:pipetrace@localhost:5432/pipetrace
+      PIPETRACE_SECRET_KEY: pages-build-0d9f8a7e6b5c4d3e2f1a0b9c8d7e6f5a4b3c2d1e0f9a8b7c6d5e4f3a
+    steps:
+      - uses: actions/checkout@v4
+      - id: pages
+        uses: actions/configure-pages@v5
+        continue-on-error: true
+      - run: sudo apt-get update -q && sudo apt-get install -y -q --no-install-recommends gdal-bin
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          cache: pip
+          cache-dependency-path: requirements/base.txt
+      - name: Export the demo
+        run: |
+          pip install -r requirements/base.txt && pip install --no-deps -e .
+          python scripts/write_build_info.py
+          python manage.py migrate --noinput
+          python manage.py load_demo --no-submissions
+          base="${{ steps.pages.outputs.base_path }}"
+          python manage.py export_static site --base-url "${base:-/${{ github.event.repository.name }}}/"
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+  deploy:
+    needs: build
+    if: needs.build.outputs.enabled == 'true'
+    runs-on: ubuntu-24.04
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

@@ -1,0 +1,179 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+  workflow_call:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+env:
+  # Not a secret: only used by throwaway CI databases.
+  PIPETRACE_SECRET_KEY: ci-only-0d9f8a7e6b5c4d3e2f1a0b9c8d7e6f5a4b3c2d1e0f9a8b7c6d5e4f3a2b1c
+  DATABASE_URL: postgis://pipetrace:pipetrace@localhost:5432/pipetrace
+  PIPETRACE_GEOCODER: none
+  FORCE_COLOR: "1"
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Install ruff
+        run: pip install "$(grep -E '^ruff==' requirements/dev.txt)"
+      - run: ruff check --output-format=github .
+      - run: ruff format --check .
+      - name: Check JavaScript syntax
+        run: |
+          for f in pipetrace/static/pipetrace/js/*.js; do
+            cp "$f" "$RUNNER_TEMP/$(basename "$f" .js).mjs"
+            node --check "$RUNNER_TEMP/$(basename "$f" .js).mjs"
+          done
+
+  test:
+    name: Tests (Python ${{ matrix.python }})
+    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ["3.12", "3.13"]
+    services:
+      postgres:
+        image: postgis/postgis:16-3.4
+        env:
+          POSTGRES_DB: pipetrace
+          POSTGRES_USER: pipetrace
+          POSTGRES_PASSWORD: pipetrace
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U pipetrace" --health-interval 5s
+          --health-timeout 5s --health-retries 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install GDAL and gettext
+        run: sudo apt-get update -q && sudo apt-get install -y -q --no-install-recommends gdal-bin gettext
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+          cache: pip
+          cache-dependency-path: requirements/dev.txt
+      - name: Install
+        run: pip install -r requirements/dev.txt && pip install --no-deps -e .
+      - name: Django checks
+        run: |
+          python manage.py check --fail-level WARNING
+          PIPETRACE_SECURE=1 PIPETRACE_ALLOWED_HOSTS=pipetrace.example python manage.py check --deploy --fail-level WARNING
+          python manage.py makemigrations --check --dry-run
+      - name: Translations compile
+        run: cd pipetrace && msgfmt --check-format --statistics -o /dev/null locale/es/LC_MESSAGES/django.po
+      - name: Tests
+        run: pytest --cov --cov-report=term --cov-report=xml --junitxml=test-results/junit.xml
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: test-results-py${{ matrix.python }}
+          path: |
+            test-results/
+            coverage.xml
+          if-no-files-found: ignore
+
+  e2e:
+    name: Browser tests (static site)
+    runs-on: ubuntu-24.04
+    services:
+      postgres:
+        image: postgis/postgis:16-3.4
+        env:
+          POSTGRES_DB: pipetrace
+          POSTGRES_USER: pipetrace
+          POSTGRES_PASSWORD: pipetrace
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U pipetrace" --health-interval 5s
+          --health-timeout 5s --health-retries 20
+    steps:
+      - uses: actions/checkout@v4
+      - run: sudo apt-get update -q && sudo apt-get install -y -q --no-install-recommends gdal-bin
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          cache: pip
+          cache-dependency-path: requirements/dev.txt
+      - run: pip install -r requirements/dev.txt && pip install --no-deps -e .
+      - run: python -m playwright install --with-deps chromium
+      - name: Build the demo static site
+        run: |
+          python scripts/write_build_info.py
+          python manage.py migrate --noinput
+          python manage.py load_demo --no-submissions
+          python manage.py export_static site --base-url /Pipetrace/
+      - name: Browser tests
+        run: pytest -m e2e tests/e2e
+        env:
+          PIPETRACE_E2E_SITE: site
+      - uses: actions/upload-artifact@v4
+        with:
+          name: demo-static-site
+          path: site/
+          retention-days: 7
+
+  docker:
+    name: Docker image
+    runs-on: ubuntu-24.04
+    needs: [lint, test]
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/setup-buildx-action@v3
+      - name: Build
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          load: true
+          tags: pipetrace:ci
+          build-args: |
+            VERSION=ci
+            BUILD_NUMBER=${{ github.run_number }}
+            GIT_SHA=${{ github.sha }}
+            BUILD_DATE=${{ github.event.head_commit.timestamp || github.event.pull_request.updated_at }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+      - name: Smoke test with Docker Compose
+        env:
+          PIPETRACE_IMAGE: pipetrace:ci
+        run: |
+          docker compose up -d --no-build
+          for i in $(seq 1 60); do
+            if curl -fsS http://localhost:8000/healthz; then break; fi
+            sleep 2
+          done
+          echo
+          curl -fsS http://localhost:8000/en/ | grep -q "Millbrook"
+          curl -fsS "http://localhost:8000/api/search/?q=305+center" | grep -q "305 Center Ave"
+          curl -fsS http://localhost:8000/static/pipetrace/vendor/maplibre-gl/maplibre-gl.mjs -o /dev/null
+          docker compose exec -T web pipetrace check --deploy --fail-level ERROR
+      - name: Logs on failure
+        if: failure()
+        run: docker compose logs
+      - name: Publish edge image
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: |
+          echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
+          image=ghcr.io/${GITHUB_REPOSITORY_OWNER,,}/pipetrace
+          docker tag pipetrace:ci "$image:edge"
+          docker tag pipetrace:ci "$image:sha-${GITHUB_SHA::7}"
+          docker push "$image:edge"
+          docker push "$image:sha-${GITHUB_SHA::7}"
