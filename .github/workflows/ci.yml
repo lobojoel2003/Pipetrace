@@ -79,7 +79,7 @@ jobs:
         run: cd pipetrace && msgfmt --check-format --statistics -o /dev/null locale/es/LC_MESSAGES/django.po
       - name: Tests
         run: pytest --cov --cov-report=term --cov-report=xml --junitxml=test-results/junit.xml
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: always()
         with:
           name: test-results-py${{ matrix.python }}
@@ -122,7 +122,7 @@ jobs:
         run: pytest -m e2e tests/e2e
         env:
           PIPETRACE_E2E_SITE: site
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: demo-static-site
           path: site/
