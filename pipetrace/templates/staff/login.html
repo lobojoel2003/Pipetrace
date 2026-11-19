@@ -1,0 +1,16 @@
+{% extends "staff/base.html" %}
+{% load i18n %}
+{% block staff_title %}{% translate "Sign in" %}{% endblock %}
+{% block content %}
+<div class="narrow section" style="max-width:460px">
+  <h1>{% translate "Staff sign in" %}</h1>
+  <form method="post" class="form card">
+    {% csrf_token %}
+    {% if form.errors %}<div class="form-errors" role="alert">{% translate "That username and password didn't match. Please try again." %}</div>{% endif %}
+    <div class="field"><label for="id_username">{% translate "Username" %}</label>{{ form.username }}</div>
+    <div class="field"><label for="id_password">{% translate "Password" %}</label>{{ form.password }}</div>
+    <input type="hidden" name="next" value="{{ next }}">
+    <button class="btn btn-primary btn-block" type="submit">{% translate "Sign in" %}</button>
+  </form>
+</div>
+{% endblock %}

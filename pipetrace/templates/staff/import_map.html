@@ -1,0 +1,72 @@
+{% extends "staff/base.html" %}
+{% load i18n pipetrace %}
+{% block staff_title %}{% translate "Match columns" %}{% endblock %}
+{% block content %}
+<div class="container section">
+  {% include "staff/_wizard.html" with step=2 %}
+  <h1>{% translate "Match your columns" %}</h1>
+  <p class="lead-text">{% blocktranslate with name=batch.original_name %}Pipetrace read <strong>{{ name }}</strong> and matched the columns it recognised. Check each one, and fix anything it got wrong.{% endblocktranslate %}</p>
+
+  <form method="get" class="toolbar card" style="padding:1rem 1.25rem">
+    {% if layout.sheet_names|length > 1 %}
+    <div class="field"><label for="sheet">{% translate "Sheet" %}</label>
+      <select id="sheet" name="sheet" data-autosubmit>{% for name in layout.sheet_names %}<option value="{{ name }}"{% if name == layout.sheet %} selected{% endif %}>{{ name }}</option>{% endfor %}</select></div>
+    {% endif %}
+    <div class="field"><label for="header_row">{% translate "Column names are on row" %}</label>
+      <select id="header_row" name="header_row" data-autosubmit>{% for n in header_choices %}<option value="{{ n }}"{% if n == layout.header_row %} selected{% endif %}>{{ n }}</option>{% endfor %}</select></div>
+    <div class="field"><label for="data_start_row">{% translate "Data starts on row" %}</label>
+      <select id="data_start_row" name="data_start_row" data-autosubmit>{% for n in header_choices %}{% if n > layout.header_row %}<option value="{{ n }}"{% if n == layout.data_start_row %} selected{% endif %}>{{ n }}</option>{% endif %}{% endfor %}</select></div>
+    <noscript><button class="btn btn-sm" type="submit">{% translate "Apply" %}</button></noscript>
+    <p class="small muted mb-0">{% blocktranslate with total=layout.total_rows %}{{ total }} rows in this sheet.{% endblocktranslate %}</p>
+  </form>
+
+  <details class="card" style="margin:1rem 0" open>
+    <summary style="font-weight:650;cursor:pointer">{% translate "Top of the sheet" %}</summary>
+    <div class="table-wrap" style="margin-top:.8rem">
+      <table class="data sheet-preview">
+        <thead><tr><th></th>{% for c in columns %}<th>{{ c.letter }}</th>{% endfor %}</tr></thead>
+        <tbody>
+          {% for row in preview_rows %}
+          <tr class="{% if row.is_header %}is-header{% elif not row.is_data %}is-skipped{% endif %}"><td class="rownum">{{ row.number }}</td>
+            {% for cell in row.cells %}<td title="{{ cell }}">{{ cell }}</td>{% endfor %}
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </details>
+
+  {% if problems %}<div class="form-errors" role="alert"><ul class="mb-0">{% for p in problems %}<li>{{ p }}</li>{% endfor %}</ul></div>{% endif %}
+
+  <form method="post" class="stack">
+    {% csrf_token %}
+    {% for group in groups %}
+    <section class="card">
+      <h2 style="font-size:1.15rem">{{ group.label }}</h2>
+      <div class="table-wrap" style="border:0">
+      <table class="data map-table">
+        <thead><tr><th>{% translate "Pipetrace field" %}</th><th>{% translate "Your column" %}</th><th>{% translate "Sample values" %}</th></tr></thead>
+        <tbody>
+        {% for f in group.fields %}
+          <tr>
+            <td><strong>{{ f.spec.label }}</strong>{% if f.spec.help %}<div class="small muted">{{ f.spec.help }}</div>{% endif %}</td>
+            <td><select name="map_{{ f.spec.key }}" class="input" data-column-select aria-label="{{ f.spec.label }}">
+              <option value="">{% translate "— not in this file —" %}</option>
+              {% for c in columns %}<option value="{{ c.index }}" data-samples="{{ c.samples|join:' · ' }}"{% if c.index == f.selected %} selected{% endif %}>{{ c.letter }}: {{ c.label|truncatechars:60 }}</option>{% endfor %}
+            </select></td>
+            <td class="samples" data-samples-for="map_{{ f.spec.key }}"></td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+      </div>
+    </section>
+    {% endfor %}
+    {% if unmapped %}
+    <p class="small muted">{% translate "Columns not matched to a field are kept as extra information on each line:" %} {% for c in unmapped %}{{ c.letter }}: {{ c.label }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
+    {% endif %}
+    <div class="btn-row"><button class="btn btn-primary" type="submit">{% translate "Continue" %}</button>
+      <a class="btn btn-ghost" href="{% url 'staff:import_upload' %}">{% translate "Upload a different file" %}</a></div>
+  </form>
+</div>
+{% endblock %}

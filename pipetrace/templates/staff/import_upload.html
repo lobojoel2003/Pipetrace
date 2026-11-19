@@ -1,0 +1,26 @@
+{% extends "staff/base.html" %}
+{% load i18n %}
+{% block staff_title %}{% translate "Upload inventory" %}{% endblock %}
+{% block content %}
+<div class="container section">
+  {% include "staff/_wizard.html" with step=1 %}
+  <div class="layout-2">
+    <div>
+      <h1>{% translate "Upload your service line inventory" %}</h1>
+      <p class="lead-text">{% translate "Use the spreadsheet you already keep. Pipetrace finds the header row and guesses which column is which; you check its guesses on the next screen." %}</p>
+      <form method="post" enctype="multipart/form-data" class="form card">
+        {% csrf_token %}
+        {% include "partials/field.html" with field=form.file %}
+        {% include "partials/field.html" with field=form.mode %}
+        <div class="btn-row"><button class="btn btn-primary" type="submit">{% translate "Upload and continue" %}</button></div>
+      </form>
+    </div>
+    <aside class="card">
+      <h2 style="font-size:1.1rem">{% translate "Columns Pipetrace understands" %}</h2>
+      <p class="small muted">{% translate "Only a street address is required. Everything else is optional; columns Pipetrace doesn't use are kept with each line." %}</p>
+      <ul class="small">{% for f in fields %}<li>{{ f.label }}</li>{% endfor %}</ul>
+      <p class="small mb-0">{% translate "Uploading a new version later? Choose “Update matching lines”: lines are matched by service line ID, or by address when there is no ID." %}</p>
+    </aside>
+  </div>
+</div>
+{% endblock %}

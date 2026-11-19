@@ -1,0 +1,22 @@
+{% extends "staff/base.html" %}
+{% load i18n %}
+{% block staff_title %}{% translate "Pipe photos" %}{% endblock %}
+{% block content %}
+<div class="container section">
+  <h1>{% translate "Pipe photos from residents" %}</h1>
+  <div class="btn-row" style="margin-bottom:1rem">
+    <a class="btn btn-sm{% if not state %} btn-primary{% endif %}" href="?">{% translate "All" %}</a>
+    {% for value, label in states %}<a class="btn btn-sm{% if state == value %} btn-primary{% endif %}" href="?state={{ value }}">{{ label }}</a>{% endfor %}
+  </div>
+  <div class="photo-grid">
+    {% for item in page %}
+    <a class="card card-link" style="padding:.75rem" href="{% url 'staff:photo_detail' pk=item.pk %}">
+      <img src="{% url 'staff:photo_file' pk=item.pk which=1 %}" alt="{% blocktranslate with address=item.address %}Photo of the pipe at {{ address }}{% endblocktranslate %}" loading="lazy">
+      <p class="mb-0" style="margin-top:.6rem"><strong>{{ item.address|truncatechars:40 }}</strong></p>
+      <p class="small muted mb-0">{{ item.created_at|date:"SHORT_DATE_FORMAT" }} · {{ item.get_state_display }}<br>{% translate "Guide said:" %} {{ item.get_resident_result_display }}</p>
+    </a>
+    {% empty %}<p class="muted">{% translate "No photos yet." %}</p>{% endfor %}
+  </div>
+  {% include "staff/_pagination.html" %}
+</div>
+{% endblock %}

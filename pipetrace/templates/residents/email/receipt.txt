@@ -1,0 +1,8 @@
+{% load i18n %}{% autoescape off %}{% blocktranslate with utility=site.display_name %}Thank you for contacting {{ utility }}.{% endblocktranslate %}
+
+{% blocktranslate with reference=submission.reference address=submission.address %}We received your message about {{ address }}. Your reference number is {{ reference }}.{% endblocktranslate %}
+
+{% if kind == "photo" %}{% translate "Staff will look at your photo and contact you if they have questions." %}{% else %}{% translate "We'll contact you within a few business days to set up a visit." %}{% endif %}
+{% if site.phone %}
+{% blocktranslate with phone=site.phone %}Questions? Call {{ phone }}.{% endblocktranslate %}{% endif %}
+{% endautoescape %}

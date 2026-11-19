@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+{% load i18n static pipetrace humanize %}
+{% block head %}<link rel="stylesheet" href="{% static 'pipetrace/vendor/maplibre-gl/maplibre-gl.css' %}">{% endblock %}
+{% block content %}
+<section class="hero">
+  <div class="container">
+    <span class="eyebrow">{{ site.display_name }}</span>
+    <h1>{% translate "Is the water pipe to your home made of lead?" %}</h1>
+    <p>{% translate "Type your address to see what your service line is made of, what that means, and what you can do today." %}</p>
+    {% include "partials/search.html" with search_id="q" %}
+    <p class="search-hint">{% translate "Don't see your address?" %} <a href="{% url 'residents:streets' %}">{% translate "Browse by street" %}</a></p>
+  </div>
+</section>
+
+<section class="container lift" aria-labelledby="summary-title">
+  <h2 id="summary-title" class="visually-hidden">{% translate "Inventory at a glance" %}</h2>
+  <div class="tiles">
+    {% for row in by_status %}
+    <div class="tile">
+      <div class="tile-label">{% status_shape row.code 16 %}{{ row.short }}</div>
+      <div class="tile-value">{{ row.count|intcomma }}</div>
+      <div class="tile-sub">{% blocktranslate with percent=row.percent %}{{ percent }}% of service lines{% endblocktranslate %}</div>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="section container" aria-labelledby="map-title">
+  <div class="section-head">
+    <div>
+      <h2 id="map-title">{% translate "Map of service lines" %}</h2>
+      <p class="muted mb-0">{% blocktranslate count total=summary.total %}{{ total }} service line in the inventory. Select a point to see its details.{% plural %}{{ total }} service lines in the inventory. Select a point to see its details.{% endblocktranslate %}</p>
+    </div>
+    <a class="btn btn-sm" href="{% url 'residents:streets' %}"><svg width="18" height="18" aria-hidden="true"><use href="#i-list"/></svg>{% translate "List by street" %}</a>
+  </div>
+  <ul class="legend" aria-label="{% translate 'Show or hide on the map' %}" data-legend>
+    {% for row in by_status %}
+    <li><button type="button" aria-pressed="true" data-status="{{ row.code }}">{% status_shape row.code 16 %}{{ row.short }} <span class="count">{{ row.count|intcomma }}</span></button></li>
+    {% endfor %}
+  </ul>
+  <div class="map-wrap">
+    <div class="map" data-map aria-label="{% translate 'Map of service lines by material' %}" role="region"></div>
+    <div class="map-fallback" hidden data-map-fallback><p></p></div>
+  </div>
+  {{ map_config|json_script:"map-config" }}
+</section>
+
+{% if summary.replacement_goal %}
+<section class="container" aria-labelledby="progress-title">
+  <div class="card meter-card">
+    <div class="meter-top">
+      <div>
+        <h2 id="progress-title" class="mb-0">{% translate "Replacement progress" %}</h2>
+        <p class="muted mb-0">{% blocktranslate with deadline=site.replacement_deadline|date:"YEAR_MONTH_FORMAT" %}Every lead and galvanized-requiring-replacement line must be replaced by {{ deadline }}.{% endblocktranslate %}</p>
+      </div>
+      <div class="meter-figure">{{ summary.replacement_percent }}%</div>
+    </div>
+    {% widthratio summary.replaced summary.replacement_goal 100 as done_pct %}
+    {% widthratio summary.scheduled summary.replacement_goal 100 as sched_pct %}
+    <div class="meter" role="img" aria-label="{% blocktranslate with done=summary.replaced goal=summary.replacement_goal %}{{ done }} of {{ goal }} lines replaced{% endblocktranslate %}">
+      <span class="done" style="width:{{ done_pct }}%"></span>
+      <span class="scheduled" style="width:{{ sched_pct }}%"></span>
+      <span class="todo" style="flex:1"></span>
+    </div>
+    <div class="meter-legend">
+      <span><i style="background:var(--nonlead)"></i>{% blocktranslate count n=summary.replaced %}{{ n }} replaced{% plural %}{{ n }} replaced{% endblocktranslate %}</span>
+      <span><i style="background:var(--grr)"></i>{% blocktranslate count n=summary.scheduled %}{{ n }} scheduled{% plural %}{{ n }} scheduled{% endblocktranslate %}</span>
+      <span><i style="background:var(--lead)"></i>{% blocktranslate count n=summary.remaining %}{{ n }} still to replace{% plural %}{{ n }} still to replace{% endblocktranslate %}</span>
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<section class="section container" aria-labelledby="colors-title">
+  <h2 id="colors-title">{% translate "What the results mean" %}</h2>
+  <div class="grid grid-4">
+    {% for row in by_status %}
+    <div class="card">
+      <h3 style="display:flex;gap:.5rem;align-items:center">{% status_shape row.code 18 %}{{ row.short }}</h3>
+      <p class="mb-0 muted">{{ row.meaning }}</p>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="container" aria-labelledby="next-title">
+  <h2 id="next-title">{% translate "Things you can do today" %}</h2>
+  <div class="grid grid-3">
+    <a class="card card-link" href="{% url 'residents:guide' %}">
+      <div class="card-icon"><svg aria-hidden="true"><use href="#i-coin"/></svg></div>
+      <h3>{% translate "Check your own pipe in 2 minutes" %}</h3>
+      <p class="muted">{% translate "All you need is a coin and a fridge magnet. Then send us a photo." %}</p>
+      <span class="more">{% translate "Start the guide" %} →</span>
+    </a>
+    <a class="card card-link" href="{% url 'residents:filters' %}">
+      <div class="card-icon"><svg aria-hidden="true"><use href="#i-filter"/></svg></div>
+      <h3>{% translate "Use a filter that removes lead" %}</h3>
+      <p class="muted">{% translate "Which certification to look for, and how to use it." %}</p>
+      <span class="more">{% translate "Filter advice" %} →</span>
+    </a>
+    <a class="card card-link" href="{% url 'residents:request_inspection' %}">
+      <div class="card-icon"><svg aria-hidden="true"><use href="#i-clipboard"/></svg></div>
+      <h3>{% translate "Ask us to inspect your line" %}</h3>
+      <p class="muted">{% translate "Tell us how to reach you and we'll set up a visit." %}</p>
+      <span class="more">{% translate "Request an inspection" %} →</span>
+    </a>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,15 @@
+{% load i18n pipetrace %}
+{# Steps for lowering lead exposure today. Used for lead, galvanized and unknown lines. #}
+<ol class="checklist">
+  <li><span class="num">1</span><div><strong>{% translate "Use a filter certified to remove lead." %}</strong>
+    {% translate "Look for NSF/ANSI Standard 53 for lead reduction (and Standard 42 for particles), or a reverse osmosis system certified to NSF/ANSI 58. Use filtered water for drinking, cooking and baby formula." %}
+    <a href="{% url 'residents:filters' %}">{% translate "How to choose a filter" %}</a>{% if site.filter_program %}<br><span class="small">{{ site|localized:"filter_program" }}</span>{% endif %}</div></li>
+  <li><span class="num">2</span><div><strong>{% translate "Run the cold water first." %}</strong>
+    {% translate "If water has sat in the pipes for several hours, run the cold tap until it feels noticeably colder before you drink it. Showering or running a load of laundry first also flushes the pipes." %}</div></li>
+  <li><span class="num">3</span><div><strong>{% translate "Use only cold water for drinking, cooking and baby formula." %}</strong>
+    {% translate "Hot water picks up more lead. Boiling water does not remove lead." %}</div></li>
+  <li><span class="num">4</span><div><strong>{% translate "Clean your faucet aerators." %}</strong>
+    {% translate "Unscrew the screen at the tip of each faucet every few months and rinse out any bits caught in it." %}</div></li>
+  <li><span class="num">5</span><div><strong>{% translate "Ask your doctor about a blood lead test" %}</strong>
+    {% translate "for young children and anyone who is pregnant. It's the only way to know whether someone has been exposed." %}</div></li>
+</ol>

@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% translate "Page not found" %}{% endblock %}
+{% block content %}
+<div class="narrow section center">
+  <h1>{% translate "We couldn't find that page" %}</h1>
+  <p class="lead-text">{% translate "The address may have changed. Try looking up your street address instead." %}</p>
+  <div style="max-width:620px;margin:1.5rem auto;text-align:left">{% include "partials/search.html" with search_id="q404" %}</div>
+  <p><a href="{% url 'residents:home' %}">{% translate "Go to the home page" %}</a></p>
+</div>
+{% endblock %}

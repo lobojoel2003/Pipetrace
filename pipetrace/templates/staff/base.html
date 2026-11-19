@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load i18n static %}
+{% block title %}{% block staff_title %}{% translate "Staff" %}{% endblock %} · Pipetrace{% endblock %}
+{% block body_class %}staff{% endblock %}
+{% block header %}
+<header class="staff-header">
+  <div class="container">
+    <a class="brand" href="{% url 'staff:dashboard' %}" style="margin-right:0">
+      <img class="brand-mark" src="{% static 'pipetrace/img/logo.svg' %}" alt="" width="32" height="32">
+      <span class="brand-name">Pipetrace</span>
+    </a>
+    {% if user.is_authenticated %}
+    {% with current=request.resolver_match.url_name %}
+    <nav aria-label="{% translate 'Staff' %}">
+      <a href="{% url 'staff:dashboard' %}"{% if current == 'dashboard' %} aria-current="page"{% endif %}>{% translate "Overview" %}</a>
+      <a href="{% url 'staff:imports' %}"{% if 'import' in current %} aria-current="page"{% endif %}>{% translate "Imports" %}</a>
+      <a href="{% url 'staff:lines' %}"{% if current == 'lines' %} aria-current="page"{% endif %}>{% translate "Inventory" %}</a>
+      <a href="{% url 'staff:geocode' %}"{% if current == 'geocode' %} aria-current="page"{% endif %}>{% translate "Map locations" %}</a>
+      <a href="{% url 'staff:requests' %}"{% if 'request' in current %} aria-current="page"{% endif %}>{% translate "Requests" %}</a>
+      <a href="{% url 'staff:photos' %}"{% if 'photo' in current %} aria-current="page"{% endif %}>{% translate "Photos" %}</a>
+      <a href="{% url 'staff:settings' %}">{% translate "Settings" %}</a>
+    </nav>
+    <a href="{% url 'residents:home' %}" target="_blank" rel="noopener">{% translate "Public site" %} ↗</a>
+    <form method="post" action="{% url 'staff:logout' %}" style="margin:0">{% csrf_token %}<button class="btn btn-sm" type="submit" style="--btn-bg:transparent;--btn-ink:#fff;--btn-line:#3b5b69">{% translate "Sign out" %}</button></form>
+    {% endwith %}
+    {% endif %}
+  </div>
+</header>
+{% endblock %}
+{% block footer %}
+<footer class="container small muted" style="padding:2rem 0">Pipetrace {{ build.full_version }}{% if build.build_date %} · {{ build.build_date }}{% endif %}</footer>
+{% endblock %}
+{% block scripts %}<script type="module" src="{% static 'pipetrace/js/staff.js' %}"></script>{% endblock %}

@@ -1,0 +1,63 @@
+asgiref==3.13.0
+    # via django
+certifi==2026.10.23
+    # via requests
+charset-normalizer==3.5.2
+    # via requests
+coverage==7.17.3
+    # via pytest-cov
+dj-database-url==3.1.2
+    # via pipetrace (pyproject.toml)
+django==5.2.19
+    # via
+    #   pipetrace (pyproject.toml)
+    #   dj-database-url
+et-xmlfile==2.0.0
+    # via openpyxl
+greenlet==3.5.6
+    # via playwright
+gunicorn==27.0.1
+    # via pipetrace (pyproject.toml)
+idna==3.20
+    # via requests
+iniconfig==2.3.1
+    # via pytest
+openpyxl==3.1.5
+    # via pipetrace (pyproject.toml)
+packaging==26.3
+    # via pytest
+pillow==13.0.0
+    # via pipetrace (pyproject.toml)
+playwright==1.65.2
+    # via pipetrace (pyproject.toml)
+pluggy==1.7.0
+    # via
+    #   pytest
+    #   pytest-cov
+psycopg==3.3.9
+    # via pipetrace (pyproject.toml)
+psycopg-binary==3.3.9
+    # via psycopg
+pygments==2.21.0
+    # via pytest
+pytest==9.2.0
+    # via
+    #   pipetrace (pyproject.toml)
+    #   pytest-cov
+    #   pytest-django
+pytest-cov==7.1.0
+    # via pipetrace (pyproject.toml)
+pytest-django==4.14.0
+    # via pipetrace (pyproject.toml)
+requests==2.34.2
+    # via pipetrace (pyproject.toml)
+ruff==0.17.5
+    # via pipetrace (pyproject.toml)
+sqlparse==0.6.1
+    # via django
+typing-extensions==4.16.0
+    # via psycopg
+urllib3==2.8.0
+    # via requests
+whitenoise==6.12.0
+    # via pipetrace (pyproject.toml)

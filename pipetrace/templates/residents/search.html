@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% if query %}{% blocktranslate %}Results for “{{ query }}”{% endblocktranslate %}{% else %}{% translate "Look up an address" %}{% endif %}{% endblock %}
+{% block content %}
+<div class="narrow section search-page">
+  <h1>{% translate "Look up an address" %}</h1>
+  {% include "partials/search.html" with search_id="q-page" %}
+  <div data-search-results style="margin-top:1.5rem">
+    {% if static_mode %}
+      <noscript><p>{% translate "Searching needs JavaScript. You can also" %} <a href="{% url 'residents:streets' %}">{% translate "browse by street" %}</a>.</p></noscript>
+    {% elif query %}
+      {% if results %}
+        <h2 class="h3" style="font-size:1.1rem">{% blocktranslate count n=results|length %}{{ n }} address found{% plural %}{{ n }} addresses found{% endblocktranslate %}</h2>
+        {% include "partials/result_list.html" with rows=results %}
+      {% else %}
+        <div class="callout">
+          <h2 style="font-size:1.2rem">{% blocktranslate %}We couldn't find “{{ query }}”.{% endblocktranslate %}</h2>
+          <p>{% translate "Check the spelling, or try just the house number and street name (leave out the city and ZIP code)." %}</p>
+          <p class="mb-0">{% translate "If your address really isn't in the inventory, call us or request an inspection, and we'll add it." %}</p>
+        </div>
+        {% if nearby %}
+          <h2 class="h3" style="font-size:1.1rem;margin-top:1.5rem">{% translate "Addresses on that street" %}</h2>
+          {% include "partials/result_list.html" with rows=nearby %}
+        {% endif %}
+      {% endif %}
+    {% endif %}
+  </div>
+  <p style="margin-top:2rem"><a href="{% url 'residents:streets' %}">{% translate "Browse every street" %} →</a></p>
+</div>
+{% endblock %}

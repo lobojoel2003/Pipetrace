@@ -1,0 +1,9 @@
+{% load i18n pipetrace %}
+<aside class="card">
+  <h2 class="h3" style="font-size:1.15rem">{% translate "Questions about your pipe?" %}</h2>
+  {% if site.phone %}<p>{% translate "Call us:" %} <a href="{{ site.phone_href }}"><strong class="nowrap">{{ site.phone }}</strong></a>{% if site.office_hours %}<br><span class="small muted">{{ site|localized:"office_hours" }}</span>{% endif %}</p>{% endif %}
+  {% if site.email %}<p>{% translate "Email:" %} <a href="mailto:{{ site.email }}">{{ site.email }}</a></p>{% endif %}
+  <a class="btn btn-block" href="{% url 'residents:request_inspection' %}{% if line %}?line={{ line.public_id }}{% endif %}">
+    <svg width="20" height="20" aria-hidden="true"><use href="#i-clipboard"/></svg>{% translate "Request an inspection" %}
+  </a>
+</aside>

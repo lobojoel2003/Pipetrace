@@ -1,0 +1,31 @@
+{% extends "staff/base.html" %}
+{% load i18n %}
+{% block staff_title %}{{ item.reference }}{% endblock %}
+{% block content %}
+<div class="container section">
+  <nav class="breadcrumbs"><ol><li><a href="{% url 'staff:requests' %}">{% translate "Inspection requests" %}</a></li><li aria-current="page">{{ item.reference }}</li></ol></nav>
+  <div class="layout-2">
+    <section class="card">
+      <h1 style="font-size:1.6rem">{{ item.address }}</h1>
+      <dl class="kv">
+        <dt>{% translate "Reference" %}</dt><dd><code>{{ item.reference }}</code></dd>
+        <dt>{% translate "Received" %}</dt><dd>{{ item.created_at|date:"DATETIME_FORMAT" }}</dd>
+        <dt>{% translate "Name" %}</dt><dd>{{ item.name|default:"—" }}</dd>
+        <dt>{% translate "Phone" %}</dt><dd>{% if item.phone %}<a href="tel:{{ item.phone }}">{{ item.phone }}</a>{% else %}—{% endif %}</dd>
+        <dt>{% translate "Email" %}</dt><dd>{% if item.email %}<a href="mailto:{{ item.email }}">{{ item.email }}</a>{% else %}—{% endif %}</dd>
+        <dt>{% translate "Contact by" %}</dt><dd>{{ item.get_contact_by_display }}</dd>
+        <dt>{% translate "Best time" %}</dt><dd>{{ item.best_time|default:"—" }}</dd>
+        <dt>{% translate "Language" %}</dt><dd>{{ item.get_language_display }}</dd>
+        <dt>{% translate "Relationship" %}</dt><dd>{{ item.get_relationship_display }}</dd>
+        <dt>{% translate "Message" %}</dt><dd>{{ item.message|default:"—"|linebreaksbr }}</dd>
+        <dt>{% translate "Inventory line" %}</dt><dd>{% if item.service_line %}<a href="{{ item.service_line.get_absolute_url }}" target="_blank" rel="noopener">{{ item.service_line.street_line }}</a> · {{ item.service_line.get_status_display }}{% else %}{% translate "No matching line" %}{% endif %}</dd>
+      </dl>
+    </section>
+    <form method="post" class="card form">{% csrf_token %}
+      {% include "partials/field.html" with field=form.state %}
+      {% include "partials/field.html" with field=form.staff_notes %}
+      <button class="btn btn-primary" type="submit">{% translate "Save" %}</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

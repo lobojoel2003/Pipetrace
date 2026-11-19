@@ -1,0 +1,27 @@
+{% extends "staff/base.html" %}
+{% load i18n humanize pipetrace %}
+{% block staff_title %}{{ batch.original_name }}{% endblock %}
+{% block content %}
+<div class="container section">
+  <nav class="breadcrumbs"><ol><li><a href="{% url 'staff:imports' %}">{% translate "Imports" %}</a></li><li aria-current="page">{{ batch.original_name }}</li></ol></nav>
+  <h1>{{ batch.original_name }}</h1>
+  <p class="muted">{{ batch.get_state_display }} · {{ batch.get_mode_display }}{% if batch.committed_at %} · {{ batch.committed_at|date:"DATETIME_FORMAT" }}{% endif %}{% if batch.uploaded_by %} · {{ batch.uploaded_by }}{% endif %}</p>
+  {% if batch.state == "committed" %}
+  <div class="tiles">
+    <div class="tile"><div class="tile-label">{% translate "Added" %}</div><div class="tile-value">{{ batch.stats.created|intcomma }}</div></div>
+    <div class="tile"><div class="tile-label">{% translate "Updated" %}</div><div class="tile-value">{{ batch.stats.updated|intcomma }}</div></div>
+    <div class="tile"><div class="tile-label">{% translate "Unchanged" %}</div><div class="tile-value">{{ batch.stats.unchanged|intcomma }}</div></div>
+    <div class="tile"><div class="tile-label">{% translate "Hidden" %}</div><div class="tile-value">{{ batch.stats.retired|intcomma }}</div></div>
+  </div>
+  {% if batch.stats.pending_geocode %}<p class="callout" style="margin-top:1rem">{% blocktranslate with n=batch.stats.pending_geocode %}{{ n }} lines still need a map location.{% endblocktranslate %} <a href="{% url 'staff:geocode' %}">{% translate "Locate them now" %}</a></p>{% endif %}
+  {% else %}
+  <p><a class="btn btn-primary" href="{% url 'staff:import_map' pk=batch.pk %}">{% translate "Continue this import" %}</a></p>
+  {% endif %}
+  {% if batch.messages %}
+  <section class="card" style="margin-top:1.25rem"><h2 style="font-size:1.15rem">{% translate "Messages" %}</h2>
+    <div class="table-wrap"><table class="data"><thead><tr><th>{% translate "Row" %}</th><th>{% translate "Message" %}</th></tr></thead><tbody>
+    {% for m in batch.messages %}<tr{% if m.level == "error" %} class="review-row"{% endif %}><td>{{ m.row }}</td><td>{{ m.message }}</td></tr>{% endfor %}
+    </tbody></table></div></section>
+  {% endif %}
+</div>
+{% endblock %}

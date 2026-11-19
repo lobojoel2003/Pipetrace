@@ -1,0 +1,10 @@
+{% load pipetrace %}
+<ul class="result-list">
+  {% for row in rows %}
+  <li><a href="{{ row.line.get_absolute_url }}">
+    {% status_shape row.code 18 %}
+    <span class="addr">{{ row.line.street_line }}{% if row.line.city %}<span class="muted">, {{ row.line.city }}</span>{% endif %}</span>
+    <span class="chip chip-{{ row.code|status_class }}">{{ row.short }}</span>
+  </a></li>
+  {% endfor %}
+</ul>

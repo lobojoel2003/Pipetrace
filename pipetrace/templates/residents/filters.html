@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% load i18n pipetrace %}
+{% block title %}{% translate "Filters that remove lead" %}{% endblock %}
+{% block content %}
+<div class="narrow section">
+  <span class="eyebrow">{% translate "Filter advice" %}</span>
+  <h1>{% translate "How to choose a filter that removes lead" %}</h1>
+  <p class="lead-text">{% translate "A good filter is the simplest way to lower lead in the water you drink while you wait for a replacement or an answer." %}</p>
+  {% if site.filter_program %}<div class="callout"><h2 style="font-size:1.15rem">{% blocktranslate with utility=site.display_name %}From {{ utility }}{% endblocktranslate %}</h2>{{ site|localized:"filter_program"|linebreaks }}</div>{% endif %}
+</div>
+
+<div class="narrow stack">
+  <section class="card">
+    <h2>{% translate "1. Check the certification on the box" %}</h2>
+    <p>{% translate "Words like “reduces lead” aren't enough. Look for a filter certified by an accredited organization (such as NSF, IAPMO or WQA) to:" %}</p>
+    <table class="facts">
+      <tbody>
+        <tr><th scope="row">NSF/ANSI 53</th><td>{% translate "Lead reduction. This is the one that matters most." %}</td></tr>
+        <tr><th scope="row">NSF/ANSI 42</th><td>{% translate "Particle reduction (Class I). Catches small bits of lead that break off pipes." %}</td></tr>
+        <tr><th scope="row">NSF/ANSI 58</th><td>{% translate "Reverse osmosis systems, which also remove lead." %}</td></tr>
+      </tbody>
+    </table>
+    <p class="small muted mb-0" style="margin-top:.8rem">{% translate "Check that lead is listed among the contaminants the product is certified to reduce. You can look up a model in the certifier's online listings." %}</p>
+  </section>
+
+  <section class="card">
+    <h2>{% translate "2. Pick a type that fits your home" %}</h2>
+    <div class="grid grid-3">
+      <div><h3>{% translate "Pitcher" %}</h3><p class="muted mb-0">{% translate "Cheapest and easiest. Keep it in the fridge and refill it often." %}</p></div>
+      <div><h3>{% translate "Faucet-mounted" %}</h3><p class="muted mb-0">{% translate "Clips onto the kitchen faucet; switch it on for drinking and cooking water." %}</p></div>
+      <div><h3>{% translate "Under the sink" %}</h3><p class="muted mb-0">{% translate "Filters every glass from a separate tap. Costs more and is installed under the sink." %}</p></div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>{% translate "3. Use it the right way" %}</h2>
+    <ul class="mb-0">
+      <li>{% translate "Filter cold water only. Hot water can damage many filters." %}</li>
+      <li>{% translate "Use filtered water for drinking, cooking, making coffee or tea, and mixing baby formula." %}</li>
+      <li>{% translate "Change the cartridge as often as the instructions say. A worn-out cartridge stops removing lead." %}</li>
+      <li>{% translate "Showering and bathing in unfiltered water is fine: skin doesn't absorb much lead from water." %}</li>
+    </ul>
+  </section>
+
+  <section class="card">
+    <h2>{% translate "Other ways to lower lead today" %}</h2>
+    {% include "partials/what_to_do.html" %}
+  </section>
+  <p class="small muted">{% translate "This page is general guidance. Follow the instructions that come with your filter, and ask us if you have questions." %}</p>
+</div>
+{% endblock %}

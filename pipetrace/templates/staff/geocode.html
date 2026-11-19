@@ -1,0 +1,37 @@
+{% extends "staff/base.html" %}
+{% load i18n humanize %}
+{% block staff_title %}{% translate "Map locations" %}{% endblock %}
+{% block content %}
+<div class="container section">
+  <h1>{% translate "Put lines on the map" %}</h1>
+  <p class="lead-text">{% if geocoder %}{% blocktranslate with name=geocoder.name|capfirst %}Lines without coordinates are located from their address with the {{ name }} geocoder.{% endblocktranslate %}{% else %}{% translate "Geocoding is turned off (PIPETRACE_GEOCODER=none). Add latitude and longitude columns to your file, or set the location of each line in the admin." %}{% endif %}</p>
+  <div class="tiles">
+    <div class="tile"><div class="tile-label">{% translate "From your file" %}</div><div class="tile-value">{{ counts.provided|intcomma }}</div></div>
+    <div class="tile"><div class="tile-label">{% translate "Located by address" %}</div><div class="tile-value" data-count="matched">{{ counts.matched|add:counts.approximate|intcomma }}</div><div class="tile-sub">{% blocktranslate with n=counts.approximate %}{{ n }} approximate{% endblocktranslate %}</div></div>
+    <div class="tile"><div class="tile-label">{% translate "Waiting" %}</div><div class="tile-value" data-count="pending">{{ counts.pending|intcomma }}</div></div>
+    <div class="tile"><div class="tile-label">{% translate "Not found" %}</div><div class="tile-value" data-count="failed">{{ counts.no_match|intcomma }}</div></div>
+  </div>
+  {% if geocoder and pending %}
+  <section class="card" style="margin-top:1.25rem" data-geocoder data-step-url="{% url 'staff:geocode_step' %}">
+    {% csrf_token %}
+    <h2 style="font-size:1.15rem">{% blocktranslate count n=pending %}{{ n }} line to locate{% plural %}{{ n }} lines to locate{% endblocktranslate %}</h2>
+    <div class="progress" aria-hidden="true"><span data-progress></span></div>
+    <p class="small muted" data-geocode-status aria-live="polite">{% translate "Keep this page open while it runs. You can stop and continue later." %}</p>
+    <div class="btn-row"><button class="btn btn-primary" type="button" data-geocode-start data-total="{{ pending }}">{% translate "Start geocoding" %}</button>
+      <button class="btn" type="button" data-geocode-stop hidden>{% translate "Pause" %}</button></div>
+  </section>
+  {% elif from_import %}
+  <p class="callout" style="margin-top:1.25rem">{% translate "Every line in the import has a location." %}</p>
+  {% endif %}
+  {% if unmatched %}
+  <section class="card" style="margin-top:1.25rem">
+    <div class="section-head" style="margin-bottom:.6rem"><h2 style="font-size:1.15rem" class="mb-0">{% translate "Addresses the geocoder couldn't find" %}</h2>
+      <form method="post" action="{% url 'staff:geocode_retry' %}">{% csrf_token %}<button class="btn btn-sm" type="submit">{% translate "Try them again" %}</button></form></div>
+    <p class="small muted">{% translate "Fix the address in your spreadsheet and re-import, or open the line and type its latitude and longitude." %}</p>
+    <div class="table-wrap"><table class="data"><thead><tr><th>{% translate "Address" %}</th><th>{% translate "Service line ID" %}</th><th></th></tr></thead><tbody>
+      {% for line in unmatched %}<tr><td>{{ line.full_address }}</td><td>{{ line.source_id|default:"—" }}</td><td><a href="{% url 'admin:inventory_serviceline_change' line.pk %}">{% translate "Edit" %}</a></td></tr>{% endfor %}
+    </tbody></table></div>
+  </section>
+  {% endif %}
+</div>
+{% endblock %}

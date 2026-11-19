@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{{ street_name }}{% endblock %}
+{% block content %}
+<div class="narrow section">
+  <nav class="breadcrumbs" aria-label="{% translate 'Breadcrumb' %}"><ol>
+    <li><a href="{% url 'residents:streets' %}">{% translate "Browse by street" %}</a></li>
+    <li aria-current="page">{{ street_name }}</li></ol></nav>
+  <h1>{{ street_name }}</h1>
+  {% include "partials/result_list.html" with rows=rows %}
+</div>
+{% endblock %}

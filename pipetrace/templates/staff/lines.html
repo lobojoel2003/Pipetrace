@@ -1,0 +1,27 @@
+{% extends "staff/base.html" %}
+{% load i18n pipetrace %}
+{% block staff_title %}{% translate "Inventory" %}{% endblock %}
+{% block content %}
+<div class="container section">
+  <div class="section-head"><h1 class="mb-0">{% translate "Inventory" %}</h1>
+    <a class="btn" href="{% url 'staff:export_inventory' %}">{% translate "Download CSV" %}</a></div>
+  <form method="get" class="toolbar">
+    <div class="field"><label for="lq">{% translate "Search" %}</label><input class="input" id="lq" type="search" name="q" value="{{ q }}" placeholder="{% translate 'Address or ID' %}"></div>
+    <div class="field"><label for="ls">{% translate "Classification" %}</label><select class="input" id="ls" name="status"><option value="">{% translate "All" %}</option>{% for v, l in status_choices %}<option value="{{ v }}"{% if filters.status == v %} selected{% endif %}>{{ l }}</option>{% endfor %}</select></div>
+    <div class="field"><label for="lg">{% translate "Location" %}</label><select class="input" id="lg" name="geocode_status"><option value="">{% translate "All" %}</option>{% for v, l in geocode_choices %}<option value="{{ v }}"{% if filters.geocode_status == v %} selected{% endif %}>{{ l }}</option>{% endfor %}</select></div>
+    <button class="btn" type="submit">{% translate "Filter" %}</button>
+  </form>
+  <div class="table-wrap"><table class="data">
+    <thead><tr><th>{% translate "Address" %}</th><th>{% translate "ID" %}</th><th>{% translate "Utility side" %}</th><th>{% translate "Customer side" %}</th><th>{% translate "Classification" %}</th><th>{% translate "Replacement" %}</th><th>{% translate "Location" %}</th><th></th></tr></thead>
+    <tbody>{% for line in page %}<tr>
+      <td><a href="{{ line.get_absolute_url }}" target="_blank" rel="noopener">{{ line.street_line }}</a>{% if not line.active %} <span class="badge badge-muted">{% translate "hidden" %}</span>{% endif %}</td>
+      <td>{{ line.source_id|default:"—" }}</td><td>{{ line.get_system_material_display }}</td><td>{{ line.get_customer_material_display }}</td>
+      <td><span style="display:inline-flex;gap:.4rem;align-items:center">{% status_shape line.status 14 %}{{ line.get_status_display }}</span></td>
+      <td>{{ line.get_replacement_display }}{% if line.scheduled_label %} · {{ line.scheduled_label }}{% endif %}</td>
+      <td>{{ line.get_geocode_status_display }}</td>
+      <td><a href="{% url 'admin:inventory_serviceline_change' line.pk %}">{% translate "Edit" %}</a></td>
+    </tr>{% empty %}<tr><td colspan="8" class="muted">{% translate "No lines match." %}</td></tr>{% endfor %}</tbody>
+  </table></div>
+  {% include "staff/_pagination.html" %}
+</div>
+{% endblock %}

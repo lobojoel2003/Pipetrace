@@ -1,0 +1,18 @@
+{% autoescape off %}New {% if kind == "photo" %}pipe photo{% else %}inspection request{% endif %} on the {{ site.utility_name }} lead service line site.
+
+Reference: {{ submission.reference }}
+Address:   {{ submission.address }}
+Name:      {{ submission.name|default:"-" }}
+Phone:     {{ submission.phone|default:"-" }}
+Email:     {{ submission.email|default:"-" }}
+Language:  {{ submission.get_language_display }}
+{% if kind == "photo" %}Scratch:   {{ submission.get_scratch_display }}
+Magnet:    {{ submission.get_magnet_display }}
+Guide said: {{ submission.get_resident_result_display }}
+{% else %}Contact by: {{ submission.get_contact_by_display }}
+Best time: {{ submission.best_time|default:"-" }}
+Message:   {{ submission.message|default:"-" }}
+{% endif %}{% if submission.service_line %}Inventory: {{ submission.service_line.full_address }} — {{ submission.service_line.get_status_display }}{% else %}Inventory: no matching line found{% endif %}
+
+Review it in the staff area under {% if kind == "photo" %}Photos{% else %}Requests{% endif %}.
+{% endautoescape %}

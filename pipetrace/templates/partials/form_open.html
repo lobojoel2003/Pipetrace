@@ -1,0 +1,10 @@
+{% load i18n %}
+<form class="form card" method="post" enctype="multipart/form-data" novalidate
+      {% if static_mode %}action="{{ site.static_form_endpoint }}" data-static-form="{{ kind }}"{% else %}action=""{% endif %}>
+  {% if not static_mode %}{% csrf_token %}{% endif %}
+  <input type="hidden" name="kind" value="{{ kind }}">
+  <input type="hidden" name="line" value="{{ line.public_id|default:'' }}" data-line-field>
+  <div class="hp" aria-hidden="true">{{ form.website.label_tag }}{{ form.website }}</div>
+  {{ form.started }}{{ form.language }}
+  {% if form.non_field_errors %}<div class="form-errors" role="alert">{{ form.non_field_errors }}</div>{% endif %}
+  {% if form.errors and not form.non_field_errors %}<div class="form-errors" role="alert"><strong>{% translate "Please check the highlighted fields." %}</strong></div>{% endif %}

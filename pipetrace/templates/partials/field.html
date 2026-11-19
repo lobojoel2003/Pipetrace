@@ -1,0 +1,16 @@
+{% load i18n %}
+<div class="field{% if field.errors %} has-error{% endif %}">
+  {% if field.field.widget.input_type == "radio" %}
+    <fieldset{% if field.help_text %} aria-describedby="{{ field.auto_id }}_help"{% endif %}>
+      <legend>{{ field.label }}</legend>
+      <div class="choices">{% for radio in field %}<label>{{ radio.tag }} <span>{{ radio.choice_label }}</span></label>{% endfor %}</div>
+    </fieldset>
+  {% elif field.field.widget.input_type == "checkbox" %}
+    <label class="check">{{ field }} <span>{{ field.label }}</span></label>
+  {% else %}
+    <label for="{{ field.id_for_label }}">{{ field.label }}{% if not field.field.required %} <span class="muted small">({% translate "optional" %})</span>{% endif %}</label>
+    {{ field }}
+  {% endif %}
+  {% if field.help_text %}<p class="help" id="{{ field.auto_id }}_help">{{ field.help_text }}</p>{% endif %}
+  {{ field.errors }}
+</div>

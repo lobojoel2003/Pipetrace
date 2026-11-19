@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% translate "Request an inspection" %}{% endblock %}
+{% block content %}
+<div class="container section">
+  <div class="layout-2">
+    <div>
+      <span class="eyebrow">{% translate "Inspection" %}</span>
+      <h1>{% translate "Ask us to inspect your service line" %}</h1>
+      <p class="lead-text">{% translate "We'll contact you to set up a visit. An inspection usually takes less than 30 minutes and is free." %}</p>
+      <p class="callout" data-line-note {% if not line %}hidden{% endif %}>{% blocktranslate with address=line.street_line|default:"" %}For the service line at <strong data-line-address>{{ address }}</strong>.{% endblocktranslate %}</p>
+      {% include "partials/form_open.html" with kind="inspection" %}
+        {% include "partials/field.html" with field=form.address %}
+        {% include "partials/field.html" with field=form.name %}
+        <div class="grid grid-2">{% include "partials/field.html" with field=form.phone %}{% include "partials/field.html" with field=form.email %}</div>
+        {% include "partials/field.html" with field=form.contact_by %}
+        {% include "partials/field.html" with field=form.best_time %}
+        {% include "partials/field.html" with field=form.relationship %}
+        {% include "partials/field.html" with field=form.message %}
+        {% include "partials/field.html" with field=form.consent %}
+        <div class="btn-row"><button class="btn btn-primary" type="submit"><svg width="20" height="20" aria-hidden="true"><use href="#i-clipboard"/></svg>{% translate "Send request" %}</button></div>
+        <div data-form-status aria-live="polite"></div>
+      </form>
+    </div>
+    <aside class="stack">
+      <div class="card">
+        <h2 style="font-size:1.15rem">{% translate "What happens next" %}</h2>
+        <ol class="mb-0">
+          <li>{% translate "We contact you within a few business days." %}</li>
+          <li>{% translate "A staff member looks at the pipe where it enters your building, and may check the curb box outside." %}</li>
+          <li>{% translate "We update the record and tell you what we found." %}</li>
+        </ol>
+      </div>
+      {% include "partials/help_box.html" %}
+    </aside>
+  </div>
+</div>
+{% endblock %}

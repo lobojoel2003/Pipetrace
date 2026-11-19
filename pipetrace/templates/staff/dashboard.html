@@ -1,0 +1,48 @@
+{% extends "staff/base.html" %}
+{% load i18n pipetrace humanize %}
+{% block staff_title %}{% translate "Overview" %}{% endblock %}
+{% block content %}
+<div class="container section">
+  <div class="section-head">
+    <div><h1 class="mb-0">{{ site.utility_name }}</h1>
+      <p class="muted mb-0">{% if site.inventory_updated %}{% blocktranslate with date=site.inventory_updated|date:"DATE_FORMAT" %}Inventory last updated {{ date }}{% endblocktranslate %}{% else %}{% translate "No inventory imported yet" %}{% endif %}</p></div>
+    <div class="btn-row">
+      <a class="btn btn-primary" href="{% url 'staff:import_upload' %}">{% translate "Upload inventory" %}</a>
+      <a class="btn" href="{% url 'staff:export_inventory' %}">{% translate "Download CSV" %}</a>
+      <a class="btn" href="{% url 'staff:export_site' %}">{% translate "Download static site" %}</a>
+    </div>
+  </div>
+  <div class="tiles">
+    {% for row in summary.by_status %}
+    <a class="tile" href="{% url 'staff:lines' %}?status={{ row.status }}"><div class="tile-label">{% status_shape row.code 16 %}{{ row.label }}</div>
+      <div class="tile-value">{{ row.count|intcomma }}</div><div class="tile-sub">{{ row.percent }}%</div></a>
+    {% endfor %}
+  </div>
+  <div class="grid grid-3" style="margin-top:1.25rem">
+    <a class="card card-link" href="{% url 'staff:requests' %}?state=new"><h2 style="font-size:1.1rem">{% translate "Inspection requests" %}</h2>
+      <p class="tile-value" style="font-size:2rem;font-weight:760;margin:0">{{ new_requests }}</p><p class="muted mb-0">{% translate "new" %}</p></a>
+    <a class="card card-link" href="{% url 'staff:photos' %}?state=new"><h2 style="font-size:1.1rem">{% translate "Pipe photos" %}</h2>
+      <p class="tile-value" style="font-size:2rem;font-weight:760;margin:0">{{ new_photos }}</p><p class="muted mb-0">{% translate "waiting for review" %}</p></a>
+    <a class="card card-link" href="{% url 'staff:geocode' %}"><h2 style="font-size:1.1rem">{% translate "Map locations" %}</h2>
+      <p class="tile-value" style="font-size:2rem;font-weight:760;margin:0">{{ summary.located|intcomma }}<span class="muted" style="font-size:1rem"> / {{ summary.total|intcomma }}</span></p>
+      <p class="muted mb-0">{% blocktranslate with pending=geocode.pending no_match=geocode.no_match %}{{ pending }} waiting · {{ no_match }} not found{% endblocktranslate %}</p></a>
+  </div>
+  <div class="grid grid-2" style="margin-top:1.25rem">
+    <section class="card">
+      <h2 style="font-size:1.15rem">{% translate "Latest requests" %}</h2>
+      <table class="data"><tbody>
+        {% for item in recent_requests %}<tr><td><a href="{% url 'staff:request_detail' pk=item.pk %}">{{ item.reference }}</a></td><td>{{ item.address }}</td><td>{{ item.get_state_display }}</td></tr>
+        {% empty %}<tr><td class="muted">{% translate "None yet." %}</td></tr>{% endfor %}
+      </tbody></table>
+    </section>
+    <section class="card">
+      <h2 style="font-size:1.15rem">{% translate "Latest photos" %}</h2>
+      <table class="data"><tbody>
+        {% for item in recent_photos %}<tr><td><a href="{% url 'staff:photo_detail' pk=item.pk %}">{{ item.reference }}</a></td><td>{{ item.address }}</td><td>{{ item.get_resident_result_display }}</td></tr>
+        {% empty %}<tr><td class="muted">{% translate "None yet." %}</td></tr>{% endfor %}
+      </tbody></table>
+    </section>
+  </div>
+  {% if last_import %}<p class="muted small" style="margin-top:1rem">{% translate "Last import:" %} <a href="{{ last_import.get_absolute_url }}">{{ last_import.original_name }}</a> · {{ last_import.committed_at|date:"DATETIME_FORMAT" }}</p>{% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% translate "Browse by street" %}{% endblock %}
+{% block content %}
+<div class="container section">
+  <h1>{% translate "Browse by street" %}</h1>
+  <p class="lead-text">{% translate "Every street in the inventory, with the number of service lines on it that still need replacing." %}</p>
+  <ul class="street-index">
+    {% for s in streets %}
+    <li><a href="{% url 'residents:street' slug=s.slug %}">{{ s.display }}</a>
+      <span class="small muted nowrap">{% blocktranslate count n=s.n %}{{ n }} line{% plural %}{{ n }} lines{% endblocktranslate %}{% if s.lead %} · <strong style="color:var(--ink)">{% blocktranslate count n=s.lead %}{{ n }} to replace{% plural %}{{ n }} to replace{% endblocktranslate %}</strong>{% endif %}</span></li>
+    {% empty %}
+    <li>{% translate "No service lines have been published yet." %}</li>
+    {% endfor %}
+  </ul>
+</div>
+{% endblock %}

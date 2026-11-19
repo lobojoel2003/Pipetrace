@@ -1,0 +1,148 @@
+{% extends "base.html" %}
+{% load i18n static pipetrace %}
+{% block title %}{{ line.street_line }}: {{ info.short }}{% endblock %}
+{% block description %}{{ info.headline }} {{ line.full_address }}{% endblock %}
+{% block head %}<link rel="stylesheet" href="{% static 'pipetrace/vendor/maplibre-gl/maplibre-gl.css' %}">{% endblock %}
+{% block content %}
+{% with tone=info.code|status_class %}
+<div class="container">
+  <nav class="breadcrumbs" aria-label="{% translate 'Breadcrumb' %}">
+    <ol>
+      <li><a href="{% url 'residents:home' %}">{% translate "Look up an address" %}</a></li>
+      {% if line.street_key %}<li><a href="{% url 'residents:street' slug=line.street_key|slugify %}">{{ line.street_display }}</a></li>{% endif %}
+      <li aria-current="page">{{ line.street_line }}</li>
+    </ol>
+  </nav>
+
+  <article class="status-card status-{{ tone }}" aria-labelledby="line-title">
+    <div class="status-band" aria-hidden="true"><svg><use href="#i-{{ tone }}"/></svg></div>
+    <div class="status-body">
+      <p class="status-kicker">{% translate "Water service line at" %}</p>
+      <h1 id="line-title">{{ line.street_line }}{% if line.city %}<span class="muted" style="font-weight:500">, {{ line.city }}</span>{% endif %}</h1>
+      <div class="status-answer">{% status_shape info.code 20 %}<span>{% if replaced %}{% translate "Replaced" %} · {% endif %}{{ info.short }}</span></div>
+      {% if replaced %}
+        <p class="meaning"><strong>{% blocktranslate with date=line.replaced_on|date:"DATE_FORMAT" %}This lead service line was replaced on {{ date }}.{% endblocktranslate %}</strong>
+          {% translate "The pipe from the water main to your building is no longer lead." %}</p>
+      {% else %}
+        <p class="meaning"><strong>{{ info.headline }}</strong> {{ info.meaning }}</p>
+      {% endif %}
+      <div class="status-meta">
+        {% if line.verified_on %}<span>{% blocktranslate with date=line.verified_on|date:"DATE_FORMAT" %}Checked {{ date }}{% endblocktranslate %}</span>{% endif %}
+        {% if line.basis %}<span>{% blocktranslate with basis=line.basis %}How we know: {{ basis }}{% endblocktranslate %}</span>{% endif %}
+        {% if site.inventory_updated %}<span>{% blocktranslate with date=site.inventory_updated|date:"DATE_FORMAT" %}Inventory updated {{ date }}{% endblocktranslate %}</span>{% endif %}
+      </div>
+    </div>
+  </article>
+
+  <div class="layout-2 section-tight" style="margin-top:1.5rem">
+    <div class="stack">
+      {% if replaced %}
+        <section class="card">
+          <h2>{% translate "After a replacement" %}</h2>
+          <p>{% translate "For a few months after a service line is replaced, small bits of lead can come loose from the plumbing inside your home. Until then:" %}</p>
+          <ul>
+            <li>{% translate "Keep using a filter certified to remove lead for drinking and cooking water." %}</li>
+            <li>{% translate "Clean your faucet aerators every few weeks." %}</li>
+            <li>{% translate "Run the cold water for a few minutes if it has sat in the pipes overnight." %}</li>
+          </ul>
+        </section>
+      {% elif needs_replacement %}
+        <section class="card" aria-labelledby="todo-title">
+          <h2 id="todo-title">{% translate "What to do today" %}</h2>
+          <p class="muted">{% translate "Until your line is replaced, these steps lower the lead in the water you drink:" %}</p>
+          {% include "partials/what_to_do.html" %}
+        </section>
+        <section class="card" aria-labelledby="sched-title">
+          <h2 id="sched-title"><svg width="26" height="26" aria-hidden="true" style="vertical-align:-5px;margin-right:.35rem"><use href="#i-calendar"/></svg>{% translate "Replacement schedule" %}</h2>
+          {% if line.replacement == "in_progress" %}
+            <p class="lead-text"><strong>{% translate "Replacement work is under way." %}</strong>{% if schedule_text %} {% blocktranslate with when=schedule_text %}Expected: {{ when }}.{% endblocktranslate %}{% endif %}</p>
+          {% elif schedule_text %}
+            <p class="lead-text">{% blocktranslate with when=schedule_text %}Scheduled for replacement: <strong>{{ when }}</strong>.{% endblocktranslate %}</p>
+            <p class="muted">{% translate "We will contact you before work starts. Dates can move with weather and construction." %}</p>
+          {% else %}
+            <p class="lead-text">{% translate "Not scheduled yet." %}</p>
+            <p>{% blocktranslate with deadline=site.replacement_deadline|date:"YEAR_MONTH_FORMAT" %}Federal rules require every lead and galvanized-requiring-replacement line to be replaced by {{ deadline }}. We'll contact you when your street is scheduled.{% endblocktranslate %}</p>
+          {% endif %}
+          {% if site.replacement_program %}<div class="callout">{{ site|localized:"replacement_program"|linebreaks }}</div>{% endif %}
+        </section>
+      {% elif info.status == "unknown" %}
+        <section class="card" aria-labelledby="find-title" style="border:2px solid var(--unknown)">
+          <h2 id="find-title">{% translate "Help us find out in about two minutes" %}</h2>
+          <p>{% translate "Find the pipe where water comes into your home. Scratch it gently with a coin and hold a magnet to it. What you see tells you a lot, and a photo helps us update the record." %}</p>
+          <div class="btn-row">
+            <a class="btn btn-primary" href="{% url 'residents:guide' %}?line={{ line.public_id }}"><svg width="20" height="20" aria-hidden="true"><use href="#i-coin"/></svg>{% translate "Check your pipe" %}</a>
+            <a class="btn" href="{% url 'residents:send_photo' %}?line={{ line.public_id }}"><svg width="20" height="20" aria-hidden="true"><use href="#i-camera"/></svg>{% translate "Send us a photo" %}</a>
+          </div>
+          {% if site.unknown_program %}<div class="callout" style="margin-top:1.2rem">{{ site|localized:"unknown_program"|linebreaks }}</div>{% endif %}
+        </section>
+        <section class="card" aria-labelledby="todo-title">
+          <h2 id="todo-title">{% translate "Until you know, play it safe" %}</h2>
+          <p class="muted">{% translate "An unknown line could be lead. These steps lower lead in drinking water either way:" %}</p>
+          {% include "partials/what_to_do.html" %}
+        </section>
+      {% else %}
+        <section class="card" aria-labelledby="ok-title">
+          <h2 id="ok-title">{% translate "Lead can still come from inside a building" %}</h2>
+          <p>{% translate "A service line that isn't lead is good news. Plumbing inside the building can still add lead: solder used before 1986, and older faucets and fittings." %}</p>
+          <ul>
+            <li>{% translate "Use cold water for drinking, cooking and baby formula." %}</li>
+            <li>{% translate "If water has sat for hours, run the cold tap until it feels colder." %}</li>
+            <li>{% translate "Clean faucet aerators every few months." %}</li>
+            <li>{% translate "If you're concerned, ask us about testing your water." %}</li>
+          </ul>
+        </section>
+      {% endif %}
+
+      {% if lead_connector and not replaced %}
+      <div class="callout callout-warn">
+        <h3>{% translate "This line has a lead connector" %}</h3>
+        <p>{% translate "A short lead pipe (a gooseneck or pigtail) joins this line to the water main. Lead connectors are replaced whenever they are found during work on the line or the main." %}</p>
+      </div>
+      {% endif %}
+
+      <section class="card" aria-labelledby="facts-title">
+        <h2 id="facts-title">{% translate "What our records show" %}</h2>
+        <div class="portions">
+          {% for p in portions %}
+          <div class="portion">
+            <div class="p-label">{{ p.label }}</div>
+            <div class="p-help">{{ p.help }}</div>
+            <div class="p-material">{{ p.material }}</div>
+          </div>
+          {% endfor %}
+        </div>
+        <table class="facts" style="margin-top:1rem">
+          <tbody>
+            {% if line.connector %}<tr><th scope="row">{% translate "Connector to the main" %}</th><td>{{ line.get_connector_display }}</td></tr>{% endif %}
+            {% if line.installed_year %}<tr><th scope="row">{% translate "Year installed" %}</th><td>{{ line.installed_year }}</td></tr>{% endif %}
+            {% if line.building_year %}<tr><th scope="row">{% translate "Year the building was built" %}</th><td>{{ line.building_year }}</td></tr>{% endif %}
+            {% if line.basis %}<tr><th scope="row">{% translate "How we know" %}</th><td>{{ line.basis }}</td></tr>{% endif %}
+            {% if line.source_id %}<tr><th scope="row">{% translate "Service line ID" %}</th><td>{{ line.source_id }}</td></tr>{% endif %}
+            {% if note %}<tr><th scope="row">{% translate "Note" %}</th><td>{{ note|linebreaksbr }}</td></tr>{% endif %}
+          </tbody>
+        </table>
+        <p class="small muted mb-0" style="margin-top:1rem">{% translate "The utility side runs from the water main to the curb stop or meter; your side runs from there into the building. Owners are usually responsible for their side, but replacement programs often cover both." %}</p>
+      </section>
+
+      {% if line.location %}
+      <section aria-label="{% translate 'Location on the map' %}">
+        <div class="map-wrap"><div class="map map-small" data-map data-map-mode="line" role="region" aria-label="{% translate 'Map of this service line and its neighbours' %}"></div>
+          <div class="map-fallback" hidden data-map-fallback><p></p></div></div>
+        {{ map_config|json_script:"map-config" }}
+      </section>
+      {% endif %}
+    </div>
+
+    <div class="stack">
+      {% include "partials/help_box.html" %}
+      <div class="callout">
+        <h3>{% translate "Does this look wrong?" %}</h3>
+        <p>{% translate "Records can be out of date. If you've seen your pipe and it doesn't match, send us a photo and we'll check." %}</p>
+        <a href="{% url 'residents:send_photo' %}?line={{ line.public_id }}">{% translate "Send a photo" %} →</a>
+      </div>
+      <button class="btn btn-block no-print" type="button" data-print><svg width="20" height="20" aria-hidden="true"><use href="#i-print"/></svg>{% translate "Print this page" %}</button>
+    </div>
+  </div>
+</div>
+{% endwith %}
+{% endblock %}

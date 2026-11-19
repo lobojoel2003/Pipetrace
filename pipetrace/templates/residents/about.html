@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% load i18n pipetrace humanize %}
+{% block title %}{% translate "Questions and answers" %}{% endblock %}
+{% block content %}
+<div class="narrow section">
+  <span class="eyebrow">{% translate "Questions" %}</span>
+  <h1>{% translate "Service lines, lead, and this inventory" %}</h1>
+
+  <figure class="card diagram" style="margin:1.5rem 0">
+    <svg viewBox="0 0 720 260" role="img" aria-labelledby="diagram-title">
+      <title id="diagram-title">{% translate "A service line runs from the water main under the street to the building. The part up to the curb stop or meter belongs to the utility; the rest belongs to the property owner." %}</title>
+      <rect x="0" y="120" width="720" height="140" fill="#c9b79c" opacity=".55"/>
+      <rect x="0" y="110" width="720" height="12" fill="#7fae6a" opacity=".8"/>
+      <rect x="0" y="96" width="250" height="16" fill="#8c9196" opacity=".7"/>
+      <rect x="470" y="20" width="230" height="94" rx="4" fill="var(--surface-2)" stroke="var(--line-strong)"/>
+      <path d="M470 20 585 -30 700 20" fill="none" stroke="var(--line-strong)"/>
+      <rect x="470" y="114" width="230" height="100" fill="#e6ded1" stroke="#a99d8c"/>
+      <circle cx="80" cy="200" r="30" fill="#5c6670"/>
+      <path d="M110 200 H300" stroke="var(--grr)" stroke-width="12"/>
+      <path d="M300 200 H560 V150" fill="none" stroke="var(--lead)" stroke-width="12" stroke-linejoin="round"/>
+      <rect x="290" y="128" width="20" height="78" rx="4" fill="#3d6f87"/>
+      <rect x="548" y="128" width="24" height="22" rx="4" fill="#3d6f87"/>
+      <text x="80" y="250" text-anchor="middle" font-size="15">{% translate "Water main" %}</text>
+      <text x="300" y="118" text-anchor="middle" font-size="15">{% translate "Curb stop" %}</text>
+      <text x="205" y="182" text-anchor="middle" font-size="15" font-weight="700">{% translate "Utility side" %}</text>
+      <text x="430" y="182" text-anchor="middle" font-size="15" font-weight="700">{% translate "Your side" %}</text>
+      <text x="610" y="142" font-size="15">{% translate "Meter" %}</text>
+      <text x="585" y="70" text-anchor="middle" font-size="15">{% translate "Your home" %}</text>
+    </svg>
+  </figure>
+
+  <div class="faq">
+    <details open>
+      <summary>{% translate "What is a service line?" %}</summary>
+      <div><p>{% translate "It's the pipe that carries water from the water main under the street into a building. Part of it usually belongs to the utility and part to the property owner. Many homes built before the 1960s were connected with lead pipe." %}</p></div>
+    </details>
+    <details>
+      <summary>{% translate "Why is there an inventory?" %}</summary>
+      <div><p>{% blocktranslate with deadline=site.replacement_deadline|date:"DATE_FORMAT" %}Federal rules (the Lead and Copper Rule Improvements) require every community water system to list every service line, say whether it is lead, and make that list public. The first inventories were due October 16, 2024. Lead lines, and galvanized lines that need replacing, must be replaced by {{ deadline }}.{% endblocktranslate %}</p></div>
+    </details>
+    <details>
+      <summary>{% translate "What do the four results mean?" %}</summary>
+      <div>
+        <table class="facts"><tbody>
+          {% for row in status_rows %}
+          <tr><th scope="row"><span style="display:inline-flex;gap:.45rem;align-items:center">{% status_shape row.code 16 %}{{ row.short }}</span></th><td>{{ row.meaning }}</td></tr>
+          {% endfor %}
+        </tbody></table>
+      </div>
+    </details>
+    <details>
+      <summary>{% translate "Why is my line “unknown”?" %}</summary>
+      <div><p>{% translate "Many service lines were installed a century ago, and records were lost or never kept. Unknown doesn't mean lead, but it might be. Checking the pipe yourself and sending us a photo is the quickest way to find out." %}</p>
+        {% if site.unknown_program %}{{ site|localized:"unknown_program"|linebreaks }}{% endif %}</div>
+    </details>
+    <details>
+      <summary>{% translate "Is my water safe to drink?" %}</summary>
+      <div><p>{% translate "Water usually leaves the treatment plant without lead. Lead gets in from lead pipes, lead solder and older brass fixtures, and it varies from tap to tap and day to day. There is no known safe level of lead exposure, so if your line is lead, galvanized or unknown, use a filter certified to remove lead for drinking and cooking water." %}</p>
+        <p><a href="{% url 'residents:filters' %}">{% translate "Filter advice" %}</a></p></div>
+    </details>
+    <details>
+      <summary>{% translate "Who pays for replacement?" %}</summary>
+      <div>{% if site.replacement_program %}{{ site|localized:"replacement_program"|linebreaks }}{% else %}<p>{% translate "Ask us about our replacement program, including any help with the cost of the part on your property." %}</p>{% endif %}</div>
+    </details>
+    <details>
+      <summary>{% translate "Where does this information come from?" %}</summary>
+      <div><p>{% translate "From our service line inventory: installation records, tap cards, building permits, inspections, and photos sent by residents. Records can be wrong. If you think yours is, send us a photo or request an inspection." %}</p>
+        {% if site.inventory_updated %}<p>{% blocktranslate with date=site.inventory_updated|date:"DATE_FORMAT" total=summary.total|intcomma %}The inventory lists {{ total }} service lines and was last updated {{ date }}.{% endblocktranslate %}</p>{% endif %}</div>
+    </details>
+    <details>
+      <summary>{% translate "How do I get my water tested?" %}</summary>
+      <div><p>{% translate "Contact us. We can tell you how to collect a sample and where to send it. If you have children, ask your doctor about a blood lead test too." %}</p></div>
+    </details>
+  </div>
+</div>
+<div class="narrow">{% include "partials/help_box.html" %}</div>
+{% endblock %}

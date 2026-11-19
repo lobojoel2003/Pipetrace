@@ -1,0 +1,112 @@
+[build-system]
+requires = ["setuptools>=77", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pipetrace"
+dynamic = ["version"]
+description = "Publish a water system's lead service line inventory as an address search, map and resident guide."
+readme = "README.md"
+license = "AGPL-3.0-or-later"
+license-files = ["LICENSE"]
+requires-python = ">=3.12"
+authors = [{ name = "Joel Stain Lobo" }]
+keywords = ["lead", "service line", "water", "inventory", "LCRI", "django", "postgis", "maplibre"]
+classifiers = [
+  "Development Status :: 5 - Production/Stable",
+  "Environment :: Web Environment",
+  "Framework :: Django",
+  "Framework :: Django :: 5.2",
+  "Intended Audience :: Government",
+  "Natural Language :: English",
+  "Natural Language :: Spanish",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Topic :: Scientific/Engineering :: GIS",
+]
+dependencies = [
+  "Django>=5.2.8,<5.3",
+  "psycopg[binary]>=3.2,<4",
+  "dj-database-url>=2.3,<4",
+  "openpyxl>=3.1.5,<4",
+  "Pillow>=11,<14",
+  "requests>=2.32,<3",
+  "whitenoise>=6.8,<7",
+  "gunicorn>=23,<28",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.3",
+  "pytest-django>=4.9",
+  "pytest-cov>=6",
+  "ruff>=0.8",
+  "playwright>=1.49",
+]
+
+[project.urls]
+Homepage = "https://github.com/lobojoel2003/Pipetrace"
+Documentation = "https://github.com/lobojoel2003/Pipetrace/tree/main/docs"
+Changelog = "https://github.com/lobojoel2003/Pipetrace/blob/main/CHANGELOG.md"
+Issues = "https://github.com/lobojoel2003/Pipetrace/issues"
+
+[project.scripts]
+pipetrace = "pipetrace.__main__:main"
+
+[tool.setuptools.dynamic]
+version = { attr = "pipetrace.__version__" }
+
+[tool.setuptools.packages.find]
+include = ["pipetrace*"]
+
+[tool.setuptools.package-data]
+pipetrace = [
+  "templates/**/*",
+  "static/**/*",
+  "locale/**/*",
+  "inventory/demo/*",
+  "_build.json",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+extend-exclude = ["pipetrace/static", "*/migrations/*"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "DJ", "SIM", "C4", "PIE", "RUF"]
+ignore = [
+  "RUF012",  # mutable class attributes are idiomatic in Django
+  "DJ001",   # blank CharFields are intentionally null=False
+  "DJ006",   # the admin form excludes the map field on purpose
+  "RUF001",  # typographic characters in user-facing strings are intended
+]
+
+[tool.ruff.lint.isort]
+known-first-party = ["pipetrace"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["S101", "B011"]
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "pipetrace.settings"
+python_files = ["test_*.py"]
+testpaths = ["tests"]
+addopts = "-ra --strict-markers -m 'not e2e'"
+markers = [
+  "e2e: browser tests against an exported static site (needs Playwright + Chromium)",
+]
+filterwarnings = [
+  "ignore::DeprecationWarning:openpyxl.*",
+  "ignore:No directory at:UserWarning",
+]
+
+[tool.coverage.run]
+source = ["pipetrace"]
+omit = ["*/migrations/*", "pipetrace/asgi.py", "pipetrace/wsgi.py", "pipetrace/__main__.py"]
+
+[tool.coverage.report]
+skip_covered = true
+show_missing = true

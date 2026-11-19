@@ -1,0 +1,77 @@
+{% extends "staff/base.html" %}
+{% load i18n pipetrace humanize %}
+{% block staff_title %}{% translate "Preview" %}{% endblock %}
+{% block content %}
+<div class="container section">
+  {% include "staff/_wizard.html" with step=4 %}
+  <h1>{% translate "Preview the import" %}</h1>
+  <div class="tiles">
+    <div class="tile"><div class="tile-label">{% translate "New lines" %}</div><div class="tile-value">{{ plan.create|intcomma }}</div></div>
+    <div class="tile"><div class="tile-label">{% translate "Updated" %}</div><div class="tile-value">{{ plan.update|intcomma }}</div></div>
+    <div class="tile"><div class="tile-label">{% translate "Unchanged" %}</div><div class="tile-value">{{ plan.unchanged|intcomma }}</div></div>
+    <div class="tile"><div class="tile-label">{% translate "Hidden (not in file)" %}</div><div class="tile-value">{{ plan.retire|intcomma }}</div><div class="tile-sub">{% if batch.mode == "merge" %}{% translate "Only in “replace” mode" %}{% endif %}</div></div>
+  </div>
+
+  <div class="grid grid-2" style="margin-top:1.25rem">
+    <section class="card">
+      <h2 style="font-size:1.15rem">{% translate "Classification in this file" %}</h2>
+      <table class="facts"><tbody>
+        {% for row in status_counts %}<tr><th scope="row"><span style="display:inline-flex;gap:.45rem;align-items:center">{% status_shape row.status 16 %}{{ row.label }}</span></th><td class="num-col">{{ row.count|intcomma }}</td></tr>{% endfor %}
+      </tbody></table>
+      {% if plan.pending_geocode %}<p class="small muted mb-0" style="margin-top:.8rem">{% blocktranslate count n=plan.pending_geocode %}{{ n }} line has no coordinates and will be geocoded after the import.{% plural %}{{ n }} lines have no coordinates and will be geocoded after the import.{% endblocktranslate %}</p>{% endif %}
+    </section>
+    <section class="card">
+      <h2 style="font-size:1.15rem">{% translate "Checks" %}</h2>
+      <ul class="mb-0">
+        <li>{% blocktranslate count n=extraction.errors|length %}{{ n }} row skipped because of errors{% plural %}{{ n }} rows skipped because of errors{% endblocktranslate %}</li>
+        <li>{% blocktranslate count n=extraction.warnings|length %}{{ n }} warning{% plural %}{{ n }} warnings{% endblocktranslate %}</li>
+        <li>{% blocktranslate count n=extraction.conflicts|length %}{{ n }} line where the stated classification doesn't match the materials{% plural %}{{ n }} lines where the stated classification doesn't match the materials{% endblocktranslate %}</li>
+        <li>{% blocktranslate count n=extraction.duplicate_rows %}{{ n }} duplicate row{% plural %}{{ n }} duplicate rows{% endblocktranslate %}</li>
+        <li>{% blocktranslate count n=extraction.skipped_rows %}{{ n }} empty row ignored{% plural %}{{ n }} empty rows ignored{% endblocktranslate %}</li>
+      </ul>
+    </section>
+  </div>
+
+  {% if extraction.conflicts %}
+  <details class="card" style="margin-top:1.25rem"><summary style="font-weight:650;cursor:pointer">{% translate "Classification conflicts" %}</summary>
+    <p class="small muted">{% translate "The file's own classification is used. Check these lines in your records." %}</p>
+    <div class="table-wrap"><table class="data"><thead><tr><th>{% translate "Row" %}</th><th>{% translate "Address" %}</th><th>{% translate "File says" %}</th><th>{% translate "Materials suggest" %}</th></tr></thead><tbody>
+    {% for c in extraction.conflicts|slice:":100" %}<tr><td>{{ c.row }}</td><td>{{ c.address }}</td><td>{{ c.stated }}</td><td>{{ c.derived }}</td></tr>{% endfor %}
+    </tbody></table></div></details>
+  {% endif %}
+  {% if extraction.errors or extraction.warnings %}
+  <details class="card" style="margin-top:1.25rem"><summary style="font-weight:650;cursor:pointer">{% translate "Errors and warnings" %}</summary>
+    <div class="table-wrap" style="margin-top:.8rem"><table class="data"><thead><tr><th>{% translate "Row" %}</th><th>{% translate "Message" %}</th></tr></thead><tbody>
+    {% for e in extraction.errors|slice:":100" %}<tr class="review-row"><td>{{ e.row }}</td><td>{{ e.message }}</td></tr>{% endfor %}
+    {% for w in extraction.warnings|slice:":100" %}<tr><td>{{ w.row }}</td><td>{{ w.message }}</td></tr>{% endfor %}
+    </tbody></table></div></details>
+  {% endif %}
+
+  <section class="card" style="margin-top:1.25rem">
+    <h2 style="font-size:1.15rem">{% translate "First lines, as Pipetrace will save them" %}</h2>
+    <div class="table-wrap"><table class="data">
+      <thead><tr><th>{% translate "Row" %}</th><th>{% translate "Address" %}</th><th>{% translate "Utility side" %}</th><th>{% translate "Customer side" %}</th><th>{% translate "Classification" %}</th><th>{% translate "Replacement" %}</th></tr></thead>
+      <tbody>{% for r in sample %}<tr>
+        <td>{{ r.row }}</td><td>{{ r.data.address }}{% if r.data.unit %} #{{ r.data.unit }}{% endif %}<div class="small muted">{{ r.data.city }} {{ r.data.state }} {{ r.data.zip_code }}</div></td>
+        <td>{{ material_labels|get_item:r.data.system_material|default:"—" }}</td>
+        <td>{{ material_labels|get_item:r.data.customer_material|default:"—" }}</td>
+        <td><span style="display:inline-flex;gap:.4rem;align-items:center">{% status_shape r.data.final_status 14 %}{{ status_labels|get_item:r.data.final_status }}</span></td>
+        <td>{{ r.data.replacement|default:"—" }}{% if r.data.scheduled_label %} · {{ r.data.scheduled_label }}{% endif %}</td>
+      </tr>{% endfor %}</tbody>
+    </table></div>
+  </section>
+
+  <form method="post" class="card form" style="margin-top:1.25rem">
+    {% csrf_token %}
+    <fieldset class="field"><legend>{% translate "Import mode" %}</legend>
+      <div class="choices">
+        <label><input type="radio" name="mode" value="merge"{% if batch.mode == "merge" %} checked{% endif %}> {% translate "Update matching lines and add new ones" %}</label>
+        <label><input type="radio" name="mode" value="replace"{% if batch.mode == "replace" %} checked{% endif %}> {% translate "Replace the whole inventory (hide lines not in this file)" %}</label>
+      </div></fieldset>
+    <div class="btn-row">
+      <button class="btn btn-primary" type="submit">{% blocktranslate count n=extraction.records|length %}Import {{ n }} line{% plural %}Import {{ n }} lines{% endblocktranslate %}</button>
+      <a class="btn btn-ghost" href="{% url 'staff:import_values' pk=batch.pk %}">← {% translate "Back to values" %}</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

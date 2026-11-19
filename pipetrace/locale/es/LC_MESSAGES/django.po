@@ -1,0 +1,2770 @@
+# Spanish translation of Pipetrace.
+# This file is distributed under the same license as Pipetrace (AGPL-3.0-or-later).
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Pipetrace\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-11-18 21:41-0600\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Spanish\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Pipetrace administration"
+msgstr "Administración de Pipetrace"
+
+msgid "Pipetrace"
+msgstr "Pipetrace"
+
+msgid "Inventory, requests and settings"
+msgstr "Inventario, solicitudes y configuración"
+
+msgid "Your utility"
+msgstr "Su empresa de agua"
+
+msgid "Defaults for addresses"
+msgstr "Valores predeterminados para direcciones"
+
+msgid "Programs shown to residents"
+msgstr "Programas que ven los residentes"
+
+msgid "Map"
+msgstr "Mapa"
+
+msgid "Static site"
+msgstr "Sitio estático"
+
+msgid "Status"
+msgstr "Estado"
+
+msgid "Core"
+msgstr "Núcleo"
+
+msgid "utility name"
+msgstr "nombre de la empresa de agua"
+
+msgid "utility name (Spanish)"
+msgstr "nombre de la empresa de agua (español)"
+
+msgid "Leave blank to use the English name."
+msgstr "Déjelo en blanco para usar el nombre en inglés."
+
+msgid "public water system ID"
+msgstr "identificador del sistema público de agua"
+
+msgid "Your PWSID, for example IL0310450."
+msgstr "Su PWSID, por ejemplo IL0310450."
+
+msgid "phone"
+msgstr "teléfono"
+
+msgid "email"
+msgstr "correo electrónico"
+
+msgid "website"
+msgstr "sitio web"
+
+msgid "office address"
+msgstr "dirección de la oficina"
+
+msgid "office hours"
+msgstr "horario de la oficina"
+
+msgid "office hours (Spanish)"
+msgstr "horario de la oficina (español)"
+
+msgid "default city"
+msgstr "ciudad predeterminada"
+
+msgid "Used when an inventory row has no city (needed for geocoding)."
+msgstr ""
+"Se usa cuando una fila del inventario no tiene ciudad (necesaria para la "
+"geocodificación)."
+
+msgid "default state"
+msgstr "estado predeterminado"
+
+msgid "default ZIP code"
+msgstr "código postal predeterminado"
+
+msgid "replacement deadline"
+msgstr "fecha límite de reemplazo"
+
+msgid ""
+"Date by which all lead and galvanized-requiring-replacement lines must be "
+"replaced."
+msgstr ""
+"Fecha en la que deben estar reemplazadas todas las líneas de plomo y las "
+"galvanizadas que requieren reemplazo."
+
+msgid "replacement program"
+msgstr "programa de reemplazo"
+
+msgid ""
+"Who pays, how residents sign up, what to expect. Shown on lead and "
+"galvanized results."
+msgstr ""
+"Quién paga, cómo se inscriben los residentes y qué pueden esperar. Se "
+"muestra en los resultados de plomo y galvanizadas."
+
+msgid "replacement program (Spanish)"
+msgstr "programa de reemplazo (español)"
+
+msgid "filter program"
+msgstr "programa de filtros"
+
+msgid ""
+"Where residents can pick up a free or discounted filter, if you offer one."
+msgstr ""
+"Dónde pueden recoger los residentes un filtro gratis o con descuento, si lo "
+"ofrece."
+
+msgid "filter program (Spanish)"
+msgstr "programa de filtros (español)"
+
+msgid "plan for unknown lines"
+msgstr "plan para las líneas desconocidas"
+
+msgid "How and when you will identify lines whose material is unknown."
+msgstr "Cómo y cuándo identificará las líneas cuyo material es desconocido."
+
+msgid "plan for unknown lines (Spanish)"
+msgstr "plan para las líneas desconocidas (español)"
+
+msgid "map center latitude"
+msgstr "latitud del centro del mapa"
+
+msgid "map center longitude"
+msgstr "longitud del centro del mapa"
+
+msgid "map zoom"
+msgstr "zoom del mapa"
+
+msgid "basemap PMTiles URL"
+msgstr "URL del mapa base PMTiles"
+
+msgid ""
+"URL of a Protomaps .pmtiles extract of your service area, e.g. /basemap/area."
+"pmtiles. Leave blank for a map without a basemap."
+msgstr ""
+"URL de un extracto .pmtiles de Protomaps de su área de servicio, por "
+"ejemplo /basemap/area.pmtiles. Déjelo en blanco para un mapa sin mapa base."
+
+msgid "form endpoint for the static site"
+msgstr "destino de los formularios del sitio estático"
+
+msgid ""
+"In a static export, forms POST here (for example this server's /api/submit/ "
+"URL or a form service). Blank: forms open an email instead."
+msgstr ""
+"En una exportación estática, los formularios se envían aquí (por ejemplo, la "
+"URL /api/submit/ de este servidor o un servicio de formularios). En blanco: "
+"los formularios abren un correo electrónico."
+
+msgid "inventory last updated"
+msgstr "última actualización del inventario"
+
+msgid "demo mode"
+msgstr "modo de demostración"
+
+msgid ""
+"Shows a banner saying the data is fictional and draws the demo street map."
+msgstr ""
+"Muestra un aviso de que los datos son ficticios y dibuja el mapa de calles "
+"de demostración."
+
+msgid "site settings"
+msgstr "configuración del sitio"
+
+msgid "Site settings"
+msgstr "Configuración del sitio"
+
+msgid "Static export"
+msgstr "Exportación estática"
+
+msgid "Latitude"
+msgstr "Latitud"
+
+msgid "Longitude"
+msgstr "Longitud"
+
+msgid "Enter both latitude and longitude, or neither."
+msgstr "Ingrese la latitud y la longitud, o ninguna de las dos."
+
+msgid "Location"
+msgstr "Ubicación"
+
+msgid "Material"
+msgstr "Material"
+
+msgid "Replacement"
+msgstr "Reemplazo"
+
+msgid "Notes"
+msgstr "Notas"
+
+msgid "Record"
+msgstr "Registro"
+
+msgid "Address"
+msgstr "Dirección"
+
+msgid "Public page"
+msgstr "Página pública"
+
+msgid "View"
+msgstr "Ver"
+
+msgid "Look up the location again from the address"
+msgstr "Buscar de nuevo la ubicación a partir de la dirección"
+
+#, python-format
+msgid "%(count)d lines queued for geocoding."
+msgstr "%(count)d líneas en cola para geocodificar."
+
+msgid "Mark as replaced today"
+msgstr "Marcar como reemplazada hoy"
+
+#, python-format
+msgid "%(count)d lines marked as replaced."
+msgstr "%(count)d líneas marcadas como reemplazadas."
+
+msgid "Service line inventory"
+msgstr "Inventario de líneas de servicio"
+
+msgid "Lead"
+msgstr "Plomo"
+
+msgid "Galvanized requiring replacement"
+msgstr "Galvanizada que requiere reemplazo"
+
+msgid "Lead status unknown"
+msgstr "Estado de plomo desconocido"
+
+msgid "Not lead"
+msgstr "No es de plomo"
+
+msgid "Galvanized steel"
+msgstr "Acero galvanizado"
+
+msgid "Copper"
+msgstr "Cobre"
+
+msgid "Plastic"
+msgstr "Plástico"
+
+msgid "Cast or ductile iron"
+msgstr "Hierro fundido o dúctil"
+
+msgid "Other non-lead material"
+msgstr "Otro material que no es plomo"
+
+msgid "Non-lead (material not recorded)"
+msgstr "No es de plomo (material no registrado)"
+
+msgid "Unknown"
+msgstr "Desconocido"
+
+msgid "Yes"
+msgstr "Sí"
+
+msgid "No"
+msgstr "No"
+
+msgid "Lead connector"
+msgstr "Conector de plomo"
+
+msgid "Non-lead connector"
+msgstr "Conector que no es de plomo"
+
+msgid "No connector"
+msgstr "Sin conector"
+
+msgid "Connector material unknown"
+msgstr "Material del conector desconocido"
+
+msgid "Not needed"
+msgstr "No es necesario"
+
+msgid "Not yet scheduled"
+msgstr "Aún no programado"
+
+msgid "Scheduled"
+msgstr "Programado"
+
+msgid "In progress"
+msgstr "En curso"
+
+msgid "Replaced"
+msgstr "Reemplazada"
+
+msgid "Waiting to be located"
+msgstr "En espera de ubicar"
+
+msgid "Coordinates from the inventory file"
+msgstr "Coordenadas del archivo del inventario"
+
+msgid "Located by address"
+msgstr "Ubicada por dirección"
+
+msgid "Located approximately"
+msgstr "Ubicada de forma aproximada"
+
+msgid "Address not found"
+msgstr "Dirección no encontrada"
+
+msgid "Placed by staff"
+msgstr "Ubicada por el personal"
+
+msgid "Not located"
+msgstr "Sin ubicar"
+
+msgid "Service line ID"
+msgstr "ID de la línea de servicio"
+
+msgid ""
+"The utility's own ID for the line. Used to match lines when you upload an "
+"updated file. Optional."
+msgstr ""
+"El ID propio de la empresa de agua para la línea. Sirve para emparejar "
+"líneas cuando sube un archivo actualizado. Opcional."
+
+msgid "Street address"
+msgstr "Dirección"
+
+msgid ""
+"House number and street, e.g. 214 Maple St. Required unless you map house "
+"number and street name separately."
+msgstr ""
+"Número y calle, por ejemplo 214 Maple St. Obligatorio salvo que asigne el "
+"número y el nombre de la calle por separado."
+
+msgid "House number"
+msgstr "Número de casa"
+
+msgid "Only if the house number is in its own column."
+msgstr "Solo si el número de casa está en su propia columna."
+
+msgid "Street name"
+msgstr "Nombre de la calle"
+
+msgid "Only if the street name is in its own column."
+msgstr "Solo si el nombre de la calle está en su propia columna."
+
+msgid "Unit or apartment"
+msgstr "Unidad o apartamento"
+
+msgid "City"
+msgstr "Ciudad"
+
+msgid "State"
+msgstr "Estado"
+
+msgid "ZIP code"
+msgstr "Código postal"
+
+msgid "Decimal degrees (WGS 84). Lines with coordinates are not geocoded."
+msgstr ""
+"Grados decimales (WGS 84). Las líneas con coordenadas no se geocodifican."
+
+msgid "Utility-side material"
+msgstr "Material del lado de la empresa de agua"
+
+msgid "Material of the system-owned (utility) portion."
+msgstr "Material de la parte del sistema (la empresa de agua)."
+
+msgid "Customer-side material"
+msgstr "Material del lado del cliente"
+
+msgid "Material of the customer-owned (private) portion."
+msgstr "Material de la parte del cliente (privada)."
+
+msgid "Overall classification"
+msgstr "Clasificación general"
+
+msgid ""
+"Lead, galvanized requiring replacement, non-lead or lead status unknown. If "
+"you leave this unmapped, Pipetrace works it out from the two portions."
+msgstr ""
+"Plomo, galvanizada que requiere reemplazo, no es de plomo o estado de plomo "
+"desconocido. Si no asigna esta columna, Pipetrace la calcula a partir de las "
+"dos partes."
+
+msgid "Galvanized ever downstream of lead?"
+msgstr "¿La tubería galvanizada estuvo alguna vez después de una de plomo?"
+
+msgid ""
+"Yes / No / Unknown. A galvanized line is treated as needing replacement "
+"unless this says No."
+msgstr ""
+"Sí / No / Desconocido. Una línea galvanizada se considera que necesita "
+"reemplazo, salvo que aquí diga No."
+
+msgid "Whether a lead gooseneck, pigtail or connector is present."
+msgstr "Si hay un cuello de ganso, una cola de cerdo o un conector de plomo."
+
+msgid "Basis of classification"
+msgstr "Base de la clasificación"
+
+msgid "How the material was determined (records, field inspection, ...)."
+msgstr "Cómo se determinó el material (registros, inspección en campo, ...)."
+
+msgid "Date verified"
+msgstr "Fecha de verificación"
+
+msgid "Year installed"
+msgstr "Año de instalación"
+
+msgid "Year built"
+msgstr "Año de construcción"
+
+msgid "Replacement status"
+msgstr "Estado del reemplazo"
+
+msgid "Scheduled replacement"
+msgstr "Reemplazo programado"
+
+msgid "A date, a year, or text like \"Spring 2027\" or \"Phase 2\"."
+msgstr "Una fecha, un año o un texto como \"Primavera 2027\" o \"Fase 2\"."
+
+msgid "Date replaced"
+msgstr "Fecha de reemplazo"
+
+msgid "Public note"
+msgstr "Nota pública"
+
+msgid "Shown to residents on the line's page."
+msgstr "Se muestra a los residentes en la página de la línea."
+
+msgid "Where the line is"
+msgstr "Dónde está la línea"
+
+msgid "What it is made of"
+msgstr "De qué está hecha"
+
+msgid "Other"
+msgstr "Otros"
+
+msgid ""
+"Choose the column with the street address (or both the house number and "
+"street name columns)."
+msgstr ""
+"Elija la columna con la dirección (o las columnas del número de casa y del "
+"nombre de la calle)."
+
+msgid "Each column can only be used once."
+msgstr "Cada columna solo se puede usar una vez."
+
+msgid "Map both latitude and longitude, or neither."
+msgstr "Asigne la latitud y la longitud, o ninguna de las dos."
+
+#, python-format
+msgid "\"%(value)s\" in %(field)s was not recognised and was left blank."
+msgstr "\"%(value)s\" en %(field)s no se reconoció y se dejó en blanco."
+
+msgid ""
+"Coordinates look projected (not latitude/longitude); the address will be "
+"geocoded instead."
+msgstr ""
+"Las coordenadas parecen proyectadas (no son latitud/longitud); la dirección "
+"se geocodificará."
+
+msgid "No street address; row skipped."
+msgstr "Sin dirección; se omitió la fila."
+
+#, python-format
+msgid "Same line as row %(row)s (%(address)s); the later row was used."
+msgstr ""
+"Es la misma línea que la fila %(row)s (%(address)s); se usó la fila "
+"posterior."
+
+msgid "public ID"
+msgstr "ID público"
+
+msgid "service line ID"
+msgstr "ID de la línea de servicio"
+
+msgid "The utility's own ID for this line, from the inventory file."
+msgstr ""
+"El ID propio de la empresa de agua para esta línea, tomado del archivo del "
+"inventario."
+
+msgid "street address"
+msgstr "dirección"
+
+msgid "unit"
+msgstr "unidad"
+
+msgid "city"
+msgstr "ciudad"
+
+msgid "state"
+msgstr "estado"
+
+msgid "location"
+msgstr "ubicación"
+
+msgid "geocoding"
+msgstr "geocodificación"
+
+msgid "matched address"
+msgstr "dirección encontrada"
+
+msgid "classification"
+msgstr "clasificación"
+
+msgid "utility-side material"
+msgstr "material del lado de la empresa de agua"
+
+msgid "customer-side material"
+msgstr "material del lado del cliente"
+
+msgid "galvanized ever downstream of lead"
+msgstr "galvanizada alguna vez después de plomo"
+
+msgid "lead connector"
+msgstr "conector de plomo"
+
+msgid "basis of classification"
+msgstr "base de la clasificación"
+
+msgid "verified on"
+msgstr "verificada el"
+
+msgid "year installed"
+msgstr "año de instalación"
+
+msgid "year built"
+msgstr "año de construcción"
+
+msgid "replacement"
+msgstr "reemplazo"
+
+msgid "scheduled for"
+msgstr "programada para"
+
+msgid "schedule label"
+msgstr "etiqueta del programa"
+
+msgid "Shown instead of the date, e.g. \"Spring 2027\" or \"Phase 2 (2028)\"."
+msgstr ""
+"Se muestra en lugar de la fecha, por ejemplo \"Primavera 2027\" o \"Fase 2 "
+"(2028)\"."
+
+msgid "replaced on"
+msgstr "reemplazada el"
+
+msgid "public note"
+msgstr "nota pública"
+
+msgid "public note (Spanish)"
+msgstr "nota pública (español)"
+
+msgid "internal note"
+msgstr "nota interna"
+
+msgid "other columns"
+msgstr "otras columnas"
+
+msgid "Columns from the inventory file that Pipetrace does not use."
+msgstr "Columnas del archivo del inventario que Pipetrace no usa."
+
+msgid "active"
+msgstr "activa"
+
+msgid "Lines removed from a later inventory file are kept but hidden."
+msgstr ""
+"Las líneas que no aparecen en un archivo posterior se conservan, pero "
+"ocultas."
+
+msgid "service line"
+msgstr "línea de servicio"
+
+msgid "service lines"
+msgstr "líneas de servicio"
+
+msgid "Uploaded"
+msgstr "Subido"
+
+msgid "Columns mapped"
+msgstr "Columnas asignadas"
+
+msgid "Imported"
+msgstr "Importado"
+
+msgid "Failed"
+msgstr "Falló"
+
+msgid "Update matching lines and add new ones"
+msgstr "Actualizar las líneas que coinciden y agregar las nuevas"
+
+msgid "Replace the whole inventory"
+msgstr "Reemplazar todo el inventario"
+
+msgid "file"
+msgstr "archivo"
+
+msgid "file name"
+msgstr "nombre del archivo"
+
+msgid "import mode"
+msgstr "modo de importación"
+
+msgid "sheet"
+msgstr "hoja"
+
+msgid "header row"
+msgstr "fila de encabezados"
+
+msgid "first data row"
+msgstr "primera fila de datos"
+
+msgid "inventory import"
+msgstr "importación del inventario"
+
+msgid "inventory imports"
+msgstr "importaciones del inventario"
+
+msgid "Resident submissions"
+msgstr "Envíos de los residentes"
+
+msgid "Leave this field empty"
+msgstr "Deje este campo vacío"
+
+msgid "Please leave this field empty."
+msgstr "Deje este campo vacío, por favor."
+
+msgid "This form expired. Please reload the page and try again."
+msgstr ""
+"Este formulario venció. Vuelva a cargar la página e inténtelo de nuevo."
+
+msgid "That was quick! Please check the form and send it again."
+msgstr "¡Qué rápido! Revise el formulario y envíelo de nuevo."
+
+msgid "Please give us a phone number or an email address so we can reach you."
+msgstr ""
+"Denos un número de teléfono o un correo electrónico para poder comunicarnos "
+"con usted."
+
+msgid "The utility may contact me about this request."
+msgstr "La empresa de agua puede comunicarse conmigo sobre esta solicitud."
+
+msgid "Address of the building"
+msgstr "Dirección del edificio"
+
+msgid "Your name"
+msgstr "Su nombre"
+
+msgid "Phone"
+msgstr "Teléfono"
+
+msgid "Email"
+msgstr "Correo electrónico"
+
+msgid "How should we contact you?"
+msgstr "¿Cómo prefiere que nos comuniquemos con usted?"
+
+msgid "Best days or times to reach you"
+msgstr "Mejores días u horas para comunicarnos con usted"
+
+msgid "Your connection to the property"
+msgstr "Su relación con la propiedad"
+
+msgid "Anything we should know? (optional)"
+msgstr "¿Algo que debamos saber? (opcional)"
+
+msgid "For example: weekday mornings."
+msgstr "Por ejemplo: entre semana por la mañana."
+
+msgid "Photo of the scratched pipe"
+msgstr "Foto de la tubería raspada"
+
+msgid "Another photo (optional)"
+msgstr "Otra foto (opcional)"
+
+msgid "What did the scratch look like?"
+msgstr "¿Cómo se veía el raspado?"
+
+msgid "What happened with the magnet?"
+msgstr "¿Qué pasó con el imán?"
+
+msgid "Anything else? (optional)"
+msgstr "¿Algo más? (opcional)"
+
+msgid ""
+"Take it close up, where the pipe comes through the wall or floor, with the "
+"scratched spot in focus."
+msgstr ""
+"Tómela de cerca, donde la tubería sale de la pared o del piso, con el punto "
+"raspado enfocado."
+
+#, python-format
+msgid "Photos must be smaller than %(mb)s MB."
+msgstr "Las fotos deben pesar menos de %(mb)s MB."
+
+msgid "That file doesn't look like a photo. Please choose a JPEG or PNG image."
+msgstr "Ese archivo no parece una foto. Elija una imagen JPEG o PNG."
+
+msgid "English"
+msgstr "Inglés"
+
+msgid "Spanish"
+msgstr "Español"
+
+msgid "reference"
+msgstr "referencia"
+
+msgid "address"
+msgstr "dirección"
+
+msgid "name"
+msgstr "nombre"
+
+msgid "language"
+msgstr "idioma"
+
+msgid "received"
+msgstr "recibido"
+
+msgid "staff notes"
+msgstr "notas del personal"
+
+msgid "sent from the static site"
+msgstr "enviado desde el sitio estático"
+
+msgid "New"
+msgstr "Nueva"
+
+msgid "Contacted"
+msgstr "Contactado"
+
+msgid "Visit scheduled"
+msgstr "Visita programada"
+
+msgid "Inspected"
+msgstr "Inspeccionada"
+
+msgid "Closed"
+msgstr "Cerrada"
+
+msgid "I own the property"
+msgstr "Soy dueño de la propiedad"
+
+msgid "I rent"
+msgstr "Alquilo"
+
+msgid "I manage the property"
+msgstr "Administro la propiedad"
+
+msgid "Phone call"
+msgstr "Llamada telefónica"
+
+msgid "Text message"
+msgstr "Mensaje de texto"
+
+msgid "relationship to the property"
+msgstr "relación con la propiedad"
+
+msgid "preferred contact"
+msgstr "contacto preferido"
+
+msgid "best time to reach you"
+msgstr "mejor hora para comunicarnos con usted"
+
+msgid "message"
+msgstr "mensaje"
+
+msgid "status"
+msgstr "estado"
+
+msgid "inspection request"
+msgstr "solicitud de inspección"
+
+msgid "inspection requests"
+msgstr "solicitudes de inspección"
+
+msgid "Shiny silver, scratches easily"
+msgstr "Plateado brillante, se raspa fácilmente"
+
+msgid "Copper colored, like a penny"
+msgstr "Color cobre, como un centavo"
+
+msgid "Dull gray, hard to scratch"
+msgstr "Gris opaco, difícil de raspar"
+
+msgid "Plastic (white, black or blue)"
+msgstr "Plástico (blanco, negro o azul)"
+
+msgid "I'm not sure"
+msgstr "No estoy seguro"
+
+msgid "The magnet sticks"
+msgstr "El imán se pega"
+
+msgid "The magnet does not stick"
+msgstr "El imán no se pega"
+
+msgid "I didn't try a magnet"
+msgstr "No probé con un imán"
+
+msgid "Waiting for review"
+msgstr "En espera de revisión"
+
+msgid "Reviewed"
+msgstr "Revisada"
+
+msgid "Needs a site visit"
+msgstr "Necesita una visita"
+
+msgid "photo"
+msgstr "foto"
+
+msgid "second photo"
+msgstr "segunda foto"
+
+msgid "scratch test"
+msgstr "prueba del raspado"
+
+msgid "magnet test"
+msgstr "prueba del imán"
+
+msgid "notes"
+msgstr "notas"
+
+msgid "what the guide suggested"
+msgstr "lo que sugirió la guía"
+
+msgid "material confirmed by staff"
+msgstr "material confirmado por el personal"
+
+msgid "applied to the inventory"
+msgstr "aplicado al inventario"
+
+msgid "pipe photo"
+msgstr "foto de tubería"
+
+msgid "pipe photos"
+msgstr "fotos de tuberías"
+
+msgid "This service line is made of lead."
+msgstr "Esta línea de servicio es de plomo."
+
+msgid ""
+"Lead can dissolve into drinking water as it flows through the pipe. There is "
+"no known safe level of lead exposure, especially for children and during "
+"pregnancy."
+msgstr ""
+"El plomo puede disolverse en el agua potable al pasar por la tubería. No se "
+"conoce ningún nivel seguro de exposición al plomo, sobre todo para niños y "
+"durante el embarazo."
+
+msgid "Galvanized, needs replacing"
+msgstr "Galvanizada, hay que reemplazarla"
+
+msgid "This service line is galvanized steel that needs to be replaced."
+msgstr "Esta línea de servicio es de acero galvanizado y hay que reemplazarla."
+
+msgid ""
+"Galvanized pipe that is, or ever was, connected after a lead pipe can "
+"collect lead inside it and release it into water later. Federal rules treat "
+"it like a lead line."
+msgstr ""
+"La tubería galvanizada que está, o estuvo alguna vez, conectada después de "
+"una tubería de plomo puede acumular plomo por dentro y liberarlo después en "
+"el agua. Las normas federales la tratan como una línea de plomo."
+
+msgid "We don't know yet what this service line is made of."
+msgstr "Aún no sabemos de qué está hecha esta línea de servicio."
+
+msgid ""
+"Our records don't show the pipe material. It could be lead. You can help us "
+"find out in about two minutes with a coin and a magnet."
+msgstr ""
+"Nuestros registros no indican el material de la tubería. Podría ser de "
+"plomo. Puede ayudarnos a averiguarlo en unos dos minutos con una moneda y un "
+"imán."
+
+msgid "This service line is not made of lead."
+msgstr "Esta línea de servicio no es de plomo."
+
+msgid ""
+"Our records show that neither part of this service line is lead or "
+"galvanized pipe that needs replacing."
+msgstr ""
+"Nuestros registros indican que ninguna parte de esta línea de servicio es de "
+"plomo ni de tubería galvanizada que haya que reemplazar."
+
+msgid "See details"
+msgstr "Ver detalles"
+
+msgid ""
+"No address found. Check the spelling, or try just the house number and "
+"street name."
+msgstr ""
+"No se encontró la dirección. Revise cómo la escribió o pruebe solo con el "
+"número y el nombre de la calle."
+
+msgid "Searching…"
+msgstr "Buscando…"
+
+#, python-format
+msgid "%(count)s addresses found"
+msgstr "%(count)s direcciones encontradas"
+
+msgid "1 address found"
+msgstr "1 dirección encontrada"
+
+msgid ""
+"The map could not load. You can still search for your address or browse by "
+"street."
+msgstr ""
+"No se pudo cargar el mapa. Aún puede buscar su dirección o ver la lista por "
+"calle."
+
+msgid "Show"
+msgstr "Mostrar"
+
+msgid "Thank you! Your reference number is"
+msgstr "¡Gracias! Su número de referencia es"
+
+msgid "Sorry, that didn't go through. Please try again, or call us."
+msgstr "Lo sentimos, no se pudo enviar. Inténtelo de nuevo o llámenos."
+
+msgid ""
+"Your email app should open with your message. Attach your photo and press "
+"send."
+msgstr ""
+"Su aplicación de correo debería abrirse con su mensaje. Adjunte su foto y "
+"envíelo."
+
+msgid "This page can't send forms. Please call us instead."
+msgstr "Esta página no puede enviar formularios. Llámenos, por favor."
+
+msgid "Sending…"
+msgstr "Enviando…"
+
+msgid "Fictional demo map"
+msgstr "Mapa ficticio de demostración"
+
+msgid "Utility side"
+msgstr "Lado de la empresa de agua"
+
+msgid "From the water main to the curb or meter"
+msgstr "Desde la tubería principal hasta la acera o el medidor"
+
+msgid "Your side"
+msgstr "Su lado"
+
+msgid "From the curb or meter to your building"
+msgstr "Desde la acera o el medidor hasta su edificio"
+
+#, python-format
+msgid "We received your message (%(reference)s)"
+msgstr "Recibimos su mensaje (%(reference)s)"
+
+msgid ""
+"You've sent several messages already. Please call us instead, or try again "
+"in an hour."
+msgstr "Ya envió varios mensajes. Llámenos o inténtelo de nuevo en una hora."
+
+msgid "Staff tools"
+msgstr "Herramientas del personal"
+
+msgid "Inventory spreadsheet"
+msgstr "Hoja de cálculo del inventario"
+
+msgid "Excel (.xlsx) or CSV. The EPA inventory template works as is."
+msgstr ""
+"Excel (.xlsx) o CSV. La plantilla de inventario de la EPA funciona tal como "
+"está."
+
+msgid "What should this file do?"
+msgstr "¿Qué debe hacer este archivo?"
+
+msgid ""
+"Old .xls files can't be read. Save the file as .xlsx or .csv and upload it "
+"again."
+msgstr ""
+"Los archivos .xls antiguos no se pueden leer. Guarde el archivo como .xlsx "
+"o .csv y vuelva a subirlo."
+
+msgid "Upload an .xlsx or .csv file."
+msgstr "Suba un archivo .xlsx o .csv."
+
+#, python-format
+msgid "Files must be smaller than %(mb)s MB."
+msgstr "Los archivos deben pesar menos de %(mb)s MB."
+
+msgid "Update the inventory: set the customer-side material for this line"
+msgstr ""
+"Actualizar el inventario: fijar el material del lado del cliente para esta "
+"línea"
+
+msgid "What the photo shows"
+msgstr "Lo que muestra la foto"
+
+msgid "Choose the material before updating the inventory."
+msgstr "Elija el material antes de actualizar el inventario."
+
+msgid "This photo isn't linked to a line in the inventory."
+msgstr "Esta foto no está vinculada a ninguna línea del inventario."
+
+#, python-format
+msgid "Imported %(created)s new and %(updated)s updated lines."
+msgstr "Se importaron %(created)s líneas nuevas y %(updated)s actualizadas."
+
+#, python-format
+msgid "%(count)s addresses queued to try again."
+msgstr "%(count)s direcciones en cola para intentarlo de nuevo."
+
+msgid "Saved."
+msgstr "Guardado."
+
+#, python-format
+msgid "Resident photo reviewed by staff (%(ref)s)"
+msgstr "Foto del residente revisada por el personal (%(ref)s)"
+
+#, python-format
+msgid "Inventory updated: %(address)s is now “%(status)s”."
+msgstr "Inventario actualizado: %(address)s ahora es “%(status)s”."
+
+msgid "Page not found"
+msgstr "Página no encontrada"
+
+msgid "We couldn't find that page"
+msgstr "No encontramos esa página"
+
+msgid ""
+"The address may have changed. Try looking up your street address instead."
+msgstr ""
+"Es posible que la dirección haya cambiado. Pruebe a buscar la dirección de "
+"su casa."
+
+msgid "Go to the home page"
+msgstr "Ir a la página de inicio"
+
+msgid "Is your water pipe lead?"
+msgstr "¿Es de plomo su tubería de agua?"
+
+#, python-format
+msgid ""
+"Look up whether the water service line to your home is lead, and what to do "
+"about it. From the %(utility)s service line inventory."
+msgstr ""
+"Averigüe si la línea de servicio de agua de su casa es de plomo y qué hacer "
+"al respecto. Del inventario de líneas de servicio de %(utility)s."
+
+msgid "Skip to main content"
+msgstr "Saltar al contenido principal"
+
+msgid "Demo:"
+msgstr "Demostración:"
+
+msgid ""
+"Millbrook is a fictional town. Every address and pipe on this site is made "
+"up."
+msgstr ""
+"Millbrook es un pueblo ficticio. Todas las direcciones y tuberías de este "
+"sitio son inventadas."
+
+msgid "Lead service line lookup"
+msgstr "Consulta de líneas de servicio de plomo"
+
+msgid "Main"
+msgstr "Principal"
+
+msgid "Look up an address"
+msgstr "Buscar una dirección"
+
+msgid "Check your pipe"
+msgstr "Revise su tubería"
+
+msgid "Filters"
+msgstr "Filtros"
+
+msgid "Questions"
+msgstr "Preguntas"
+
+msgid "On this site"
+msgstr "En este sitio"
+
+msgid "Browse by street"
+msgstr "Ver por calle"
+
+msgid "Request an inspection"
+msgstr "Solicitar una inspección"
+
+msgid "Send a photo of your pipe"
+msgstr "Enviar una foto de su tubería"
+
+msgid "About this data"
+msgstr "Sobre estos datos"
+
+#, python-format
+msgid "Inventory updated %(date)s."
+msgstr "Inventario actualizado el %(date)s."
+
+#, python-format
+msgid "Water system ID %(pwsid)s."
+msgstr "ID del sistema de agua %(pwsid)s."
+
+msgid "Records can be wrong; if yours looks wrong, tell us."
+msgstr ""
+"Los registros pueden tener errores; si el suyo parece incorrecto, avísenos."
+
+#, python-format
+msgid ""
+"Made with <a href=\"https://github.com/lobojoel2003/Pipetrace\">Pipetrace</"
+"a> %(version)s, free and open source."
+msgstr ""
+"Hecho con <a href=\"https://github.com/lobojoel2003/Pipetrace\">Pipetrace</"
+"a> %(version)s, gratuito y de código abierto."
+
+msgid "Staff sign in"
+msgstr "Acceso del personal"
+
+msgid "optional"
+msgstr "opcional"
+
+msgid "Please check the highlighted fields."
+msgstr "Revise los campos marcados."
+
+msgid "Questions about your pipe?"
+msgstr "¿Preguntas sobre su tubería?"
+
+msgid "Call us:"
+msgstr "Llámenos:"
+
+msgid "Email:"
+msgstr "Correo:"
+
+msgid "Your street address, e.g. 108 Maple St"
+msgstr "La dirección de su casa, por ejemplo 108 Maple St"
+
+msgid "Look up"
+msgstr "Buscar"
+
+msgid "Matching addresses"
+msgstr "Direcciones que coinciden"
+
+msgid "Use a filter certified to remove lead."
+msgstr "Use un filtro certificado para eliminar el plomo."
+
+msgid ""
+"Look for NSF/ANSI Standard 53 for lead reduction (and Standard 42 for "
+"particles), or a reverse osmosis system certified to NSF/ANSI 58. Use "
+"filtered water for drinking, cooking and baby formula."
+msgstr ""
+"Busque la norma NSF/ANSI 53 para reducción de plomo (y la norma 42 para "
+"partículas), o un sistema de ósmosis inversa certificado según NSF/ANSI 58. "
+"Use agua filtrada para beber, cocinar y preparar fórmula para bebés."
+
+msgid "How to choose a filter"
+msgstr "Cómo elegir un filtro"
+
+msgid "Run the cold water first."
+msgstr "Deje correr primero el agua fría."
+
+msgid ""
+"If water has sat in the pipes for several hours, run the cold tap until it "
+"feels noticeably colder before you drink it. Showering or running a load of "
+"laundry first also flushes the pipes."
+msgstr ""
+"Si el agua estuvo varias horas en las tuberías, deje correr la llave de agua "
+"fría hasta que se sienta claramente más fría antes de beberla. Ducharse o "
+"lavar una carga de ropa antes también limpia las tuberías."
+
+msgid "Use only cold water for drinking, cooking and baby formula."
+msgstr "Use solo agua fría para beber, cocinar y preparar fórmula para bebés."
+
+msgid "Hot water picks up more lead. Boiling water does not remove lead."
+msgstr ""
+"El agua caliente arrastra más plomo. Hervir el agua no elimina el plomo."
+
+msgid "Clean your faucet aerators."
+msgstr "Limpie los aireadores de los grifos."
+
+msgid ""
+"Unscrew the screen at the tip of each faucet every few months and rinse out "
+"any bits caught in it."
+msgstr ""
+"Desenrosque la rejilla de la punta de cada grifo cada pocos meses y enjuague "
+"las partículas que se hayan acumulado."
+
+msgid "Ask your doctor about a blood lead test"
+msgstr "Pregúntele a su médico por un análisis de plomo en la sangre"
+
+msgid ""
+"for young children and anyone who is pregnant. It's the only way to know "
+"whether someone has been exposed."
+msgstr ""
+"para niños pequeños y para cualquier persona embarazada. Es la única forma "
+"de saber si alguien estuvo expuesto."
+
+msgid "Questions and answers"
+msgstr "Preguntas y respuestas"
+
+msgid "Service lines, lead, and this inventory"
+msgstr "Las líneas de servicio, el plomo y este inventario"
+
+msgid ""
+"A service line runs from the water main under the street to the building. "
+"The part up to the curb stop or meter belongs to the utility; the rest "
+"belongs to the property owner."
+msgstr ""
+"Una línea de servicio va desde la tubería principal de agua, bajo la calle, "
+"hasta el edificio. La parte hasta la llave de paso de la acera o el medidor "
+"pertenece a la empresa de agua; el resto pertenece al dueño de la propiedad."
+
+msgid "Water main"
+msgstr "Tubería principal"
+
+msgid "Curb stop"
+msgstr "Llave de paso"
+
+msgid "Meter"
+msgstr "Medidor"
+
+msgid "Your home"
+msgstr "Su casa"
+
+msgid "What is a service line?"
+msgstr "¿Qué es una línea de servicio?"
+
+msgid ""
+"It's the pipe that carries water from the water main under the street into a "
+"building. Part of it usually belongs to the utility and part to the property "
+"owner. Many homes built before the 1960s were connected with lead pipe."
+msgstr ""
+"Es la tubería que lleva el agua desde la tubería principal, bajo la calle, "
+"hasta un edificio. Por lo general, una parte pertenece a la empresa de agua "
+"y otra al dueño de la propiedad. Muchas casas construidas antes de la década "
+"de 1960 se conectaron con tubería de plomo."
+
+msgid "Why is there an inventory?"
+msgstr "¿Por qué existe un inventario?"
+
+#, python-format
+msgid ""
+"Federal rules (the Lead and Copper Rule Improvements) require every "
+"community water system to list every service line, say whether it is lead, "
+"and make that list public. The first inventories were due October 16, 2024. "
+"Lead lines, and galvanized lines that need replacing, must be replaced by "
+"%(deadline)s."
+msgstr ""
+"Las normas federales (las Mejoras a la Norma de Plomo y Cobre) exigen que "
+"cada sistema de agua comunitario haga una lista de todas sus líneas de "
+"servicio, indique si son de plomo y la haga pública. Los primeros "
+"inventarios vencían el 16 de octubre de 2024. Las líneas de plomo y las "
+"galvanizadas que requieren reemplazo deben reemplazarse antes del "
+"%(deadline)s."
+
+msgid "What do the four results mean?"
+msgstr "¿Qué significan los cuatro resultados?"
+
+msgid "Why is my line “unknown”?"
+msgstr "¿Por qué mi línea dice “desconocido”?"
+
+msgid ""
+"Many service lines were installed a century ago, and records were lost or "
+"never kept. Unknown doesn't mean lead, but it might be. Checking the pipe "
+"yourself and sending us a photo is the quickest way to find out."
+msgstr ""
+"Muchas líneas de servicio se instalaron hace un siglo y los registros se "
+"perdieron o nunca existieron. Desconocido no significa que sea de plomo, "
+"pero podría serlo. Revisar la tubería usted mismo y enviarnos una foto es la "
+"forma más rápida de saberlo."
+
+msgid "Is my water safe to drink?"
+msgstr "¿Es segura mi agua para beber?"
+
+msgid ""
+"Water usually leaves the treatment plant without lead. Lead gets in from "
+"lead pipes, lead solder and older brass fixtures, and it varies from tap to "
+"tap and day to day. There is no known safe level of lead exposure, so if "
+"your line is lead, galvanized or unknown, use a filter certified to remove "
+"lead for drinking and cooking water."
+msgstr ""
+"Normalmente el agua sale de la planta de tratamiento sin plomo. El plomo "
+"entra por las tuberías de plomo, la soldadura con plomo y los accesorios de "
+"latón antiguos, y varía de una llave a otra y de un día a otro. No se conoce "
+"ningún nivel seguro de exposición al plomo, así que si su línea es de plomo, "
+"galvanizada o desconocida, use un filtro certificado para eliminar el plomo "
+"en el agua para beber y cocinar."
+
+msgid "Filter advice"
+msgstr "Consejos sobre filtros"
+
+msgid "Who pays for replacement?"
+msgstr "¿Quién paga el reemplazo?"
+
+msgid ""
+"Ask us about our replacement program, including any help with the cost of "
+"the part on your property."
+msgstr ""
+"Pregúntenos por nuestro programa de reemplazo, incluida cualquier ayuda con "
+"el costo de la parte que está en su propiedad."
+
+msgid "Where does this information come from?"
+msgstr "¿De dónde viene esta información?"
+
+msgid ""
+"From our service line inventory: installation records, tap cards, building "
+"permits, inspections, and photos sent by residents. Records can be wrong. If "
+"you think yours is, send us a photo or request an inspection."
+msgstr ""
+"De nuestro inventario de líneas de servicio: registros de instalación, "
+"fichas de conexión, permisos de construcción, inspecciones y fotos enviadas "
+"por los residentes. Los registros pueden tener errores. Si cree que el suyo "
+"está mal, envíenos una foto o solicite una inspección."
+
+#, python-format
+msgid ""
+"The inventory lists %(total)s service lines and was last updated %(date)s."
+msgstr ""
+"El inventario incluye %(total)s líneas de servicio y se actualizó por última "
+"vez el %(date)s."
+
+msgid "How do I get my water tested?"
+msgstr "¿Cómo hago analizar mi agua?"
+
+msgid ""
+"Contact us. We can tell you how to collect a sample and where to send it. If "
+"you have children, ask your doctor about a blood lead test too."
+msgstr ""
+"Comuníquese con nosotros. Podemos explicarle cómo tomar una muestra y adónde "
+"enviarla. Si tiene niños, pregúntele también a su médico por un análisis de "
+"plomo en la sangre."
+
+msgid "Check your pipe in 2 minutes"
+msgstr "Revise su tubería en 2 minutos"
+
+msgid ""
+"A two-minute guide to finding out whether your water service line is lead, "
+"using a coin and a magnet."
+msgstr ""
+"Una guía de dos minutos para averiguar si su línea de servicio de agua es de "
+"plomo, con una moneda y un imán."
+
+msgid "Two-minute guide"
+msgstr "Guía de dos minutos"
+
+msgid "Check your pipe with a coin and a magnet"
+msgstr "Revise su tubería con una moneda y un imán"
+
+msgid ""
+"You can often tell what your service line is made of just by looking at it. "
+"Scratching it is safe: it won't damage the pipe or put lead in your water."
+msgstr ""
+"Muchas veces puede saber de qué está hecha su línea de servicio con solo "
+"mirarla. Rasparla no es peligroso: no daña la tubería ni pone plomo en su "
+"agua."
+
+#, python-format
+msgid "Checking the pipe at <strong>%(address)s</strong>."
+msgstr "Revisando la tubería de <strong>%(address)s</strong>."
+
+msgid "You need:"
+msgstr "Necesita:"
+
+msgid "a coin or a key"
+msgstr "una moneda o una llave"
+
+msgid "a fridge magnet"
+msgstr "un imán de refrigerador"
+
+msgid "your phone camera"
+msgstr "la cámara de su teléfono"
+
+msgid "Find where the water pipe comes in"
+msgstr "Encuentre por dónde entra la tubería del agua"
+
+msgid ""
+"Look in the basement, crawl space, garage or utility closet, usually on the "
+"wall that faces the street, near your water meter or main shut-off valve. In "
+"warmer places the meter may be outside in a box near the curb; check the "
+"pipe that goes into the house."
+msgstr ""
+"Busque en el sótano, el espacio bajo el piso, el garaje o el cuarto de "
+"servicio, por lo general en la pared que da a la calle, cerca del medidor de "
+"agua o de la llave de paso principal. En lugares cálidos, el medidor puede "
+"estar afuera, en una caja cerca de la acera; revise la tubería que entra a "
+"la casa."
+
+msgid ""
+"Check the stretch of pipe between the wall or floor and the shut-off valve "
+"or meter."
+msgstr ""
+"Revise el tramo de tubería entre la pared o el piso y la llave de paso o el "
+"medidor."
+
+msgid "Scratch it gently with the coin"
+msgstr "Ráspela suavemente con la moneda"
+
+msgid ""
+"Pick a spot on the pipe and scrape the edge of the coin across it a few "
+"times, like a lottery ticket. If the pipe is painted, scratch through the "
+"paint. Don't use a knife or a file."
+msgstr ""
+"Elija un punto de la tubería y pase el borde de la moneda varias veces, como "
+"si raspara un billete de lotería. Si la tubería está pintada, raspe hasta "
+"atravesar la pintura. No use un cuchillo ni una lima."
+
+msgid "Lead is soft: the scratch turns bright, shiny silver."
+msgstr "El plomo es blando: el raspado se vuelve plateado brillante."
+
+msgid "Hold a magnet against it"
+msgstr "Acerque un imán"
+
+msgid ""
+"A fridge magnet sticks to galvanized steel. It does not stick to lead, "
+"copper or plastic."
+msgstr ""
+"Un imán de refrigerador se pega al acero galvanizado. No se pega al plomo, "
+"al cobre ni al plástico."
+
+msgid "Take a close-up photo and send it to us"
+msgstr "Tome una foto de cerca y envíenosla"
+
+msgid ""
+"Photograph the scratched spot with the pipe going into the wall or floor in "
+"the picture. We'll look at it and update our records."
+msgstr ""
+"Fotografíe el punto raspado con la tubería entrando a la pared o al piso en "
+"la imagen. La revisaremos y actualizaremos nuestros registros."
+
+msgid "Send us your photo"
+msgstr "Envíenos su foto"
+
+msgid "Compare what you see"
+msgstr "Compare lo que ve"
+
+msgid "Dull gray, soft"
+msgstr "Gris opaco, blando"
+
+msgid "Scratch: shiny silver"
+msgstr "Raspado: plateado brillante"
+
+msgid "Magnet: does not stick"
+msgstr "Imán: no se pega"
+
+msgid "Often a bulb-shaped joint near the meter"
+msgstr "A menudo tiene una unión en forma de bulbo cerca del medidor"
+
+msgid "Dull gray or silver, hard"
+msgstr "Gris opaco o plateado, duro"
+
+msgid "Scratch: stays dull gray"
+msgstr "Raspado: sigue gris opaco"
+
+msgid "Magnet: sticks"
+msgstr "Imán: se pega"
+
+msgid "Threaded joints"
+msgstr "Uniones roscadas"
+
+msgid "Brown, sometimes with green spots"
+msgstr "Marrón, a veces con manchas verdes"
+
+msgid "Scratch: bright like a new penny"
+msgstr "Raspado: brillante como un centavo nuevo"
+
+msgid "White, black or blue"
+msgstr "Blanco, negro o azul"
+
+msgid "No metal under the scratch"
+msgstr "No hay metal debajo del raspado"
+
+msgid "What did you find?"
+msgstr "¿Qué encontró?"
+
+msgid "The scratched spot looks…"
+msgstr "El punto raspado se ve…"
+
+msgid "Shiny silver"
+msgstr "Plateado brillante"
+
+msgid "Like a new penny"
+msgstr "Como un centavo nuevo"
+
+msgid "Still dull gray"
+msgstr "Sigue gris opaco"
+
+msgid "It's plastic"
+msgstr "Es de plástico"
+
+msgid "Not sure"
+msgstr "No estoy seguro"
+
+msgid "The magnet…"
+msgstr "El imán…"
+
+msgid "Sticks"
+msgstr "Se pega"
+
+msgid "Doesn't stick"
+msgstr "No se pega"
+
+msgid "Didn't try"
+msgstr "No lo probé"
+
+msgid "This looks like lead."
+msgstr "Parece de plomo."
+
+msgid ""
+"Lead scratches to shiny silver and a magnet won't stick. Please send us a "
+"photo so we can confirm it, and start using a filter certified to remove "
+"lead now."
+msgstr ""
+"El plomo se raspa y queda plateado brillante, y el imán no se pega. Envíenos "
+"una foto para confirmarlo y empiece a usar ahora un filtro certificado para "
+"eliminar el plomo."
+
+msgid "This looks like galvanized steel."
+msgstr "Parece de acero galvanizado."
+
+msgid ""
+"A magnet sticks to galvanized steel. If it was ever connected to a lead pipe "
+"it needs to be replaced, so please send us a photo."
+msgstr ""
+"El imán se pega al acero galvanizado. Si alguna vez estuvo conectado a una "
+"tubería de plomo, hay que reemplazarlo, así que envíenos una foto."
+
+msgid "This looks like copper."
+msgstr "Parece de cobre."
+
+msgid ""
+"Copper looks like a new penny where you scratch it, and a magnet won't "
+"stick. Send us a photo so we can update your record."
+msgstr ""
+"El cobre se ve como un centavo nuevo donde lo raspa, y el imán no se pega. "
+"Envíenos una foto para actualizar su registro."
+
+msgid "This looks like plastic."
+msgstr "Parece de plástico."
+
+msgid "Plastic pipe is not lead. Send us a photo so we can update your record."
+msgstr ""
+"La tubería de plástico no es de plomo. Envíenos una foto para actualizar su "
+"registro."
+
+msgid "We can't tell yet."
+msgstr "Todavía no podemos saberlo."
+
+msgid ""
+"Try again on a clean spot, pressing a little harder, or just send us a photo "
+"and we'll take a look."
+msgstr ""
+"Vuelva a intentarlo en un punto limpio, presionando un poco más, o "
+"simplemente envíenos una foto y la revisaremos."
+
+msgid "Good to know"
+msgstr "Conviene saber"
+
+msgid "Wash your hands after touching a pipe that might be lead."
+msgstr "Lávese las manos después de tocar una tubería que podría ser de plomo."
+
+msgid ""
+"Some homes use the water pipe to ground the electrical system. Don't touch "
+"or remove ground wires or clamps on the pipe."
+msgstr ""
+"Algunas casas usan la tubería del agua como conexión a tierra del sistema "
+"eléctrico. No toque ni quite cables ni abrazaderas de tierra que estén en la "
+"tubería."
+
+msgid ""
+"You can only see your side of the line. The utility side runs under the "
+"street and may be a different material, so your photo helps us, but we may "
+"still need to check the rest."
+msgstr ""
+"Solo puede ver su lado de la línea. El lado de la empresa de agua va bajo la "
+"calle y puede ser de otro material, así que su foto nos ayuda, pero quizá "
+"aún tengamos que revisar el resto."
+
+msgid ""
+"If you can't reach the pipe, or it's behind a finished wall, don't open the "
+"wall. Ask us for an inspection instead."
+msgstr ""
+"Si no puede llegar a la tubería, o está detrás de una pared terminada, no "
+"abra la pared. Mejor solicítenos una inspección."
+
+#, python-format
+msgid "Thank you for contacting %(utility)s."
+msgstr "Gracias por comunicarse con %(utility)s."
+
+#, python-format
+msgid ""
+"We received your message about %(address)s. Your reference number is "
+"%(reference)s."
+msgstr ""
+"Recibimos su mensaje sobre %(address)s. Su número de referencia es "
+"%(reference)s."
+
+msgid "Staff will look at your photo and contact you if they have questions."
+msgstr ""
+"El personal revisará su foto y se comunicará con usted si tiene preguntas."
+
+msgid "We'll contact you within a few business days to set up a visit."
+msgstr ""
+"Nos comunicaremos con usted en unos días hábiles para programar una visita."
+
+#, python-format
+msgid "Questions? Call %(phone)s."
+msgstr "¿Preguntas? Llame al %(phone)s."
+
+msgid "Filters that remove lead"
+msgstr "Filtros que eliminan el plomo"
+
+msgid "How to choose a filter that removes lead"
+msgstr "Cómo elegir un filtro que elimine el plomo"
+
+msgid ""
+"A good filter is the simplest way to lower lead in the water you drink while "
+"you wait for a replacement or an answer."
+msgstr ""
+"Un buen filtro es la forma más sencilla de reducir el plomo del agua que "
+"bebe mientras espera un reemplazo o una respuesta."
+
+#, python-format
+msgid "From %(utility)s"
+msgstr "De %(utility)s"
+
+msgid "1. Check the certification on the box"
+msgstr "1. Revise la certificación en la caja"
+
+msgid ""
+"Words like “reduces lead” aren't enough. Look for a filter certified by an "
+"accredited organization (such as NSF, IAPMO or WQA) to:"
+msgstr ""
+"Frases como “reduce el plomo” no bastan. Busque un filtro certificado por "
+"una organización acreditada (como NSF, IAPMO o WQA) según:"
+
+msgid "Lead reduction. This is the one that matters most."
+msgstr "Reducción de plomo. Es la más importante."
+
+msgid ""
+"Particle reduction (Class I). Catches small bits of lead that break off "
+"pipes."
+msgstr ""
+"Reducción de partículas (Clase I). Atrapa los trocitos de plomo que se "
+"desprenden de las tuberías."
+
+msgid "Reverse osmosis systems, which also remove lead."
+msgstr "Sistemas de ósmosis inversa, que también eliminan el plomo."
+
+msgid ""
+"Check that lead is listed among the contaminants the product is certified to "
+"reduce. You can look up a model in the certifier's online listings."
+msgstr ""
+"Compruebe que el plomo figure entre los contaminantes que el producto está "
+"certificado para reducir. Puede buscar el modelo en las listas en línea del "
+"certificador."
+
+msgid "2. Pick a type that fits your home"
+msgstr "2. Elija un tipo que se adapte a su casa"
+
+msgid "Pitcher"
+msgstr "Jarra"
+
+msgid "Cheapest and easiest. Keep it in the fridge and refill it often."
+msgstr ""
+"La más barata y sencilla. Guárdela en el refrigerador y rellénela a menudo."
+
+msgid "Faucet-mounted"
+msgstr "Para el grifo"
+
+msgid ""
+"Clips onto the kitchen faucet; switch it on for drinking and cooking water."
+msgstr ""
+"Se coloca en el grifo de la cocina; actívelo para el agua de beber y de "
+"cocinar."
+
+msgid "Under the sink"
+msgstr "Debajo del fregadero"
+
+msgid ""
+"Filters every glass from a separate tap. Costs more and is installed under "
+"the sink."
+msgstr ""
+"Filtra cada vaso desde una llave aparte. Cuesta más y se instala debajo del "
+"fregadero."
+
+msgid "3. Use it the right way"
+msgstr "3. Úselo correctamente"
+
+msgid "Filter cold water only. Hot water can damage many filters."
+msgstr "Filtre solo agua fría. El agua caliente puede dañar muchos filtros."
+
+msgid ""
+"Use filtered water for drinking, cooking, making coffee or tea, and mixing "
+"baby formula."
+msgstr ""
+"Use agua filtrada para beber, cocinar, preparar café o té y preparar fórmula "
+"para bebés."
+
+msgid ""
+"Change the cartridge as often as the instructions say. A worn-out cartridge "
+"stops removing lead."
+msgstr ""
+"Cambie el cartucho con la frecuencia que indican las instrucciones. Un "
+"cartucho gastado deja de eliminar el plomo."
+
+msgid ""
+"Showering and bathing in unfiltered water is fine: skin doesn't absorb much "
+"lead from water."
+msgstr ""
+"Ducharse y bañarse con agua sin filtrar no es un problema: la piel absorbe "
+"muy poco plomo del agua."
+
+msgid "Other ways to lower lead today"
+msgstr "Otras formas de reducir el plomo hoy"
+
+msgid ""
+"This page is general guidance. Follow the instructions that come with your "
+"filter, and ask us if you have questions."
+msgstr ""
+"Esta página es una guía general. Siga las instrucciones de su filtro y "
+"pregúntenos si tiene dudas."
+
+msgid "Is the water pipe to your home made of lead?"
+msgstr "¿Es de plomo la tubería de agua de su casa?"
+
+msgid ""
+"Type your address to see what your service line is made of, what that means, "
+"and what you can do today."
+msgstr ""
+"Escriba su dirección para ver de qué está hecha su línea de servicio, qué "
+"significa y qué puede hacer hoy."
+
+msgid "Don't see your address?"
+msgstr "¿No ve su dirección?"
+
+msgid "Inventory at a glance"
+msgstr "El inventario de un vistazo"
+
+#, python-format
+msgid "%(percent)s%% of service lines"
+msgstr "%(percent)s%% de las líneas de servicio"
+
+msgid "Map of service lines"
+msgstr "Mapa de las líneas de servicio"
+
+#, python-format
+msgid ""
+"%(total)s service line in the inventory. Select a point to see its details."
+msgid_plural ""
+"%(total)s service lines in the inventory. Select a point to see its details."
+msgstr[0] ""
+"%(total)s línea de servicio en el inventario. Seleccione un punto para ver "
+"sus detalles."
+msgstr[1] ""
+"%(total)s líneas de servicio en el inventario. Seleccione un punto para ver "
+"sus detalles."
+
+msgid "List by street"
+msgstr "Lista por calle"
+
+msgid "Show or hide on the map"
+msgstr "Mostrar u ocultar en el mapa"
+
+msgid "Map of service lines by material"
+msgstr "Mapa de las líneas de servicio por material"
+
+msgid "Replacement progress"
+msgstr "Avance del reemplazo"
+
+#, python-format
+msgid ""
+"Every lead and galvanized-requiring-replacement line must be replaced by "
+"%(deadline)s."
+msgstr ""
+"Todas las líneas de plomo y las galvanizadas que requieren reemplazo deben "
+"reemplazarse antes de %(deadline)s."
+
+#, python-format
+msgid "%(done)s of %(goal)s lines replaced"
+msgstr "%(done)s de %(goal)s líneas reemplazadas"
+
+#, python-format
+msgid "%(n)s replaced"
+msgid_plural "%(n)s replaced"
+msgstr[0] "%(n)s reemplazada"
+msgstr[1] "%(n)s reemplazadas"
+
+#, python-format
+msgid "%(n)s scheduled"
+msgid_plural "%(n)s scheduled"
+msgstr[0] "%(n)s programada"
+msgstr[1] "%(n)s programadas"
+
+#, python-format
+msgid "%(n)s still to replace"
+msgid_plural "%(n)s still to replace"
+msgstr[0] "%(n)s pendiente de reemplazo"
+msgstr[1] "%(n)s pendientes de reemplazo"
+
+msgid "What the results mean"
+msgstr "Qué significan los resultados"
+
+msgid "Things you can do today"
+msgstr "Lo que puede hacer hoy"
+
+msgid "Check your own pipe in 2 minutes"
+msgstr "Revise usted mismo su tubería en 2 minutos"
+
+msgid "All you need is a coin and a fridge magnet. Then send us a photo."
+msgstr ""
+"Solo necesita una moneda y un imán de refrigerador. Después, envíenos una "
+"foto."
+
+msgid "Start the guide"
+msgstr "Empezar la guía"
+
+msgid "Use a filter that removes lead"
+msgstr "Use un filtro que elimine el plomo"
+
+msgid "Which certification to look for, and how to use it."
+msgstr "Qué certificación buscar y cómo usarlo."
+
+msgid "Ask us to inspect your line"
+msgstr "Pídanos que inspeccionemos su línea"
+
+msgid "Tell us how to reach you and we'll set up a visit."
+msgstr "Díganos cómo comunicarnos con usted y programaremos una visita."
+
+msgid "Breadcrumb"
+msgstr "Ruta de navegación"
+
+msgid "Water service line at"
+msgstr "Línea de servicio de agua en"
+
+#, python-format
+msgid "This lead service line was replaced on %(date)s."
+msgstr "Esta línea de servicio de plomo se reemplazó el %(date)s."
+
+msgid "The pipe from the water main to your building is no longer lead."
+msgstr ""
+"La tubería desde la tubería principal hasta su edificio ya no es de plomo."
+
+#, python-format
+msgid "Checked %(date)s"
+msgstr "Revisada el %(date)s"
+
+#, python-format
+msgid "How we know: %(basis)s"
+msgstr "Cómo lo sabemos: %(basis)s"
+
+#, python-format
+msgid "Inventory updated %(date)s"
+msgstr "Inventario actualizado el %(date)s"
+
+msgid "After a replacement"
+msgstr "Después de un reemplazo"
+
+msgid ""
+"For a few months after a service line is replaced, small bits of lead can "
+"come loose from the plumbing inside your home. Until then:"
+msgstr ""
+"Durante algunos meses después de reemplazar una línea de servicio, pueden "
+"desprenderse trocitos de plomo de las tuberías de dentro de su casa. "
+"Mientras tanto:"
+
+msgid ""
+"Keep using a filter certified to remove lead for drinking and cooking water."
+msgstr ""
+"Siga usando un filtro certificado para eliminar el plomo en el agua para "
+"beber y cocinar."
+
+msgid "Clean your faucet aerators every few weeks."
+msgstr "Limpie los aireadores de los grifos cada pocas semanas."
+
+msgid ""
+"Run the cold water for a few minutes if it has sat in the pipes overnight."
+msgstr ""
+"Deje correr el agua fría unos minutos si estuvo toda la noche en las "
+"tuberías."
+
+msgid "What to do today"
+msgstr "Qué hacer hoy"
+
+msgid ""
+"Until your line is replaced, these steps lower the lead in the water you "
+"drink:"
+msgstr ""
+"Hasta que se reemplace su línea, estos pasos reducen el plomo del agua que "
+"bebe:"
+
+msgid "Replacement schedule"
+msgstr "Programa de reemplazo"
+
+msgid "Replacement work is under way."
+msgstr "Las obras de reemplazo están en curso."
+
+#, python-format
+msgid "Expected: %(when)s."
+msgstr "Fecha prevista: %(when)s."
+
+#, python-format
+msgid "Scheduled for replacement: <strong>%(when)s</strong>."
+msgstr "Programada para reemplazo: <strong>%(when)s</strong>."
+
+msgid ""
+"We will contact you before work starts. Dates can move with weather and "
+"construction."
+msgstr ""
+"Nos comunicaremos con usted antes de empezar las obras. Las fechas pueden "
+"cambiar por el clima y la construcción."
+
+msgid "Not scheduled yet."
+msgstr "Aún no está programada."
+
+#, python-format
+msgid ""
+"Federal rules require every lead and galvanized-requiring-replacement line "
+"to be replaced by %(deadline)s. We'll contact you when your street is "
+"scheduled."
+msgstr ""
+"Las normas federales exigen que todas las líneas de plomo y las galvanizadas "
+"que requieren reemplazo se reemplacen antes de %(deadline)s. Nos "
+"comunicaremos con usted cuando se programe su calle."
+
+msgid "Help us find out in about two minutes"
+msgstr "Ayúdenos a averiguarlo en unos dos minutos"
+
+msgid ""
+"Find the pipe where water comes into your home. Scratch it gently with a "
+"coin and hold a magnet to it. What you see tells you a lot, and a photo "
+"helps us update the record."
+msgstr ""
+"Busque la tubería por donde entra el agua a su casa. Ráspela suavemente con "
+"una moneda y acérquele un imán. Lo que vea dice mucho, y una foto nos ayuda "
+"a actualizar el registro."
+
+msgid "Send us a photo"
+msgstr "Envíenos una foto"
+
+msgid "Until you know, play it safe"
+msgstr "Mientras no lo sepa, tome precauciones"
+
+msgid ""
+"An unknown line could be lead. These steps lower lead in drinking water "
+"either way:"
+msgstr ""
+"Una línea desconocida podría ser de plomo. Estos pasos reducen el plomo en "
+"el agua potable en cualquier caso:"
+
+msgid "Lead can still come from inside a building"
+msgstr "El plomo también puede venir del interior de un edificio"
+
+msgid ""
+"A service line that isn't lead is good news. Plumbing inside the building "
+"can still add lead: solder used before 1986, and older faucets and fittings."
+msgstr ""
+"Que la línea de servicio no sea de plomo es una buena noticia. Las tuberías "
+"dentro del edificio todavía pueden aportar plomo: la soldadura usada antes "
+"de 1986 y los grifos y accesorios antiguos."
+
+msgid "Use cold water for drinking, cooking and baby formula."
+msgstr "Use agua fría para beber, cocinar y preparar fórmula para bebés."
+
+msgid "If water has sat for hours, run the cold tap until it feels colder."
+msgstr ""
+"Si el agua estuvo horas sin usarse, deje correr la llave de agua fría hasta "
+"que se sienta más fría."
+
+msgid "Clean faucet aerators every few months."
+msgstr "Limpie los aireadores de los grifos cada pocos meses."
+
+msgid "If you're concerned, ask us about testing your water."
+msgstr "Si le preocupa, pregúntenos cómo analizar su agua."
+
+msgid "This line has a lead connector"
+msgstr "Esta línea tiene un conector de plomo"
+
+msgid ""
+"A short lead pipe (a gooseneck or pigtail) joins this line to the water "
+"main. Lead connectors are replaced whenever they are found during work on "
+"the line or the main."
+msgstr ""
+"Un tramo corto de tubería de plomo (un cuello de ganso o una cola de cerdo) "
+"une esta línea con la tubería principal. Los conectores de plomo se "
+"reemplazan cada vez que se encuentran durante obras en la línea o en la "
+"tubería principal."
+
+msgid "What our records show"
+msgstr "Lo que indican nuestros registros"
+
+msgid "Connector to the main"
+msgstr "Conector a la tubería principal"
+
+msgid "Year the building was built"
+msgstr "Año de construcción del edificio"
+
+msgid "How we know"
+msgstr "Cómo lo sabemos"
+
+msgid "Note"
+msgstr "Nota"
+
+msgid ""
+"The utility side runs from the water main to the curb stop or meter; your "
+"side runs from there into the building. Owners are usually responsible for "
+"their side, but replacement programs often cover both."
+msgstr ""
+"El lado de la empresa de agua va desde la tubería principal hasta la llave "
+"de paso de la acera o el medidor; su lado va desde ahí hasta el edificio. "
+"Por lo general, los dueños son responsables de su lado, pero los programas "
+"de reemplazo suelen cubrir ambos."
+
+msgid "Location on the map"
+msgstr "Ubicación en el mapa"
+
+msgid "Map of this service line and its neighbours"
+msgstr "Mapa de esta línea de servicio y las vecinas"
+
+msgid "Does this look wrong?"
+msgstr "¿Le parece incorrecto?"
+
+msgid ""
+"Records can be out of date. If you've seen your pipe and it doesn't match, "
+"send us a photo and we'll check."
+msgstr ""
+"Los registros pueden estar desactualizados. Si vio su tubería y no coincide, "
+"envíenos una foto y lo revisaremos."
+
+msgid "Send a photo"
+msgstr "Enviar una foto"
+
+msgid "Print this page"
+msgstr "Imprimir esta página"
+
+msgid "Inspection"
+msgstr "Inspección"
+
+msgid "Ask us to inspect your service line"
+msgstr "Pídanos que inspeccionemos su línea de servicio"
+
+msgid ""
+"We'll contact you to set up a visit. An inspection usually takes less than "
+"30 minutes and is free."
+msgstr ""
+"Nos comunicaremos con usted para programar una visita. Una inspección suele "
+"durar menos de 30 minutos y es gratuita."
+
+#, python-format
+msgid "For the service line at <strong data-line-address>%(address)s</strong>."
+msgstr ""
+"Para la línea de servicio de <strong data-line-address>%(address)s</strong>."
+
+msgid "Send request"
+msgstr "Enviar solicitud"
+
+msgid "What happens next"
+msgstr "Qué pasa después"
+
+msgid "We contact you within a few business days."
+msgstr "Nos comunicamos con usted en unos días hábiles."
+
+msgid ""
+"A staff member looks at the pipe where it enters your building, and may "
+"check the curb box outside."
+msgstr ""
+"Un miembro del personal revisa la tubería donde entra a su edificio y quizá "
+"revise la caja de la llave de paso afuera."
+
+msgid "We update the record and tell you what we found."
+msgstr "Actualizamos el registro y le contamos lo que encontramos."
+
+#, python-format
+msgid "Results for “%(query)s”"
+msgstr "Resultados para “%(query)s”"
+
+msgid "Searching needs JavaScript. You can also"
+msgstr "La búsqueda necesita JavaScript. También puede"
+
+msgid "browse by street"
+msgstr "ver la lista por calle"
+
+#, python-format
+msgid "%(n)s address found"
+msgid_plural "%(n)s addresses found"
+msgstr[0] "%(n)s dirección encontrada"
+msgstr[1] "%(n)s direcciones encontradas"
+
+#, python-format
+msgid "We couldn't find “%(query)s”."
+msgstr "No encontramos “%(query)s”."
+
+msgid ""
+"Check the spelling, or try just the house number and street name (leave out "
+"the city and ZIP code)."
+msgstr ""
+"Revise cómo lo escribió o pruebe solo con el número y el nombre de la calle "
+"(sin la ciudad ni el código postal)."
+
+msgid ""
+"If your address really isn't in the inventory, call us or request an "
+"inspection, and we'll add it."
+msgstr ""
+"Si su dirección de verdad no está en el inventario, llámenos o solicite una "
+"inspección y la agregaremos."
+
+msgid "Addresses on that street"
+msgstr "Direcciones en esa calle"
+
+msgid "Browse every street"
+msgstr "Ver todas las calles"
+
+msgid "Send us a photo of your pipe"
+msgstr "Envíenos una foto de su tubería"
+
+msgid ""
+"Staff will look at your photo and update the record for your address. It's "
+"the fastest way to turn “unknown” into an answer."
+msgstr ""
+"El personal revisará su foto y actualizará el registro de su dirección. Es "
+"la forma más rápida de convertir “desconocido” en una respuesta."
+
+msgid "How can we reach you?"
+msgstr "¿Cómo podemos comunicarnos con usted?"
+
+msgid ""
+"We only use this to ask about your photo. Give a phone number or an email."
+msgstr ""
+"Solo lo usaremos para preguntarle sobre su foto. Denos un teléfono o un "
+"correo electrónico."
+
+msgid "Send photo"
+msgstr "Enviar foto"
+
+msgid "Tips for a good photo"
+msgstr "Consejos para una buena foto"
+
+msgid "Get close: the scratched spot should fill much of the picture."
+msgstr "Acérquese: el punto raspado debe ocupar buena parte de la imagen."
+
+msgid "Include the place where the pipe comes through the wall or floor."
+msgstr "Incluya el lugar donde la tubería sale de la pared o del piso."
+
+msgid "Turn on a light or your phone's flash."
+msgstr "Encienda una luz o el flash de su teléfono."
+
+msgid "A second photo from farther back helps too."
+msgstr "Una segunda foto desde más lejos también ayuda."
+
+msgid "Not sure how to check?"
+msgstr "¿No sabe cómo revisarla?"
+
+msgid "Read the two-minute guide"
+msgstr "Lea la guía de dos minutos"
+
+msgid ""
+"We remove location data from photos before storing them, and only staff can "
+"see them."
+msgstr ""
+"Quitamos los datos de ubicación de las fotos antes de guardarlas, y solo el "
+"personal puede verlas."
+
+msgid ""
+"Every street in the inventory, with the number of service lines on it that "
+"still need replacing."
+msgstr ""
+"Todas las calles del inventario, con la cantidad de líneas de servicio que "
+"aún hay que reemplazar."
+
+#, python-format
+msgid "%(n)s line"
+msgid_plural "%(n)s lines"
+msgstr[0] "%(n)s línea"
+msgstr[1] "%(n)s líneas"
+
+#, python-format
+msgid "%(n)s to replace"
+msgid_plural "%(n)s to replace"
+msgstr[0] "%(n)s por reemplazar"
+msgstr[1] "%(n)s por reemplazar"
+
+msgid "No service lines have been published yet."
+msgstr "Todavía no se ha publicado ninguna línea de servicio."
+
+msgid "Thank you"
+msgstr "Gracias"
+
+msgid "Thank you. We have your message."
+msgstr "Gracias. Recibimos su mensaje."
+
+msgid "Your reference number is"
+msgstr "Su número de referencia es"
+
+msgid "Back to the lookup"
+msgstr "Volver a la búsqueda"
+
+msgid "Pages"
+msgstr "Páginas"
+
+msgid "Previous"
+msgstr "Anterior"
+
+#, python-format
+msgid "Page %(n)s of %(total)s"
+msgstr "Página %(n)s de %(total)s"
+
+msgid "Next"
+msgstr "Siguiente"
+
+msgid "Import steps"
+msgstr "Pasos de la importación"
+
+msgid "Upload"
+msgstr "Subir"
+
+msgid "Match columns"
+msgstr "Asignar columnas"
+
+msgid "Check values"
+msgstr "Revisar valores"
+
+msgid "Preview and import"
+msgstr "Vista previa e importación"
+
+msgid "Staff"
+msgstr "Personal"
+
+msgid "Overview"
+msgstr "Resumen"
+
+msgid "Imports"
+msgstr "Importaciones"
+
+msgid "Inventory"
+msgstr "Inventario"
+
+msgid "Map locations"
+msgstr "Ubicaciones en el mapa"
+
+msgid "Requests"
+msgstr "Solicitudes"
+
+msgid "Photos"
+msgstr "Fotos"
+
+msgid "Settings"
+msgstr "Configuración"
+
+msgid "Public site"
+msgstr "Sitio público"
+
+msgid "Sign out"
+msgstr "Cerrar sesión"
+
+#, python-format
+msgid "Inventory last updated %(date)s"
+msgstr "Inventario actualizado por última vez el %(date)s"
+
+msgid "No inventory imported yet"
+msgstr "Todavía no se ha importado ningún inventario"
+
+msgid "Upload inventory"
+msgstr "Subir inventario"
+
+msgid "Download CSV"
+msgstr "Descargar CSV"
+
+msgid "Download static site"
+msgstr "Descargar sitio estático"
+
+msgid "Inspection requests"
+msgstr "Solicitudes de inspección"
+
+msgid "new"
+msgstr "nuevas"
+
+msgid "Pipe photos"
+msgstr "Fotos de tuberías"
+
+msgid "waiting for review"
+msgstr "en espera de revisión"
+
+#, python-format
+msgid "%(pending)s waiting · %(no_match)s not found"
+msgstr "%(pending)s en espera · %(no_match)s no encontradas"
+
+msgid "Latest requests"
+msgstr "Últimas solicitudes"
+
+msgid "None yet."
+msgstr "Ninguna todavía."
+
+msgid "Latest photos"
+msgstr "Últimas fotos"
+
+msgid "Last import:"
+msgstr "Última importación:"
+
+msgid "Put lines on the map"
+msgstr "Ubicar las líneas en el mapa"
+
+#, python-format
+msgid ""
+"Lines without coordinates are located from their address with the %(name)s "
+"geocoder."
+msgstr ""
+"Las líneas sin coordenadas se ubican a partir de su dirección con el "
+"geocodificador %(name)s."
+
+msgid ""
+"Geocoding is turned off (PIPETRACE_GEOCODER=none). Add latitude and "
+"longitude columns to your file, or set the location of each line in the "
+"admin."
+msgstr ""
+"La geocodificación está desactivada (PIPETRACE_GEOCODER=none). Agregue "
+"columnas de latitud y longitud a su archivo, o fije la ubicación de cada "
+"línea en la administración."
+
+msgid "From your file"
+msgstr "De su archivo"
+
+#, python-format
+msgid "%(n)s approximate"
+msgstr "%(n)s aproximadas"
+
+msgid "Waiting"
+msgstr "En espera"
+
+msgid "Not found"
+msgstr "No encontradas"
+
+#, python-format
+msgid "%(n)s line to locate"
+msgid_plural "%(n)s lines to locate"
+msgstr[0] "%(n)s línea por ubicar"
+msgstr[1] "%(n)s líneas por ubicar"
+
+msgid "Keep this page open while it runs. You can stop and continue later."
+msgstr ""
+"Mantenga esta página abierta mientras se ejecuta. Puede detenerla y "
+"continuar más tarde."
+
+msgid "Start geocoding"
+msgstr "Empezar la geocodificación"
+
+msgid "Pause"
+msgstr "Pausar"
+
+msgid "Every line in the import has a location."
+msgstr "Todas las líneas de la importación tienen ubicación."
+
+msgid "Addresses the geocoder couldn't find"
+msgstr "Direcciones que el geocodificador no encontró"
+
+msgid "Try them again"
+msgstr "Volver a intentarlo"
+
+msgid ""
+"Fix the address in your spreadsheet and re-import, or open the line and type "
+"its latitude and longitude."
+msgstr ""
+"Corrija la dirección en su hoja de cálculo y vuelva a importarla, o abra la "
+"línea y escriba su latitud y longitud."
+
+msgid "Edit"
+msgstr "Editar"
+
+msgid "Added"
+msgstr "Agregadas"
+
+msgid "Updated"
+msgstr "Actualizadas"
+
+msgid "Unchanged"
+msgstr "Sin cambios"
+
+msgid "Hidden"
+msgstr "Ocultas"
+
+#, python-format
+msgid "%(n)s lines still need a map location."
+msgstr "%(n)s líneas aún necesitan una ubicación en el mapa."
+
+msgid "Locate them now"
+msgstr "Ubicarlas ahora"
+
+msgid "Continue this import"
+msgstr "Continuar esta importación"
+
+msgid "Messages"
+msgstr "Mensajes"
+
+msgid "Row"
+msgstr "Fila"
+
+msgid "Message"
+msgstr "Mensaje"
+
+msgid "Match your columns"
+msgstr "Asigne sus columnas"
+
+#, python-format
+msgid ""
+"Pipetrace read <strong>%(name)s</strong> and matched the columns it "
+"recognised. Check each one, and fix anything it got wrong."
+msgstr ""
+"Pipetrace leyó <strong>%(name)s</strong> y asignó las columnas que "
+"reconoció. Revise cada una y corrija lo que haya hecho mal."
+
+msgid "Sheet"
+msgstr "Hoja"
+
+msgid "Column names are on row"
+msgstr "Los nombres de las columnas están en la fila"
+
+msgid "Data starts on row"
+msgstr "Los datos empiezan en la fila"
+
+msgid "Apply"
+msgstr "Aplicar"
+
+#, python-format
+msgid "%(total)s rows in this sheet."
+msgstr "%(total)s filas en esta hoja."
+
+msgid "Top of the sheet"
+msgstr "Principio de la hoja"
+
+msgid "Pipetrace field"
+msgstr "Campo de Pipetrace"
+
+msgid "Your column"
+msgstr "Su columna"
+
+msgid "Sample values"
+msgstr "Valores de ejemplo"
+
+msgid "— not in this file —"
+msgstr "— no está en este archivo —"
+
+msgid ""
+"Columns not matched to a field are kept as extra information on each line:"
+msgstr ""
+"Las columnas que no se asignan a un campo se guardan como información "
+"adicional en cada línea:"
+
+msgid "Continue"
+msgstr "Continuar"
+
+msgid "Upload a different file"
+msgstr "Subir otro archivo"
+
+msgid "Preview"
+msgstr "Vista previa"
+
+msgid "Preview the import"
+msgstr "Vista previa de la importación"
+
+msgid "New lines"
+msgstr "Líneas nuevas"
+
+msgid "Hidden (not in file)"
+msgstr "Ocultas (no están en el archivo)"
+
+msgid "Only in “replace” mode"
+msgstr "Solo en el modo “reemplazar”"
+
+msgid "Classification in this file"
+msgstr "Clasificación en este archivo"
+
+#, python-format
+msgid "%(n)s line has no coordinates and will be geocoded after the import."
+msgid_plural ""
+"%(n)s lines have no coordinates and will be geocoded after the import."
+msgstr[0] ""
+"%(n)s línea no tiene coordenadas y se geocodificará después de la "
+"importación."
+msgstr[1] ""
+"%(n)s líneas no tienen coordenadas y se geocodificarán después de la "
+"importación."
+
+msgid "Checks"
+msgstr "Comprobaciones"
+
+#, python-format
+msgid "%(n)s row skipped because of errors"
+msgid_plural "%(n)s rows skipped because of errors"
+msgstr[0] "%(n)s fila omitida por errores"
+msgstr[1] "%(n)s filas omitidas por errores"
+
+#, python-format
+msgid "%(n)s warning"
+msgid_plural "%(n)s warnings"
+msgstr[0] "%(n)s advertencia"
+msgstr[1] "%(n)s advertencias"
+
+#, python-format
+msgid "%(n)s line where the stated classification doesn't match the materials"
+msgid_plural ""
+"%(n)s lines where the stated classification doesn't match the materials"
+msgstr[0] ""
+"%(n)s línea cuya clasificación indicada no coincide con los materiales"
+msgstr[1] ""
+"%(n)s líneas cuya clasificación indicada no coincide con los materiales"
+
+#, python-format
+msgid "%(n)s duplicate row"
+msgid_plural "%(n)s duplicate rows"
+msgstr[0] "%(n)s fila duplicada"
+msgstr[1] "%(n)s filas duplicadas"
+
+#, python-format
+msgid "%(n)s empty row ignored"
+msgid_plural "%(n)s empty rows ignored"
+msgstr[0] "%(n)s fila vacía ignorada"
+msgstr[1] "%(n)s filas vacías ignoradas"
+
+msgid "Classification conflicts"
+msgstr "Conflictos de clasificación"
+
+msgid ""
+"The file's own classification is used. Check these lines in your records."
+msgstr ""
+"Se usa la clasificación del propio archivo. Revise estas líneas en sus "
+"registros."
+
+msgid "File says"
+msgstr "El archivo dice"
+
+msgid "Materials suggest"
+msgstr "Los materiales indican"
+
+msgid "Errors and warnings"
+msgstr "Errores y advertencias"
+
+msgid "First lines, as Pipetrace will save them"
+msgstr "Primeras líneas, tal como las guardará Pipetrace"
+
+msgid "Customer side"
+msgstr "Lado del cliente"
+
+msgid "Classification"
+msgstr "Clasificación"
+
+msgid "Import mode"
+msgstr "Modo de importación"
+
+msgid "Replace the whole inventory (hide lines not in this file)"
+msgstr ""
+"Reemplazar todo el inventario (ocultar las líneas que no estén en este "
+"archivo)"
+
+#, python-format
+msgid "Import %(n)s line"
+msgid_plural "Import %(n)s lines"
+msgstr[0] "Importar %(n)s línea"
+msgstr[1] "Importar %(n)s líneas"
+
+msgid "Back to values"
+msgstr "Volver a los valores"
+
+msgid "Upload your service line inventory"
+msgstr "Suba su inventario de líneas de servicio"
+
+msgid ""
+"Use the spreadsheet you already keep. Pipetrace finds the header row and "
+"guesses which column is which; you check its guesses on the next screen."
+msgstr ""
+"Use la hoja de cálculo que ya tiene. Pipetrace encuentra la fila de "
+"encabezados y adivina qué es cada columna; usted revisa sus suposiciones en "
+"la siguiente pantalla."
+
+msgid "Upload and continue"
+msgstr "Subir y continuar"
+
+msgid "Columns Pipetrace understands"
+msgstr "Columnas que entiende Pipetrace"
+
+msgid ""
+"Only a street address is required. Everything else is optional; columns "
+"Pipetrace doesn't use are kept with each line."
+msgstr ""
+"Solo la dirección es obligatoria. Todo lo demás es opcional; las columnas "
+"que Pipetrace no usa se guardan con cada línea."
+
+msgid ""
+"Uploading a new version later? Choose “Update matching lines”: lines are "
+"matched by service line ID, or by address when there is no ID."
+msgstr ""
+"¿Va a subir una versión nueva más adelante? Elija “Actualizar las líneas que "
+"coinciden”: las líneas se emparejan por el ID de la línea de servicio o, si "
+"no hay ID, por la dirección."
+
+msgid "Check how values are read"
+msgstr "Revise cómo se leen los valores"
+
+msgid ""
+"Every different value in your material and status columns is listed below "
+"with what Pipetrace thinks it means. Rows highlighted in yellow are codes it "
+"didn't recognise or that mean different things in different files: please "
+"confirm them."
+msgstr ""
+"Abajo se muestra cada valor distinto de sus columnas de material y estado, "
+"con lo que Pipetrace cree que significa. Las filas resaltadas en amarillo "
+"son códigos que no reconoció o que significan cosas distintas en distintos "
+"archivos: confírmelos, por favor."
+
+#, python-format
+msgid "%(n)s to check"
+msgid_plural "%(n)s to check"
+msgstr[0] "%(n)s por revisar"
+msgstr[1] "%(n)s por revisar"
+
+msgid "Value in your file"
+msgstr "Valor en su archivo"
+
+msgid "Rows"
+msgstr "Filas"
+
+msgid "Means"
+msgstr "Significa"
+
+msgid "not recognised"
+msgstr "no reconocido"
+
+msgid "please confirm"
+msgstr "confírmelo"
+
+msgid "— leave blank —"
+msgstr "— dejar en blanco —"
+
+msgid "Continue to preview"
+msgstr "Continuar a la vista previa"
+
+msgid "Back to columns"
+msgstr "Volver a las columnas"
+
+msgid "Inventory imports"
+msgstr "Importaciones del inventario"
+
+msgid "File"
+msgstr "Archivo"
+
+msgid "By"
+msgstr "Por"
+
+msgid "Nothing imported yet."
+msgstr "Todavía no se ha importado nada."
+
+msgid "Search"
+msgstr "Buscar"
+
+msgid "Address or ID"
+msgstr "Dirección o ID"
+
+msgid "All"
+msgstr "Todas"
+
+msgid "Filter"
+msgstr "Filtrar"
+
+msgid "ID"
+msgstr "ID"
+
+msgid "hidden"
+msgstr "oculta"
+
+msgid "No lines match."
+msgstr "Ninguna línea coincide."
+
+msgid "Sign in"
+msgstr "Iniciar sesión"
+
+msgid "That username and password didn't match. Please try again."
+msgstr "El usuario y la contraseña no coinciden. Inténtelo de nuevo."
+
+msgid "Username"
+msgstr "Usuario"
+
+msgid "Password"
+msgstr "Contraseña"
+
+msgid "Resident photo of the pipe"
+msgstr "Foto de la tubería tomada por el residente"
+
+msgid "Second resident photo"
+msgstr "Segunda foto del residente"
+
+msgid "Scratch"
+msgstr "Raspado"
+
+msgid "Magnet"
+msgstr "Imán"
+
+msgid "Guide suggested"
+msgstr "La guía sugirió"
+
+msgid "Contact"
+msgstr "Contacto"
+
+msgid "Inventory line"
+msgstr "Línea del inventario"
+
+msgid "customer side:"
+msgstr "lado del cliente:"
+
+msgid "No matching line"
+msgstr "Ninguna línea coincide"
+
+msgid "Review"
+msgstr "Revisión"
+
+msgid "Already applied to the inventory."
+msgstr "Ya se aplicó al inventario."
+
+msgid "Save review"
+msgstr "Guardar revisión"
+
+msgid "Pipe photos from residents"
+msgstr "Fotos de tuberías enviadas por residentes"
+
+#, python-format
+msgid "Photo of the pipe at %(address)s"
+msgstr "Foto de la tubería en %(address)s"
+
+msgid "Guide said:"
+msgstr "La guía dijo:"
+
+msgid "No photos yet."
+msgstr "Todavía no hay fotos."
+
+msgid "Reference"
+msgstr "Referencia"
+
+msgid "Received"
+msgstr "Recibida"
+
+msgid "Name"
+msgstr "Nombre"
+
+msgid "Contact by"
+msgstr "Contactar por"
+
+msgid "Best time"
+msgstr "Mejor hora"
+
+msgid "Language"
+msgstr "Idioma"
+
+msgid "Relationship"
+msgstr "Relación"
+
+msgid "Save"
+msgstr "Guardar"
+
+msgid "Line"
+msgstr "Línea"
+
+msgid "No requests."
+msgstr "No hay solicitudes."

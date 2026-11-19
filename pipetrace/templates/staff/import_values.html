@@ -1,0 +1,38 @@
+{% extends "staff/base.html" %}
+{% load i18n %}
+{% block staff_title %}{% translate "Check values" %}{% endblock %}
+{% block content %}
+<div class="container section">
+  {% include "staff/_wizard.html" with step=3 %}
+  <h1>{% translate "Check how values are read" %}</h1>
+  <p class="lead-text">{% translate "Every different value in your material and status columns is listed below with what Pipetrace thinks it means. Rows highlighted in yellow are codes it didn't recognise or that mean different things in different files: please confirm them." %}</p>
+  <form method="post" class="stack">
+    {% csrf_token %}
+    {% for section in sections %}
+    <section class="card">
+      <div class="section-head" style="margin-bottom:.6rem"><h2 style="font-size:1.15rem" class="mb-0">{{ section.spec.label }}</h2>
+        {% if section.review %}<span class="badge">{% blocktranslate count n=section.review %}{{ n }} to check{% plural %}{{ n }} to check{% endblocktranslate %}</span>{% endif %}</div>
+      <div class="table-wrap" style="border:0">
+      <table class="data">
+        <thead><tr><th>{% translate "Value in your file" %}</th><th class="num-col">{% translate "Rows" %}</th><th>{% translate "Means" %}</th></tr></thead>
+        <tbody>
+          {% for e in section.entries %}
+          <tr{% if e.needs_review %} class="review-row"{% endif %}>
+            <td><code>{{ e.raw }}</code>{% if not e.recognized %} <span class="small">· {% translate "not recognised" %}</span>{% elif e.ambiguous %} <span class="small">· {% translate "please confirm" %}</span>{% endif %}</td>
+            <td class="num-col">{{ e.count }}</td>
+            <td><select class="input" name="value_{{ section.key }}_{{ e.key }}" aria-label="{{ e.raw }}">
+              <option value=""{% if not e.chosen %} selected{% endif %}>{% translate "— leave blank —" %}</option>
+              {% for value, label in section.choices %}<option value="{{ value }}"{% if value == e.chosen %} selected{% endif %}>{{ label }}</option>{% endfor %}
+            </select></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      </div>
+    </section>
+    {% endfor %}
+    <div class="btn-row"><button class="btn btn-primary" type="submit">{% translate "Continue to preview" %}</button>
+      <a class="btn btn-ghost" href="{% url 'staff:import_map' pk=batch.pk %}">← {% translate "Back to columns" %}</a></div>
+  </form>
+</div>
+{% endblock %}

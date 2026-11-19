@@ -1,0 +1,34 @@
+{% extends "staff/base.html" %}
+{% load i18n %}
+{% block staff_title %}{{ item.reference }}{% endblock %}
+{% block content %}
+<div class="container section">
+  <nav class="breadcrumbs"><ol><li><a href="{% url 'staff:photos' %}">{% translate "Pipe photos" %}</a></li><li aria-current="page">{{ item.reference }}</li></ol></nav>
+  <div class="layout-2">
+    <section class="card stack">
+      <h1 style="font-size:1.6rem">{{ item.address }}</h1>
+      <img src="{% url 'staff:photo_file' pk=item.pk which=1 %}" alt="{% translate 'Resident photo of the pipe' %}" style="width:100%;border-radius:10px">
+      {% if item.photo_2 %}<img src="{% url 'staff:photo_file' pk=item.pk which=2 %}" alt="{% translate 'Second resident photo' %}" style="width:100%;border-radius:10px">{% endif %}
+      <dl class="kv">
+        <dt>{% translate "Scratch" %}</dt><dd>{{ item.get_scratch_display }}</dd>
+        <dt>{% translate "Magnet" %}</dt><dd>{{ item.get_magnet_display }}</dd>
+        <dt>{% translate "Guide suggested" %}</dt><dd>{{ item.get_resident_result_display }}</dd>
+        <dt>{% translate "Notes" %}</dt><dd>{{ item.notes|default:"—"|linebreaksbr }}</dd>
+        <dt>{% translate "Contact" %}</dt><dd>{{ item.contact|default:"—" }}</dd>
+        <dt>{% translate "Inventory line" %}</dt><dd>{% if item.service_line %}<a href="{{ item.service_line.get_absolute_url }}" target="_blank" rel="noopener">{{ item.service_line.street_line }}</a> · {{ item.service_line.get_status_display }} ({% translate "customer side:" %} {{ item.service_line.get_customer_material_display }}){% else %}{% translate "No matching line" %}{% endif %}</dd>
+        {% if item.reviewed_at %}<dt>{% translate "Reviewed" %}</dt><dd>{{ item.reviewed_at|date:"DATETIME_FORMAT" }} · {{ item.reviewed_by }}</dd>{% endif %}
+      </dl>
+    </section>
+    <form method="post" class="card form">{% csrf_token %}
+      <h2 style="font-size:1.15rem">{% translate "Review" %}</h2>
+      {% if form.non_field_errors %}<div class="form-errors">{{ form.non_field_errors }}</div>{% endif %}
+      {% include "partials/field.html" with field=form.staff_material %}
+      {% include "partials/field.html" with field=form.state %}
+      {% if item.service_line %}{% include "partials/field.html" with field=form.apply %}{% endif %}
+      {% include "partials/field.html" with field=form.staff_notes %}
+      {% if item.applied_to_line %}<p class="small muted">{% translate "Already applied to the inventory." %}</p>{% endif %}
+      <button class="btn btn-primary" type="submit">{% translate "Save review" %}</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

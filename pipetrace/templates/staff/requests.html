@@ -1,0 +1,23 @@
+{% extends "staff/base.html" %}
+{% load i18n pipetrace %}
+{% block staff_title %}{% translate "Inspection requests" %}{% endblock %}
+{% block content %}
+<div class="container section">
+  <h1>{% translate "Inspection requests" %}</h1>
+  <div class="btn-row" style="margin-bottom:1rem">
+    <a class="btn btn-sm{% if not state %} btn-primary{% endif %}" href="?">{% translate "All" %}</a>
+    {% for value, label in states %}<a class="btn btn-sm{% if state == value %} btn-primary{% endif %}" href="?state={{ value }}">{{ label }} <span class="badge badge-muted">{{ counts|get_item:value|default:0 }}</span></a>{% endfor %}
+  </div>
+  <div class="table-wrap"><table class="data">
+    <thead><tr><th>{% translate "Reference" %}</th><th>{% translate "Received" %}</th><th>{% translate "Address" %}</th><th>{% translate "Contact" %}</th><th>{% translate "Line" %}</th><th>{% translate "Status" %}</th></tr></thead>
+    <tbody>{% for item in page %}<tr>
+      <td><a href="{% url 'staff:request_detail' pk=item.pk %}"><code>{{ item.reference }}</code></a></td>
+      <td>{{ item.created_at|date:"SHORT_DATETIME_FORMAT" }}</td><td>{{ item.address }}</td>
+      <td>{{ item.contact }}<div class="small muted">{{ item.get_contact_by_display }} · {{ item.get_language_display }}</div></td>
+      <td>{% if item.service_line %}{{ item.service_line.get_status_display }}{% else %}<span class="muted">—</span>{% endif %}</td>
+      <td>{{ item.get_state_display }}</td></tr>
+    {% empty %}<tr><td colspan="6" class="muted">{% translate "No requests." %}</td></tr>{% endfor %}</tbody>
+  </table></div>
+  {% include "staff/_pagination.html" %}
+</div>
+{% endblock %}

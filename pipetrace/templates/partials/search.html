@@ -1,0 +1,16 @@
+{% load i18n %}
+<form class="search" role="search" action="{% url 'residents:search' %}" method="get" data-search>
+  <label class="visually-hidden" for="{{ search_id|default:'q' }}">{% translate "Street address" %}</label>
+  <div class="search-row">
+    <svg class="search-icon" aria-hidden="true"><use href="#i-search"/></svg>
+    <input type="search" id="{{ search_id|default:'q' }}" name="q" value="{{ query|default:'' }}"
+           placeholder="{% translate 'Your street address, e.g. 108 Maple St' %}"
+           autocomplete="off" autocapitalize="off" spellcheck="false" required minlength="2" maxlength="200"
+           role="combobox" aria-autocomplete="list" aria-expanded="false"
+           aria-controls="{{ search_id|default:'q' }}-list">
+    <button class="btn btn-primary" type="submit">{% translate "Look up" %}</button>
+  </div>
+  <ul class="combo-list" id="{{ search_id|default:'q' }}-list" role="listbox" hidden
+      aria-label="{% translate 'Matching addresses' %}"></ul>
+  <p class="visually-hidden" aria-live="polite" data-search-status></p>
+</form>

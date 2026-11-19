@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% translate "Thank you" %}{% endblock %}
+{% block content %}
+<div class="narrow section">
+  <div class="card form-success">
+    <svg width="64" height="64" aria-hidden="true" style="color:var(--nonlead-strong)"><use href="#i-nonlead"/></svg>
+    <h1>{% translate "Thank you. We have your message." %}</h1>
+    <p>{% translate "Your reference number is" %}</p>
+    <p class="ref">{{ reference }}</p>
+    <p>{% if kind == "photo" %}{% translate "Staff will look at your photo and contact you if they have questions." %}{% else %}{% translate "We'll contact you within a few business days to set up a visit." %}{% endif %}</p>
+    <a class="btn btn-primary" href="{% url 'residents:home' %}">{% translate "Back to the lookup" %}</a>
+  </div>
+</div>
+{% endblock %}

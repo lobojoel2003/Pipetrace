@@ -1,0 +1,103 @@
+{% load static i18n pipetrace %}<!doctype html>
+{% get_current_language as LANG %}
+<html lang="{{ LANG }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}{% translate "Is your water pipe lead?" %}{% endblock %} · {{ site.display_name }}</title>
+  <meta name="description" content="{% block description %}{% blocktranslate with utility=site.display_name %}Look up whether the water service line to your home is lead, and what to do about it. From the {{ utility }} service line inventory.{% endblocktranslate %}{% endblock %}">
+  <meta name="color-scheme" content="light dark">
+  <meta name="generator" content="Pipetrace {{ build.version }}">
+  <link rel="icon" href="{% static 'pipetrace/img/favicon.svg' %}" type="image/svg+xml">
+  <link rel="stylesheet" href="{% static 'pipetrace/css/app.css' %}">
+  {% for code, name in LANGUAGES %}<link rel="alternate" hreflang="{{ code }}" href="{% alternate_url code %}">
+  {% endfor %}{% block head %}{% endblock %}
+</head>
+<body class="{% block body_class %}{% endblock %}">
+  {% include "partials/icons.html" %}
+  <a class="skip-link" href="#main">{% translate "Skip to main content" %}</a>
+  {% if site.demo_mode %}
+  <div class="demo-banner" role="note">
+    <strong>{% translate "Demo:" %}</strong>
+    {% translate "Millbrook is a fictional town. Every address and pipe on this site is made up." %}
+  </div>
+  {% endif %}
+  {% block header %}
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="{% url 'residents:home' %}">
+        <img class="brand-mark" src="{% static 'pipetrace/img/logo.svg' %}" alt="" width="38" height="38">
+        <span>
+          <span class="brand-name">{{ site.display_name }}</span>
+          <span class="brand-sub">{% translate "Lead service line lookup" %}</span>
+        </span>
+      </a>
+      {% with current=request.resolver_match.url_name %}
+      <nav class="site-nav" aria-label="{% translate 'Main' %}">
+        <a href="{% url 'residents:home' %}"{% if current == 'home' or current == 'search' or current == 'line' %} aria-current="page"{% endif %}>{% translate "Look up an address" %}</a>
+        <a href="{% url 'residents:guide' %}"{% if current == 'guide' or current == 'send_photo' %} aria-current="page"{% endif %}>{% translate "Check your pipe" %}</a>
+        <a href="{% url 'residents:filters' %}"{% if current == 'filters' %} aria-current="page"{% endif %}>{% translate "Filters" %}</a>
+        <a href="{% url 'residents:about' %}"{% if current == 'about' %} aria-current="page"{% endif %}>{% translate "Questions" %}</a>
+      </nav>
+      {% endwith %}
+      {% other_languages as others %}
+      {% for code, name in others %}
+        {% get_language_info for code as info %}
+        <a class="lang-switch" href="{% alternate_url code %}" hreflang="{{ code }}" lang="{{ code }}">
+          <svg width="18" height="18" aria-hidden="true"><use href="#i-drop"/></svg>{{ info.name_local|capfirst }}
+        </a>
+      {% endfor %}
+    </div>
+  </header>
+  {% endblock %}
+
+  <main id="main" tabindex="-1">
+    {% if messages %}
+    <div class="container"><ul class="messages">{% for message in messages %}<li class="{{ message.tags }}">{{ message }}</li>{% endfor %}</ul></div>
+    {% endif %}
+    {% block content %}{% endblock %}
+  </main>
+
+  {% block footer %}
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <h2>{{ site.display_name }}</h2>
+          <ul>
+            {% if site.phone %}<li><a href="{{ site.phone_href }}">{{ site.phone }}</a></li>{% endif %}
+            {% if site.email %}<li><a href="mailto:{{ site.email }}">{{ site.email }}</a></li>{% endif %}
+            {% if site.office_address %}<li>{{ site.office_address }}</li>{% endif %}
+            {% if site.office_hours %}<li>{{ site|localized:"office_hours" }}</li>{% endif %}
+            {% if site.website %}<li><a href="{{ site.website }}" rel="noopener">{{ site.website|cut:"https://"|cut:"http://" }}</a></li>{% endif %}
+          </ul>
+        </div>
+        <div>
+          <h2>{% translate "On this site" %}</h2>
+          <ul>
+            <li><a href="{% url 'residents:streets' %}">{% translate "Browse by street" %}</a></li>
+            <li><a href="{% url 'residents:request_inspection' %}">{% translate "Request an inspection" %}</a></li>
+            <li><a href="{% url 'residents:send_photo' %}">{% translate "Send a photo of your pipe" %}</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2>{% translate "About this data" %}</h2>
+          <p class="small mb-0">
+            {% if site.inventory_updated %}{% blocktranslate with date=site.inventory_updated|date:"DATE_FORMAT" %}Inventory updated {{ date }}.{% endblocktranslate %}{% endif %}
+            {% if site.pwsid %}{% blocktranslate with pwsid=site.pwsid %}Water system ID {{ pwsid }}.{% endblocktranslate %}{% endif %}
+            {% translate "Records can be wrong; if yours looks wrong, tell us." %}
+          </p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>{% blocktranslate with version=build.label %}Made with <a href="https://github.com/lobojoel2003/Pipetrace">Pipetrace</a> {{ version }}, free and open source.{% endblocktranslate %}</span>
+        {% if not static_mode %}<a href="{% url 'staff:dashboard' %}" rel="nofollow">{% translate "Staff sign in" %}</a>{% endif %}
+      </div>
+    </div>
+  </footer>
+  {% endblock %}
+  {% js_config %}
+  <script type="module" src="{% static 'pipetrace/js/app.js' %}"></script>
+  {% block scripts %}{% endblock %}
+</body>
+</html>
