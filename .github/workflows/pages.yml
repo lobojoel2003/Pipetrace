@@ -37,12 +37,12 @@ jobs:
       DATABASE_URL: postgis://pipetrace:pipetrace@localhost:5432/pipetrace
       PIPETRACE_SECRET_KEY: pages-build-0d9f8a7e6b5c4d3e2f1a0b9c8d7e6f5a4b3c2d1e0f9a8b7c6d5e4f3a
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - id: pages
-        uses: actions/configure-pages@v5
+        uses: actions/configure-pages@v6
         continue-on-error: true
       - run: sudo apt-get update -q && sudo apt-get install -y -q --no-install-recommends gdal-bin
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v7
         with:
           python-version: "3.13"
           cache: pip
@@ -55,7 +55,7 @@ jobs:
           python manage.py load_demo --no-submissions
           base="${{ steps.pages.outputs.base_path }}"
           python manage.py export_static site --base-url "${base:-/${{ github.event.repository.name }}}/"
-      - uses: actions/upload-pages-artifact@v3
+      - uses: actions/upload-pages-artifact@v5
         with:
           path: site
 
@@ -68,4 +68,4 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
