@@ -184,7 +184,7 @@ jobs:
             echo "Or download \`pipetrace-${VERSION}-demo-site.zip\` below to see the static site with the fictional Millbrook demo, and read the [deployment guide](https://github.com/${GITHUB_REPOSITORY}/blob/${TAG}/docs/deploying.md)."
           } > release-notes.md
           cat release-notes.md
-      - uses: softprops/action-gh-release@v2
+      - uses: softprops/action-gh-release@v3
         with:
           tag_name: ${{ env.TAG }}
           name: Pipetrace ${{ needs.verify.outputs.version }} (build ${{ github.run_number }})
