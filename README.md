@@ -199,8 +199,9 @@ Pipetrace follows [Semantic Versioning](https://semver.org). Every CI run has a 
 number, and every build shows its full version, such as `1.0.0+build.42.3f9a2b1`, in
 the page footer, at `/healthz` and in the container labels.
 
-Pushing a tag `vX.Y.Z` (see [`scripts/release.py`](scripts/release.py)) runs the
-[Release workflow](.github/workflows/release.yml): tests, then a GitHub Release named
+After [`scripts/release.py`](scripts/release.py) bumps the version, pushing the tag
+`vX.Y.Z`, or running the [Release workflow](.github/workflows/release.yml) from the
+Actions tab with the version number, runs the tests and then publishes a GitHub Release named
 "Pipetrace X.Y.Z (build N)" with notes from the [changelog](CHANGELOG.md), the wheel
 and source archive, the demo static site, SHA-256 checksums, and multi-arch images at
 `ghcr.io/lobojoel2003/pipetrace:X.Y.Z`.
@@ -208,7 +209,7 @@ and source archive, the demo static site, SHA-256 checksums, and multi-arch imag
 | Workflow | Runs on | Does |
 | --- | --- | --- |
 | [CI](.github/workflows/ci.yml) | every push and pull request | lint, tests on Python 3.12 and 3.13 with PostGIS, browser tests, Docker build and smoke test; publishes `:edge` from `main` |
-| [Release](.github/workflows/release.yml) | tags `v*` | everything above, then the release and images |
+| [Release](.github/workflows/release.yml) | tags `v*`, or manually with a version | everything above, then the tag, the release and the images |
 | [Demo site](.github/workflows/pages.yml) | pushes to `main` | publishes the Millbrook demo to GitHub Pages (once Pages is turned on with "GitHub Actions" as the source) |
 
 ## Good to know

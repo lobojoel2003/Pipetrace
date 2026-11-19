@@ -54,7 +54,8 @@ modules; map libraries are vendored in `pipetrace/static/pipetrace/vendor/` (see
 ## Releases
 
 1. `python scripts/release.py X.Y.Z` bumps the version and dates the changelog.
-2. Commit, tag `vX.Y.Z` and push the tag.
+2. Commit and push to `main`, then either push the tag `vX.Y.Z` or open
+   **Actions → Release → Run workflow** and enter `X.Y.Z` (the workflow creates the tag).
 3. The Release workflow runs the tests, builds the wheel, the demo site and the
    container images, and publishes a GitHub Release named
    "Pipetrace X.Y.Z (build N)", where N is the CI build number.

@@ -7,7 +7,8 @@
 2. Turns the "Unreleased" section of CHANGELOG.md into "[1.1.0] - <today>" and adds
    a fresh empty "Unreleased" section and compare links.
 3. Prints the git commands that commit, tag and push. Pushing the tag ``v1.1.0``
-   starts the Release workflow, which tests, builds and publishes everything.
+   (or running the Release workflow by hand with the version) tests, builds and
+   publishes everything.
 """
 
 from __future__ import annotations
@@ -57,6 +58,7 @@ def main(argv: list[str]) -> int:
     print(f'  git commit -am "Release {new}"')
     print(f'  git tag -a v{new} -m "Pipetrace {new}"')
     print("  git push origin main --follow-tags")
+    print(f"\nor push main and run Actions -> Release -> Run workflow with version {new}.")
     return 0
 
 

@@ -1,6 +1,10 @@
 name: Release
 
-# Push a tag like v1.2.3 (see scripts/release.py) to test, build and publish:
+# Two ways to release version X.Y.Z (after `python scripts/release.py X.Y.Z`):
+#   * push the tag vX.Y.Z, or
+#   * Actions -> Release -> "Run workflow", enter X.Y.Z: the tag is created on the
+#     selected branch's latest commit.
+# Either way this tests, builds and publishes:
 #   * a GitHub Release with notes from CHANGELOG.md and the build number,
 #   * the Python wheel and source archive,
 #   * the fictional Millbrook demo as a ready-to-host static site (.zip),
@@ -10,8 +14,8 @@ on:
     tags: ["v[0-9]+.[0-9]+.[0-9]+*"]
   workflow_dispatch:
     inputs:
-      tag:
-        description: Existing tag to (re)publish, e.g. v1.0.0
+      version:
+        description: Version to release, e.g. 1.0.0 (must match pipetrace/__init__.py)
         required: true
 
 permissions:
@@ -19,15 +23,15 @@ permissions:
   packages: write
 
 concurrency:
-  group: release-${{ github.ref }}
+  group: release-${{ inputs.version || github.ref_name }}
   cancel-in-progress: false
 
 env:
-  TAG: ${{ inputs.tag || github.ref_name }}
+  TAG: ${{ inputs.version && format('v{0}', inputs.version) || github.ref_name }}
 
 jobs:
   verify:
-    name: Check version
+    name: Check version and tag
     runs-on: ubuntu-24.04
     timeout-minutes: 5
     outputs:
@@ -36,18 +40,34 @@ jobs:
     steps:
       - uses: actions/checkout@v7
         with:
-          ref: ${{ env.TAG }}
+          fetch-depth: 0
       - id: version
-        name: Tag must match pipetrace.__version__ and CHANGELOG.md
+        name: Version must match pipetrace.__version__ and CHANGELOG.md
         run: |
           version="${TAG#v}"
           code=$(python3 -c "import re;print(re.search(r'__version__ = \"(.+)\"', open('pipetrace/__init__.py').read())[1])")
           if [ "$version" != "$code" ]; then
-            echo "::error::Tag $TAG does not match pipetrace.__version__ ($code)"; exit 1
+            echo "::error::$TAG does not match pipetrace.__version__ ($code)"; exit 1
           fi
           grep -q "^## \[$version\]" CHANGELOG.md || { echo "::error::CHANGELOG.md has no [$version] section"; exit 1; }
           echo "version=$version" >> "$GITHUB_OUTPUT"
           if [[ "$version" == *-* ]]; then echo "prerelease=true" >> "$GITHUB_OUTPUT"; else echo "prerelease=false" >> "$GITHUB_OUTPUT"; fi
+      - name: Create the tag (manual runs)
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          existing=$(git ls-remote --tags origin "refs/tags/$TAG^{}" "refs/tags/$TAG" | head -1 | cut -f1)
+          if [ -n "$existing" ]; then
+            target=$(git rev-list -n1 "$TAG")
+            if [ "$target" != "$GITHUB_SHA" ]; then
+              echo "::error::$TAG already exists on another commit ($target)"; exit 1
+            fi
+            echo "$TAG already exists on $GITHUB_SHA"
+          else
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git tag -a "$TAG" -m "Pipetrace ${TAG#v}" "$GITHUB_SHA"
+            git push origin "refs/tags/$TAG"
+          fi
 
   ci:
     name: CI
