@@ -29,6 +29,7 @@ jobs:
   verify:
     name: Check version
     runs-on: ubuntu-24.04
+    timeout-minutes: 5
     outputs:
       version: ${{ steps.version.outputs.version }}
       prerelease: ${{ steps.version.outputs.prerelease }}
@@ -57,6 +58,7 @@ jobs:
     name: Python package and demo site
     needs: verify
     runs-on: ubuntu-24.04
+    timeout-minutes: 30
     services:
       postgres:
         image: postgis/postgis:16-3.4
@@ -76,7 +78,7 @@ jobs:
       - uses: actions/checkout@v7
         with:
           ref: ${{ env.TAG }}
-      - run: sudo apt-get update -q && sudo apt-get install -y -q --no-install-recommends gdal-bin
+      - run: sudo apt-get -o DPkg::Lock::Timeout=300 update -q && sudo apt-get -o DPkg::Lock::Timeout=300 install -y -q --no-install-recommends gdal-bin
       - uses: actions/setup-python@v7
         with:
           python-version: "3.13"
@@ -104,6 +106,7 @@ jobs:
     name: Container image
     needs: [verify, ci]
     runs-on: ubuntu-24.04
+    timeout-minutes: 90
     outputs:
       image: ${{ steps.name.outputs.image }}
     steps:
@@ -150,6 +153,7 @@ jobs:
     name: GitHub Release
     needs: [verify, ci, dist, image]
     runs-on: ubuntu-24.04
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v7
         with:

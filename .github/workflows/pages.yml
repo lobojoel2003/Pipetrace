@@ -20,6 +20,7 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-24.04
+    timeout-minutes: 25
     outputs:
       enabled: ${{ steps.pages.outcome == 'success' }}
     services:
@@ -41,7 +42,7 @@ jobs:
       - id: pages
         uses: actions/configure-pages@v6
         continue-on-error: true
-      - run: sudo apt-get update -q && sudo apt-get install -y -q --no-install-recommends gdal-bin
+      - run: sudo apt-get -o DPkg::Lock::Timeout=300 update -q && sudo apt-get -o DPkg::Lock::Timeout=300 install -y -q --no-install-recommends gdal-bin
       - uses: actions/setup-python@v7
         with:
           python-version: "3.13"
@@ -63,6 +64,7 @@ jobs:
     needs: build
     if: needs.build.outputs.enabled == 'true'
     runs-on: ubuntu-24.04
+    timeout-minutes: 10
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
