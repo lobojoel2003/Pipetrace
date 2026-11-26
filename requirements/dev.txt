@@ -1,10 +1,10 @@
 asgiref==3.13.0
     # via django
-certifi==2026.10.23
+certifi==2026.11.20
     # via requests
-charset-normalizer==3.5.2
+charset-normalizer==3.5.3
     # via requests
-coverage==7.17.3
+coverage==7.17.4
     # via pytest-cov
 dj-database-url==3.1.2
     # via pipetrace (pyproject.toml)
@@ -51,7 +51,7 @@ pytest-django==4.14.0
     # via pipetrace (pyproject.toml)
 requests==2.34.2
     # via pipetrace (pyproject.toml)
-ruff==0.17.5
+ruff==0.17.6
     # via pipetrace (pyproject.toml)
 sqlparse==0.6.1
     # via django
